@@ -3,15 +3,18 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAXPRODS 200000
 #define MAXCLIS 20000
+#define MAXBUFCLI 10
 
-int longestLine(FILE *fpv){
+char* clientes[MAXCLIS];
+char* clientesValidos[MAXCLIS];
+
+int maiorLinha(FILE *fp){
 	int r = 0;
 	int max = 0;
 	char str[1024];
 
-	while(fgets(str, 1000, fpv) != NULL){
+	while(fgets(str, 1000, fp) != NULL){
 		r = strlen(str);
 		if(r > max) max = r;
 	}
@@ -21,11 +24,11 @@ int longestLine(FILE *fpv){
 	return max;
 }
 
-int isValidClient(char c[]){
+int eClienteValido(char c[]){
 	if(isupper(c[0]) == 0)
 		return 0;
 
-	if(strlen(c) != 6)
+	if(strlen(c) != 5)
 		return 0;
 
 	if(atoi(c+1) < 1000 || atoi(c+1) > 5000)
@@ -34,84 +37,57 @@ int isValidClient(char c[]){
 	return 1;
 }
 
-int isValidProduct(char p[]){
-	if(isupper(p[0]) == 0 || isupper(p[1]) == 0)
-		return 0;
-
-	if(strlen(p) != 7)
-		return 0;
-
-	if(atoi(p+2) < 1000 || atoi(p+2) > 9999)
-		return 0;
-
-	return 1;
-}
-
-void printValidClients(char *clients[]){
-	for (int i = 0; clients[i]; i++){
-		printf("%s\n", clients[i]);
+void imprimeClientesValidos(){
+	for (int i = 0; clientesValidos[i]; i++){
+		printf("%s\n", clientesValidos[i]);
 	}
 }
 
-int insertValidClients(char *clients[], char *validClients[]){
+int insereClientesValidos(){
 	int i, j;
-	char str[15]; //assume-se que os produtos nunca vão ter mais que 15 chars
+	char str[15]; //assume-se que os clientes nunca vão ter mais que 15 chars
 
-	for(i=0, j=0; clients[i]!=NULL; i++){
-		if(isValidClient(clients[i])){
-			validClients[j] = (char *)malloc((strlen(str)+1)*sizeof(char));
-			strcpy(validClients[j], clients[i]);
+	for(i=0, j=0; clientes[i]!=NULL; i++){
+		if(eClienteValido(clientes[i])){
+			clientesValidos[j] = (char *)malloc((strlen(str)+1)*sizeof(char));
+			strcpy(clientesValidos[j], clientes[i]);
 			j++;
 		}
-		else printf("ONE INVALID CLIENT\n");
+		else printf("ONE INVALID PRODUCT %d -> %s tam:%ld\n", i, clientes[i], strlen(clientes[i]));
 	}
 
 	return 1;
 }
 
-int insertClients(FILE *fpc, char *clients[]){
-	int i = 0;
-	char str[15]; //assume-se que os produtos nunca vão ter mais que 15 chars
+int insereClientes(FILE *fp){
+	char str[10]; //assume-se que os clientes nunca vão ter mais que 15 chars
+	char* prod;
 
-	while(fgets(str, 15, fpc)){
-		clients[i] = (char *)malloc((strlen(str)+1)*sizeof(char));
-		strtok(str, "\n");
-		strcpy(clients[i], str);
-		i++;
+	int index = 0;
+	while(fgets(str, MAXBUFCLI, fp)){
+		prod = strtok(str, "\n\r");
+		clientes[index] = strdup(prod);
+		index ++;
 	}
-
-	return 1;
-}
-
-int parseClients(FILE *fpc){
-	char *clients[MAXCLIS] = {NULL};
-	char *validClients[MAXCLIS] = {NULL};
-
-	insertClients(fpc, clients);
-
-	insertValidClients(clients, validClients);
-
-	//printValidClients(validClients);
 
 	return 1;
 }
 
 int main(){
+	FILE *fp;
 
-	FILE *fpc;
-	
-	fpc = fopen("ClientesTeste.txt","r");
+	fp = fopen("ClientesTeste.txt","r");
 
-	if (!fpc){
-		printf("I/O error");
-		return 0;
+	if (fp == NULL){
+		printf("I/O error\n");
+		exit(1);
 	}
 
-	//ll = longestLine(fpv);
-	//validProducts(ll);
-	//insertProducts(fpp);
+	insereClientes(fp);
 
-	parseClients(fpc);
+	insereClientesValidos();
+
+	imprimeClientesValidos();
 
 	return 1;
 }
