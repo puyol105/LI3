@@ -194,8 +194,8 @@ int insertSales(FILE *fpv, char *sales[]){
 }
 
 int parseClients(FILE *fpc){
-	char *clients[20000] = {NULL};
-	char *validClients[20000] = {NULL};
+	char *clients[MAXCLIS] = {NULL};
+	char *validClients[MAXCLIS] = {NULL};
 
 	insertClients(fpc, clients);
 
@@ -247,6 +247,7 @@ int main(){
 	fpv = fopen("Vendas_1MTeste.txt","r");
 
 	if (!fpc | !fpp | !fpv ){
+		printf("I/O error");
 		return 0;
 	}
 

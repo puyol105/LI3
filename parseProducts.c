@@ -12,9 +12,9 @@ char* produtosValidos[MAXPRODS];
 int maiorLinha(FILE *fp){
 	int r = 0;
 	int max = 0;
-	char str[1024];
+	char str[MAXBUFPROD];
 
-	while(fgets(str, 1000, fp) != NULL){
+	while(fgets(str, MAXBUFPROD, fp) != NULL){
 		r = strlen(str);
 		if(r > max) max = r;
 	}
@@ -45,10 +45,11 @@ void imprimeProdutosValidos(){
 
 int insereProdutosValidos(){
 	int i, j;
-	char str[15]; //assume-se que os produtos nunca vão ter mais que 15 chars
+	char str[MAXBUFPROD]; //assume-se que os produtos nunca vão ter mais que 15 chars
 
 	for(i=0, j=0; produtos[i]!=NULL; i++){
 		if(eProdutosValido(produtos[i])){
+			//produtosValidos[j] = strdup
 			produtosValidos[j] = (char *)malloc((strlen(str)+1)*sizeof(char));
 			strcpy(produtosValidos[j], produtos[i]);
 			j++;
@@ -60,7 +61,7 @@ int insereProdutosValidos(){
 }
 
 int insereProdutos(FILE *fp){
-	char str[10]; //assume-se que os produtos nunca vão ter mais que 15 chars
+	char str[MAXBUFPROD]; //assume-se que os produtos nunca vão ter mais que 15 chars
 	char* prod;
 
 	int index = 0;

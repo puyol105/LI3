@@ -53,7 +53,7 @@ int insereClientesValidos(){
 			strcpy(clientesValidos[j], clientes[i]);
 			j++;
 		}
-		else printf("ONE INVALID PRODUCT %d -> %s tam:%ld\n", i, clientes[i], strlen(clientes[i]));
+		else printf("ONE INVALID CLIENT %d -> %s tam:%ld\n", i, clientes[i], strlen(clientes[i]));
 	}
 
 	return 1;
