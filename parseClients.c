@@ -12,9 +12,9 @@ char* clientesValidos[MAXCLIS];
 int maiorLinha(FILE *fp){
 	int r = 0;
 	int max = 0;
-	char str[1024];
+	char str[MAXBUFCLI];
 
-	while(fgets(str, 1000, fp) != NULL){
+	while(fgets(str, MAXBUFCLI, fp) != NULL){
 		r = strlen(str);
 		if(r > max) max = r;
 	}
@@ -45,22 +45,21 @@ void imprimeClientesValidos(){
 
 int insereClientesValidos(){
 	int i, j;
-	char str[15]; //assume-se que os clientes nunca vão ter mais que 15 chars
+	char str[MAXBUFCLI]; //assume-se que os clientes nunca vão ter mais que 15 chars
 
-	for(i=0, j=0; clientes[i]!=NULL; i++){
+	for(i=0, j=0; clientes[i] != NULL; i++){
 		if(eClienteValido(clientes[i])){
-			clientesValidos[j] = (char *)malloc((strlen(str)+1)*sizeof(char));
-			strcpy(clientesValidos[j], clientes[i]);
+			clientesValidos[j] = strdup(clientes[i]);
 			j++;
 		}
-		else printf("ONE INVALID CLIENT %d -> %s tam:%ld\n", i, clientes[i], strlen(clientes[i]));
+		else printf("CLIENTE INVÁLIDO: %d -> %s\n", i, clientes[i]);
 	}
 
 	return 1;
 }
 
 int insereClientes(FILE *fp){
-	char str[10]; //assume-se que os clientes nunca vão ter mais que 15 chars
+	char str[MAXBUFCLI]; //assume-se que os clientes nunca vão ter mais que 15 chars
 	char* prod;
 
 	int index = 0;
@@ -76,7 +75,10 @@ int insereClientes(FILE *fp){
 int main(){
 	FILE *fp;
 
+	//fp = fopen("/home/rrpereira/li3/2016/Clientes.txt","r");
+	//fp = fopen("/home/rrpereira/li3/intocaveis/Clientes.txt","r");
 	fp = fopen("ClientesTeste.txt","r");
+
 
 	if (fp == NULL){
 		printf("I/O error\n");
@@ -87,7 +89,7 @@ int main(){
 
 	insereClientesValidos();
 
-	imprimeClientesValidos();
+	//imprimeClientesValidos();
 
 	return 1;
 }

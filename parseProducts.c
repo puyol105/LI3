@@ -49,12 +49,10 @@ int insereProdutosValidos(){
 
 	for(i=0, j=0; produtos[i]!=NULL; i++){
 		if(eProdutosValido(produtos[i])){
-			//produtosValidos[j] = strdup
-			produtosValidos[j] = (char *)malloc((strlen(str)+1)*sizeof(char));
-			strcpy(produtosValidos[j], produtos[i]);
+			produtosValidos[j] = strdup(produtos[i]);
 			j++;
 		}
-		else printf("ONE INVALID PRODUCT %d -> %s tam:%ld\n", i, produtos[i], strlen(produtos[i]));
+		else printf("PRODUTO INVÁLIDO %d -> %s\n", i, produtos[i]);
 	}
 
 	return 1;
@@ -77,6 +75,8 @@ int insereProdutos(FILE *fp){
 int main(){
 	FILE *fp;
 
+	//fp = fopen("/home/rrpereira/li3/2016/Produtos.txt","r");
+	//fp = fopen("/home/rrpereira/li3/intocaveis/Produtos.txt","r");
 	fp = fopen("ProdutosTeste.txt","r");
 
 	if (fp == NULL){
@@ -88,7 +88,7 @@ int main(){
 
 	insereProdutosValidos();
 
-	imprimeProdutosValidos();
+	//imprimeProdutosValidos();
 
 	return 1;
 }

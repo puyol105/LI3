@@ -3,9 +3,9 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAXVENDAS 1000000
+#define MAXVENDAS 10000008
 #define MAXBUFVENDAS 40
-#define MAXPARAMVENDAS 
+//#define MAXPARAMVENDAS
 
 char* vendas[MAXVENDAS];
 char* vendasValidas[MAXVENDAS];
@@ -25,24 +25,51 @@ int maiorLinha(FILE *fp){
 	return max;
 }
 
-int eNrUnisValido(char n[]){
+int eFilialValida(char s[]){
+	for(int i = 0; i < strlen(s); i++)
+		if(!isdigit(s[i]))
+			return 0;
 
+	if (atoi(s) < 1 || atoi(s) > 3)
+		return 0;
+
+	return 1;
+}
+
+int eMesValido(char s[]){
+	for(int i = 0; i < strlen(s); i++)
+		if(!isdigit(s[i]))
+			return 0;
+
+	if (atoi(s) < 1 || atoi(s) > 12)
+		return 0;
+
+	return 1;
+}
+
+int eNrUnisValido(char s[]){
+	for(int i = 0; i < strlen(s); i++)
+		if(!isdigit(s[i]))
+			return 0;
+
+	if(atoi(s) < 1 || atoi(s) > 200)
+		return 0;	
+
+	return 1;
 }
 
 int ePrecoValido(char s[]){
 	int i;
-	for(i = 0; i < strlen(s) && s[i]!='.'; i++){
-		printf("carater: %c\n",s[i]);
+
+	for(i = 0; i < strlen(s) && s[i]!='.'; i++)
 		if(!isdigit(s[i]))
 			return 0;
-	}
 
-	for(i=i+1; i < strlen(s) != '\0'; i++){
+	for(i=i+1; i < strlen(s); i++)
 		if(!isdigit(s[i]))
 			return 0;
-	}	
 
-	if(atof(s) > 9999.99)
+	if(atof(s) > 9999.99 || atof(s) < 0 )
 		return 0; 
 
 	return 1;
@@ -76,11 +103,14 @@ int eProdutosValido(char p[]){
 	return 1;
 }
 
-int eVendaValida(char s[]){
+int eVendaValida(char t[]){
 	int i = 0, args = 0;
 	int preco;
+	char s[strlen(t)];
 	char * venda;
 	char * fields[10] = {NULL};
+
+	strcpy(s, t);
 
 	venda = strtok(s, " \n\r");
 	fields[i] = strdup(venda);
@@ -91,30 +121,38 @@ int eVendaValida(char s[]){
 	fragmentada nos seus vários campos*/
 	while(fields[i-1] != NULL){
 		venda = strtok(NULL, " \n\r");
-		if(venda != NULL)
+		if(venda != NULL){
 			fields[i] = strdup(venda);
+			args++;
+		}
 		else fields[i] = NULL;
 		i++;
-		args++;
 	}
 	//verifica o número de argumentos de uma venda
-	//if(args > 8)
-	//	return 0;
-	//printf("verifica: %sola\n", fields[0]);
+	if(args != 7 )
+		return 0;
 
 	if(!eProdutosValido(fields[0]))
 		return 0;
 
-
 	if(!ePrecoValido(fields[1]))
 		return 0;
 
-	//if(!eNrUnisValido(fields[2])==0)
+	if(!eNrUnisValido(fields[2]))
+		return 0;
 
-	//return isValid
+	if(!(strcmp(fields[3], "N") == 0 || strcmp(fields[3], "P") == 0))
+		return 0;
 
-	//return isValidClient(fields[4]);
-	
+	if(!(eClienteValido(fields[4])))
+		return 0;
+
+	if(!(eMesValido(fields[5])))
+		return 0;
+
+	if(!(eFilialValida(fields[6])))
+		return 0;
+
 	return 1;
 }
 
@@ -130,11 +168,10 @@ int insereVendasValidas(){
 
 	for(i=0, j=0; vendas[i]!=NULL; i++){
 		if(eVendaValida(vendas[i])){
-			vendasValidas[j] = (char *)malloc((strlen(str)+1)*sizeof(char));
-			strcpy(vendasValidas[j], vendas[i]);
+			vendasValidas[j] = strdup(vendas[i]);
 			j++;
 		}
-		else printf("ONE INVALID SALE %d -> %s tam:%ld\n", i, vendas[i], strlen(vendas[i]));
+		else printf("VENDA INVÁLIDA %d -> %s\n", i, vendas[i]);
 	}
 
 	return 1;
@@ -145,11 +182,10 @@ int insereVendas(FILE *fpv){
 	char str[MAXBUFVENDAS];
 
 	while(fgets(str, MAXBUFVENDAS, fpv)){
-		vendas[i] = (char *)malloc((strlen(str)+1)*sizeof(char));
 		strtok(str, "\n\r");
-		strcpy(vendas[i], str);
+		vendas[i] = strdup(str);
+		//printf("%d-> %s\n", i, vendas[i]);
 		i++;
-		printf("%s\n", vendas[i-1]);
 	}
 
 	return 1;
@@ -159,16 +195,18 @@ int insereVendas(FILE *fpv){
 
 int main(){
 
-	FILE *fpv;
+	FILE *fp;
 
-	fpv = fopen("Vendas_1MTeste.txt","r");
+	//fp = fopen("/home/rrpereira/li3/2016/Vendas_1M.txt","r");
+	//fp = fopen("/home/rrpereira/li3/intocaveis/Vendas_1M.txt","r");
+	fp = fopen("Vendas_1MTeste.txt","r");
 
-	if ( !fpv ){
-		printf("I/O error");
-		return 0;
+	if (fp == NULL){
+		printf("I/O error\n");
+		exit(1);
 	}
 
-	insereVendas(fpv);
+	insereVendas(fp);
 
 	insereVendasValidas();
 
