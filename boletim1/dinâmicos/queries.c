@@ -29,19 +29,28 @@ struct venda {
 typedef struct venda* Venda;
 
 struct vendas{
-	Venda* venda ;
-	int primLivre;
+	Venda* venda;
+	int prox;
 	int tam;
 };
 
 typedef struct vendas* Vendas;
 
+Vendas vendasValidas = NULL;
+char** clientesValidos = NULL;
+char** produtosValidos = NULL;
 
-Vendas vendasValidas;
-char** clientesValidos;
-char** produtosValidos;
 
+void iniciaEstruturas(){
+	vendasValidas = (Vendas) malloc(sizeof (struct vendas));
+	vendasValidas->tam = 100000;
+	vendasValidas->prox = 0;
+	vendasValidas->venda = (Venda*) malloc((vendasValidas->tam)*sizeof (struct venda));
+	vendasValidas->venda[0] = NULL;
 
+	clientesValidos = (char**) malloc(50000*sizeof(char *));
+	produtosValidos = (char**) malloc(300000*sizeof(char *));
+}
 
 Venda tokenizeLinhaVendaDyn(char* vendaRaw){
 
@@ -77,7 +86,6 @@ int insereClientesValidos(FILE* fp){
 
 	while(fgets(str, MAXBUFCLI, fp)){
 		strtok(str,"\r\n");
-		clientesValidos = (char**) realloc(clientesValidos, (i+2)*sizeof(char *));
 		clientesValidos[i] = strdup(str);
 		i++;
 	}
@@ -91,7 +99,6 @@ int insereProdutosValidos(FILE* fp){
 
 	while(fgets(str, MAXBUFPROD, fp)){
 		strtok(str,"\r\n");
-		produtosValidos = (char**) realloc(produtosValidos, (i+2)*sizeof(char *));
 		produtosValidos[i] = strdup(str);
 		i++;
 	}
@@ -106,7 +113,10 @@ int insereVendasValidas(FILE* fp){
 
 	while(fgets(str, MAXBUFVENDAS, fp)){
 		strtok(str, "\n\r");
-		vendasValidas->venda = (Venda*) realloc(vendasValidas->venda, (i+2)*sizeof (struct venda));
+		if(i+1 >= vendasValidas->tam){
+			vendasValidas->venda = (Venda*) realloc(vendasValidas->venda, 2*(i+2)*sizeof (struct venda));
+			vendasValidas->tam *= 2; 
+		}
 		vendasValidas->venda[i] = tokenizeLinhaVendaDyn(str);
 		i++;
 	}
@@ -209,6 +219,17 @@ void faturacaoTotalRegistada(){
 	printf("Faturação total registada: %lf\n", tot);
 }
 
+void vendasPrecoZero(){
+	int i;
+	double tot = 0;
+
+	for(i = 0; vendasValidas->venda[i] != NULL ; i++)
+		if(vendasValidas->venda[i]->precoUnit == 0)	
+			tot ++;
+
+	printf("Faturação total registada: %lf\n", tot);
+}
+
 int main(){
 	FILE* fpc, *fpp, *fpv;
 
@@ -224,7 +245,8 @@ int main(){
 		printf("I/O error\n");
 		exit(1);
 	}
-
+	
+	iniciaEstruturas();
 	insereClientesValidos(fpc);
 	insereProdutosValidos(fpp);
 	insereVendasValidas(fpv);
@@ -237,8 +259,10 @@ int main(){
 	//nrVendasDoCliente(ultimoCliente());
 	//vendasDaFilial(1);
 	//vendasDaFilial(2);
+	//vendasDaFilial(3);
 	//nrClientesLetraInicial('A');
 	//faturacaoTotalRegistada();
+	//vendasPrecoZero();
 
 	fclose(fpc);
 	fclose(fpp);

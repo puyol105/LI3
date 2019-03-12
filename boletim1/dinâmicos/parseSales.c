@@ -9,6 +9,8 @@
 #define MAXVENDAS 10000008
 #define MAXBUFVENDAS 40
 #define CAMPOSVENDA 7
+#define MAXBUFCLI 10
+#define MAXBUFPROD 10
 
 struct venda {
 	char* codProd;
@@ -23,14 +25,16 @@ struct venda {
 typedef struct venda* Venda;
 
 struct vendas{
-	Venda* venda ;
-	int primLivre;
+	Venda* venda;
+	int prox;
 	int tam;
 };
 
 typedef struct vendas* Vendas;
 
-Vendas vendasValidas;
+Vendas vendasValidas = NULL;
+char** clientesValidos = NULL;
+char** produtosValidos = NULL;
 
 /*
 int maiorLinha(FILE *fp){
@@ -47,6 +51,17 @@ int maiorLinha(FILE *fp){
 
 	return max;
 }*/
+
+void iniciaEstruturas(){
+	vendasValidas = (Vendas) malloc(sizeof (struct vendas));
+	vendasValidas->tam = 100000;
+	vendasValidas->prox = 0;
+	vendasValidas->venda = (Venda*) malloc((vendasValidas->tam)*sizeof (struct venda));
+	vendasValidas->venda[0] = NULL;
+
+	clientesValidos = (char**) malloc(50000*sizeof(char *));
+	produtosValidos = (char**) malloc(300000*sizeof(char *));
+}
 
 int eFilialValida(char s[]){
 	for(int i = 0; i < strlen(s); i++)
@@ -98,8 +113,25 @@ int ePrecoValido(char s[]){
 	return 1;
 }
 
+int produtoExiste(char p[]){
+	for(int i = 0; produtosValidos[i] != NULL; i++)
+		if(strcmp(produtosValidos[i], p) == 0)
+			return 1;
+
+	return 0;
+}
+
+int clienteExiste(char s[]){
+	for(int i = 0; clientesValidos[i] != NULL; i++)
+		if(strcmp(clientesValidos[i], s) == 0)
+			return 1;
+
+	return 0;
+}
+
 //repetida
-int eClienteValido(char s[]){
+int eClienteValidoVenda(char s[]){
+	
 	if(isupper(s[0]) == 0)
 		return 0;
 
@@ -109,11 +141,14 @@ int eClienteValido(char s[]){
 	if(atoi(s+1) < 1000 || atoi(s+1) > 5000)
 		return 0;
 
+	if(clienteExiste(s) == 0)
+		return 0; 
+
 	return 1;
 }
 
 //repetida
-int eProdutosValido(char p[]){
+int eProdutoValidoVenda(char p[]){
 	if(isupper(p[0]) == 0 || isupper(p[1]) == 0)
 		return 0;
 
@@ -122,6 +157,9 @@ int eProdutosValido(char p[]){
 
 	if(atoi(p+2) < 1000 || atoi(p+2) > 9999)
 		return 0;
+	
+	if(produtoExiste(p) == 0)
+		return 0; 
 
 	return 1;
 }
@@ -155,7 +193,7 @@ int eVendaValida(char t[]){
 	if(args != CAMPOSVENDA )
 		return 0;
 
-	if(!eProdutosValido(fields[0]))
+	if(!eProdutoValidoVenda(fields[0]))
 		return 0;
 
 	if(!ePrecoValido(fields[1]))
@@ -167,7 +205,7 @@ int eVendaValida(char t[]){
 	if(!(strcmp(fields[3], "N") == 0 || strcmp(fields[3], "P") == 0))
 		return 0;
 
-	if(!(eClienteValido(fields[4])))
+	if(!(eClienteValidoVenda(fields[4])))
 		return 0;
 
 	if(!(eMesValido(fields[5])))
@@ -201,6 +239,7 @@ void insereVendasValidasFicheiro(){
 	fp = fopen("/home/rrpereira/li3/intocaveis/Vendas_1MValidas.txt","w+");
 
 	for (int i = 0; vendasValidas->venda[i] != NULL; i++){
+
 		fprintf(fp, "%s ", vendasValidas->venda[i]->codProd);
 
 		fprintf(fp, "%f ", vendasValidas->venda[i]->precoUnit);
@@ -258,19 +297,59 @@ Venda tokenizeLinhaVendaDyn(char* vendaRaw){
 int insereVendasValidas(FILE* fp){
 	int i = 0;
 	char str[MAXBUFVENDAS];
-	vendasValidas = (Vendas) malloc(sizeof (struct vendas));
 
 	while(fgets(str, MAXBUFVENDAS, fp)){
 		strtok(str, "\n\r");
 
 		if(eVendaValida(str)){
-			vendasValidas->venda = (Venda*) realloc(vendasValidas->venda, (i+2)*sizeof (struct venda));
+			if(i+1 >= vendasValidas->tam){
+				vendasValidas->venda = (Venda*) realloc(vendasValidas->venda, 2*(i+2)*sizeof (struct venda));
+				vendasValidas->tam *= 2; 
+			}
 			vendasValidas->venda[i] = tokenizeLinhaVendaDyn(str);
-			i++;
+			vendasValidas->venda[i+1] = NULL;
+			vendasValidas->prox = ++i;
 		}
-		else printf("VENDA INVÁLIDA %d \n", i-1);
-		//else printf("VENDA INVÁLIDA %d -> %s\n", i, vendasValidas[i]);
+		//else printf("VENDA INVÁLIDA %s \n", str);
 	}
+
+	return 1;
+}
+
+int insereClientesValidos(){
+	int i = 0;
+	char str[MAXBUFCLI]; //assume-se que os clientes nunca vão ter mais que 15 chars 
+
+	FILE*  fp = fopen("/home/rrpereira/li3/intocaveis/ClientesValidos.txt","r");
+
+	while(fgets(str, MAXBUFCLI, fp)){
+		strtok(str,"\n\r");
+		//clientesValidos = (char**) realloc(clientesValidos, (i+2)*sizeof(char *));
+		clientesValidos[i] = strdup(str);
+		clientesValidos[i+1] = NULL;
+		i++;
+	}
+
+	fclose(fp);
+
+	return 1;
+}
+
+int insereProdutosValidos(){
+	int i = 0;
+	char str[MAXBUFPROD]; //assume-se que os produtos nunca vão ter mais que 15 chars
+
+	FILE*  fp = fopen("/home/rrpereira/li3/intocaveis/ProdutosValidos.txt","r");
+
+	while(fgets(str, MAXBUFPROD, fp)){
+		strtok(str, "\n\r");
+		//produtosValidos = (char**) realloc(produtosValidos, (i+2)*sizeof(char *));
+		produtosValidos[i] = strdup(str);
+		produtosValidos[i+1] = NULL;
+		i++;
+	}
+
+	fclose(fp);
 
 	return 1;
 }
@@ -283,14 +362,19 @@ int main(){
 	double cpu_time_used;
 	start = clock();
 
-	//fp = fopen("/home/rrpereira/li3/2016/Vendas_1M.txt","r");
+	//fp = fopen("/home/rrpereira/li3/intocaveis/Vendas_1M.txt","r");
 	fp = fopen("/home/rrpereira/li3/intocaveis/Vendas_1M.txt","r");
-	//fp = fopen("Vendas_1MTeste.txt","r");
 
 	if (fp == NULL){
 		printf("I/O error\n");
 		exit(1);
 	}
+
+	iniciaEstruturas();
+
+	insereClientesValidos();
+
+	insereProdutosValidos();
 
 	insereVendasValidas(fp);
 

@@ -9,6 +9,7 @@
 
 char** clientesValidos;
 
+/*
 int maiorLinha(){
 	int r = 0;
 	int max = 0;
@@ -22,7 +23,7 @@ int maiorLinha(){
 	printf("READED %d\n", max);
 
 	return max;
-}
+}*/
 
 int eClienteValido(char c[]){
 	if(isupper(c[0]) == 0)
@@ -38,7 +39,7 @@ int eClienteValido(char c[]){
 }
 
 void imprimeClientesValidos(){
-	for (int i = 0; clientesValidos[i] != NULL ; i++){
+	for (int i = 0; clientesValidos != NULL && clientesValidos[i] != NULL ; i++){
 		printf("%s\n", clientesValidos[i]);
 	}
 }
@@ -65,7 +66,7 @@ void insereClientesValidosFicheiro(){
 
 	fp = fopen("/home/rrpereira/li3/intocaveis/ClientesValidos.txt","w+");
 
-	for(int i = 0; clientesValidos[i] != NULL; i++){
+	for(int i = 0; clientesValidos[i] != NULL && clientesValidos != NULL; i++){
 		fprintf(fp, "%s\n", clientesValidos[i]);
 	}
 
@@ -79,9 +80,8 @@ int main(){
 	double cpu_time_used;
 	start = clock();
 
-	//fp = fopen("/home/rrpereira/li3/2016/Clientes.txt","r");
 	fp = fopen("/home/rrpereira/li3/intocaveis/Clientes.txt","r");
-	//fp = fopen("ClientesTeste.txt","r");
+	//fp = fopen("/home/rrpereira/li3/intocaveis/Clientes.txt","r");
 
 
 	if (fp == NULL){

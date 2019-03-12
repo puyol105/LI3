@@ -38,7 +38,7 @@ int eProdutoValido(char p[]){
 }
 
 void imprimeProdutosValidos(){
-	for (int i = 0; produtosValidos[i] != NULL; i++){
+	for (int i = 0; produtosValidos != NULL && produtosValidos[i] != NULL; i++){
 		printf("%s\n", produtosValidos[i]);
 	}
 }
@@ -64,7 +64,7 @@ void insereProdutosValidosFicheiro(){
 
 	fp = fopen("/home/rrpereira/li3/intocaveis/ProdutosValidos.txt","w+");
 
-	for(int i = 0; produtosValidos[i] != NULL; i++){
+	for(int i = 0; produtosValidos != NULL && produtosValidos[i] != NULL; i++){
 		fprintf(fp, "%s\n", produtosValidos[i]);
 	}
 
@@ -78,9 +78,8 @@ int main(){
 	double cpu_time_used;
 	start = clock();
 
-	//fp = fopen("/home/rrpereira/li3/2016/Produtos.txt","r");
 	fp = fopen("/home/rrpereira/li3/intocaveis/Produtos.txt","r");
-	//fp = fopen("ProdutosTeste.txt","r");
+	//fp = fopen("/home/rrpereira/li3/intocaveis/Produtos.txt","r");
 
 	if (fp == NULL){
 		printf("I/O error\n");
