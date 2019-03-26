@@ -15,10 +15,10 @@ obj/%.o: src/%.c
 	@mkdir -p obj
 	$(CC) $(CFLAGS) -o $@ -c $<	
 
-#obj/main.o: src/headers/globais.h src/headers/cclientes.h"
+obj/main.o: src/headers/globais.h src/headers/cclientes.h src/headers/leituras.h"
 obj/avl.o: src/headers/avl.h src/headers/globais.h
-obj/cclientes.o: src/headers/cclientes.h src/headers/globais.h src/headers/avl.h
-
+obj/cclientes.o: src/headers/cclientes.h src/headers/avl.h src/headers/globais.h
+obj/leituras.o: src/headers/leituras.h src/headers/avl.h src/headers/cclientes.h src/headers/globais.h
 run: $(OBJECTS)
 	$(CC) $(CFLAGS) -o sgv $(OBJECTS)
 	./sgv

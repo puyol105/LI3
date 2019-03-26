@@ -242,7 +242,7 @@ void insereVendasValidasFicheiro(){
 
 		fprintf(fp, "%s ", vendasValidas->venda[i]->codProd);
 
-		fprintf(fp, "%f ", vendasValidas->venda[i]->precoUnit);
+		fprintf(fp, "%.2f ", vendasValidas->venda[i]->precoUnit);
 
 		fprintf(fp, "%d ", vendasValidas->venda[i]->quantidade);
 

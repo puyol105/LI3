@@ -1,28 +1,38 @@
-CC = gcc
-CFLAGS = -ansi -Wall -std=c11 -g `xml2-config --cflags --libs` 
-LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0` `pkg-config --cflags --libs glib-2.0`
+CC = gcc 
 
-OBJECTS = obj/avl.o obj/cclientes.o obj/leituras.o
+CFLAGS = $(shell pkg-config --cflags glib-2.0) -ansi -Wunreachable-code -O2 -Wuninitialized -Wunused-parameter -Wall -Wextra
 
-#$(INSTTOOL) -m 755 bin/doxytag    $(INSTALL)/bin
+LIBS = $(shell pkg-config --libs glib-2.0)
+
+OBJECTS = obj/main.o obj/avl.o obj/cclientes.o obj/leituras.o
 
 DOC = doc/Doxyfile
 
-sgv:
-	$(CC) $(CFLAGS) src/main.c src/cclientes.c src/avl.c src/leituras.c -o sgv $(LIBS)
+compile: $(OBJECTS)
+	$(CC) $(CFLAGS) -o sgv $(OBJECTS) $(LIBS)
 
 obj/%.o: src/%.c
 	@mkdir -p obj
 	$(CC) $(CFLAGS) -o $@ -c $<	
 
+obj/main.o: src/headers/globais.h src/headers/cclientes.h src/headers/leituras.h
 obj/avl.o: src/headers/avl.h src/headers/globais.h
 obj/cclientes.o: src/headers/cclientes.h src/headers/avl.h src/headers/globais.h
 obj/leituras.o: src/headers/leituras.h src/headers/avl.h src/headers/cclientes.h src/headers/globais.h
 
+run: $(OBJECTS)
+	$(CC) $(CFLAGS) -o sgv $(OBJECTS) $(LIBS)
+	./sgv
+
 clean:
-	rm sgv
+	rm -f sgv
+	rm -f debug 
+	rm -f $(OBJECTS)
+
+debug: $(OBJECTS)
+	$(CC) $(OBJECTS) -g -o debug $(LIBS)
+	gdb debug
 
 .PHONY: doc
 doc:$(OBJECTS)
 		doxygen $(DOC)
-

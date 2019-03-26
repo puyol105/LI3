@@ -1,7 +1,15 @@
 duvidas 
 
 - includes (QUAIS SÃO AS REGRAS: NO .H OU NO .C ???????)
+-- proprio .h 
+
+
 - é tranquilo dar um cast como estamos a fazer no avl.c
-- makefile, quero a que está em usefuls mas nao estou a conseguir por as libs da glib a funcionar :(
+
+
+
+
 - devo por um modulo clientes a ir buscar cenas ao ccclientes ??
+
+
 - devo guardar a string toda como o valor ou devo partir a string das vendas em campos (por exemplo) e guardar esse array de campos como valor na avl, ou devo simplesmente cagar, ou posso por a arvore só com a chave ??

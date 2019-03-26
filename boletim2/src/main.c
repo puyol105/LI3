@@ -16,7 +16,9 @@ int main(){
 
 	char opcao[MAXOP];
 
-	scanf("%s", opcao);
+	int i = scanf("%s", opcao);
+
+	printf("%d\n", i);
 
 	switch(opcao[0]) {
 
@@ -25,7 +27,8 @@ int main(){
 	      clientes = novo_cat_clientes();
 	      le_ficheiros_dados(clientes);
 
-	      //imprime_cat_clientes(clientes);
+	      imprime_cat_clientes(clientes);
+	      printf("ola\n");
 	      break; /* optional */
 		
 	   case '1'  :

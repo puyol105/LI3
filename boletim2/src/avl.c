@@ -20,6 +20,6 @@ void imprime_avl(AVL avl){
 }
 
 static gboolean iter_all(gpointer key, gpointer value, gpointer data){
-	printf("%s, %s\n", (char*) key, (char*) value);
+	printf("%s, %s, %p\n", (char*) key, (char*) value, data);
 	return FALSE;
 }
