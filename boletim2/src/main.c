@@ -1,6 +1,7 @@
 
 #include "headers/globais.h"
 #include "headers/cclientes.h"
+#include "headers/leituras.h"
 
 #include <stdio.h>
 
@@ -21,11 +22,15 @@ int main(){
 
 	   case '0'  :
 	      printf("ola, entrei no 0\n");
-	      init_cat_clientes();
+	      clientes = novo_cat_clientes();
+	      le_ficheiros_dados(clientes);
+
+	      //imprime_cat_clientes(clientes);
 	      break; /* optional */
 		
 	   case '1'  :
 	      printf("ola, entrei no 1\n");;
+
 	      break; /* optional */
 	  
 	   
