@@ -9,15 +9,15 @@
 #include "avl.h"
 #include "globais.h"
 
-/*Definição do tipo CatClientes (apontador para uma estrutura catClientes)*/
-typedef struct catClientes *CatClientes;
+/*Definição do tipo CClientes (apontador para uma estrutura cclientes)*/
+typedef struct cclientes *CClientes;
 
 /**
- * @brief Inicializa um CatClientes, isto é, a cada posição do array letras 
+ * @brief Inicializa um CClientes, isto é, a cada posição do array letras 
  * atribui uma AVL vazia.
- * @return Retorna um CatClientes inicializado.
+ * @return Retorna um CClientes inicializado.
  */
-CatClientes novo_cat_clientes();
+CClientes novo_cclientes();
 
 /**
  * @brief Insere um par chave/valor numa das várias AVL's da estrutura
@@ -27,14 +27,14 @@ CatClientes novo_cat_clientes();
  * @param Valor que corresponde ao par chave/valor a ser inserido na AVL.
  * @return Não tem valor de retorno.
  */
-void insere_cat_clientes(CatClientes clientes, char *chave, void* valor);
+void insere_cclientes(CClientes clientes, char *chave, void* valor);
 
 /**
  * @brief Imprime, uma a uma, todas as AVL's da estrutura apontada por clientes.
  * @param Estrutura que contém as várias AVL's.
  * @return Não tem valor de retorno.
  */
-void imprime_cat_clientes(CatClientes clientes);
+void imprime_cclientes(CClientes clientes);
 
 #endif /* _cclientes_h_ */ 
 

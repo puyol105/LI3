@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void le_ficheiros_dados(CatClientes clientes){
+void le_ficheiros_dados(CClientes clientes){
 	char str[MAXBUFCLI];
 	char *buf = NULL;
 	char *buf1 = NULL;
@@ -21,7 +21,7 @@ void le_ficheiros_dados(CatClientes clientes){
 		buf1 = (char *) malloc((strlen(str))*sizeof(char));
 		strcpy(buf1, str);
 		
-		insere_cat_clientes(clientes, buf, buf1);
+		insere_cclientes(clientes, buf, buf1);
 	}
 
 	fclose(fp);

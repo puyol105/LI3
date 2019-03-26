@@ -6,9 +6,9 @@
 #include <stdio.h>
 
 
-CatClientes clientes;
+CClientes clientes;
 
-/*CatProdutos*/
+/*CProdutos*/
 /*Faturacao*/
 /*Filial*/
 
@@ -24,10 +24,10 @@ int main(){
 
 	   case '0'  :
 	      printf("ola, entrei no 0\n");
-	      clientes = novo_cat_clientes();
+	      clientes = novo_cclientes();
 	      le_ficheiros_dados(clientes);
 
-	      imprime_cat_clientes(clientes);
+	      imprime_cclientes(clientes);
 	      printf("ola\n");
 	      break; /* optional */
 		

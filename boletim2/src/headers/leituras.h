@@ -6,6 +6,6 @@
 #include "cclientes.h"
 #include "globais.h"
 
-void le_ficheiros_dados(CatClientes clientes);
+void le_ficheiros_dados(CClientes clientes);
 
 #endif /* _leituras_h_ */ 
