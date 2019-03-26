@@ -4,7 +4,7 @@ CFLAGS = $(shell pkg-config --cflags glib-2.0) -ansi -Wunreachable-code -O2 -Wun
 
 LIBS = $(shell pkg-config --libs glib-2.0)
 
-OBJECTS = obj/main.o obj/avl.o obj/cclientes.o obj/leituras.o obj/cliente.o
+OBJECTS = obj/avl.o obj/cliente.o obj/cclientes.o obj/cprodutos.o obj/leituras.o obj/main.o obj/produto.o
 
 DOC = doc/Doxyfile
 
@@ -15,11 +15,13 @@ obj/%.o: src/%.c
 	@mkdir -p obj
 	$(CC) $(CFLAGS) -o $@ -c $<	
 
-obj/main.o: src/headers/cclientes.h src/headers/globais.h src/headers/leituras.h
+obj/main.o: src/headers/cclientes.h src/headers/cprodutos.h src/headers/globais.h src/headers/leituras.h
 obj/avl.o: src/headers/avl.h src/headers/globais.h
-obj/cclientes.o: src/headers/avl.h src/headers/cclientes.h src/headers/globais.h
-obj/leituras.o: src/headers/avl.h src/headers/cclientes.h src/headers/globais.h src/headers/leituras.h 
-obj/cliente.o: src/headers/cliente.h
+obj/cliente.o: src/headers/cliente.h src/headers/globais.h 
+obj/cclientes.o: src/headers/avl.h src/headers/cliente.h src/headers/cclientes.h src/headers/globais.h
+obj/leituras.o: src/headers/avl.h src/headers/cliente.h src/headers/cclientes.h src/headers/cprodutos.h src/headers/globais.h src/headers/leituras.h src/headers/produto.h 
+obj/cprodutos.o: src/headers/avl.h src/headers/globais.h src/headers/cprodutos.h src/headers/produto.h 
+obj/produto.o: src/headers/produto.h src/headers/globais.h
 
 run: $(OBJECTS)
 	$(CC) $(CFLAGS) -o sgv $(OBJECTS) $(LIBS)

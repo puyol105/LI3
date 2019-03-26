@@ -16,8 +16,8 @@ CClientes novo_cclientes(){
 	return clientes;
 }
 
-void insere_cclientes(CClientes clientes, char *chave, void* valor){
-	int i = chave[0] - 'A'; 
+void insere_cclientes(CClientes clientes, String chave, Cliente valor){
+	int i = chave[0] - 'A';
 	insere_avl(clientes->letras[i], chave, valor);
 }
 

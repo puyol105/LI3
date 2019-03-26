@@ -12,7 +12,7 @@ AVL nova_avl(){
 }
 
 void insere_avl(AVL avl, Chave chave, Valor valor){
-	g_tree_insert((GTree *) avl, (char*) chave, (char*) valor);
+	g_tree_insert((GTree *) avl, (char*) chave, valor);
 }
 
 void imprime_avl(AVL avl){
@@ -20,6 +20,6 @@ void imprime_avl(AVL avl){
 }
 
 static gboolean iter_all(gpointer key, gpointer value, gpointer data){
-	printf("%s, %s, %p\n", (char*) key, (char*) value, data);
+	printf("%s, %p, %p\n", (char*) key, value, data);
 	return FALSE;
 }

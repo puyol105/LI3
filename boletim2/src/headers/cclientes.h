@@ -7,6 +7,7 @@
 #define _cclientes_h_
 
 #include "avl.h"
+#include "cliente.h"
 #include "globais.h"
 
 /*Definição do tipo CClientes (apontador para uma estrutura cclientes)*/
@@ -27,7 +28,7 @@ CClientes novo_cclientes();
  * @param Valor que corresponde ao par chave/valor a ser inserido na AVL.
  * @return Não tem valor de retorno.
  */
-void insere_cclientes(CClientes clientes, char *chave, void* valor);
+void insere_cclientes(CClientes clientes, String chave, Cliente valor);
 
 /**
  * @brief Imprime, uma a uma, todas as AVL's da estrutura apontada por clientes.
