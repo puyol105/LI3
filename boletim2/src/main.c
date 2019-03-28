@@ -34,6 +34,22 @@ void imprime_logo(){
 
 }
 
+void imprime_opcoes(){
+	puts("01 - ");
+	puts("02 - ");
+	puts("03 - ");
+	puts("04 - ");
+	puts("05 - ");
+	puts("06 - ");
+	puts("07 - ");
+	puts("08 - ");
+	puts("09 - ");
+	puts("10 - ");
+	puts("11 - ");
+	puts("12 - ");
+}
+
+
 int main(){
 
 	CClientes clientes;
@@ -42,13 +58,14 @@ int main(){
 	CProdutos produtos;
 	produtos = novo_cprodutos();
 
+	imprime_logo();
+
+
 	char opcao[MAXOP];
 
 	int i = scanf("%s", opcao);
 
 	printf("%d\n", i);
-
-	imprime_logo();
 
 	switch(opcao[0]) {
 
@@ -58,10 +75,11 @@ int main(){
 	      /*imprime_cclientes(clientes);*/
 	      le_ficheiros_dados_produtos(produtos);
 	      /*imprime_cprodutos(produtos);*/
-	      break; /* optional */
+	      /*le_ficheiros_dados_vendas();*/
+	      break; 
 		
 	   case '1'  :
-	      printf("Escolheu a opção 0\n");
+	      printf("Escolheu a opção 1\n");
 
 	      break; /* optional */
 	  
