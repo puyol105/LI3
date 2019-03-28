@@ -1,15 +1,19 @@
-#ifndef _global_h_
-#define _global_h_
+#ifndef _globais_h_
+#define _globais_h_
 
-typedef int Boolean;
-
+typedef char Promo;
 typedef char *String;
+typedef int Boolean;
+typedef int Quantidade;
+typedef int Mes;
+typedef float Preco;
+typedef int Filial;
 
 /*typedef FILE* Ficheiro;*/
 
 /*Definição dos valores lógicos verdadeiro e falso.*/
-#define TRUE 1
 #define FALSE 0
+#define TRUE 1
 
 /*Definição do número máximo de carateres lidos em cada linha do ficheiro 
   Clientes.txt.*/
@@ -19,6 +23,11 @@ typedef char *String;
   Produtos.txt.*/
 #define MAXBUFPROD 14
 
+#define MAXBUFVENDA 60
+
+/*Definição do número máximo de campos de uma venda.*/
+#define MAXCAMPOSVENDA 7
+
 /*Definição do número máximo de carateres lidos na escolha da operação.*/
 #define MAXOP 15
 
@@ -26,4 +35,4 @@ typedef char *String;
 #define NR_LETRAS 26
 
 
-#endif /* _global_h_ */ 
+#endif /* _globais_h_ */ 

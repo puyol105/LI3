@@ -7,6 +7,14 @@ struct cclientes{
 	AVL letras[NR_LETRAS];
 };
 
+Boolean existe_cliente(String codigo, CClientes clientes){
+	int i;
+	i = codigo[0] - 'A';
+	if(procura_valor_avl(clientes->letras[i], codigo) == NULL)
+		return FALSE;
+	return TRUE;
+}
+
 CClientes novo_cclientes(){
 	int i;
 	CClientes clientes = malloc(sizeof(struct cclientes));

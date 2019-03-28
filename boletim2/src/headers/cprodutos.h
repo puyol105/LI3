@@ -13,6 +13,9 @@
 /*Definição do tipo CProdutos (apontador para uma estrutura cprodutos)*/
 typedef struct cprodutos *CProdutos;
 
+
+Boolean existe_produto(String codigo, CProdutos produtos);
+
 /**
  * @brief Inicializa um CProdutos, isto é, a cada posição do array letras 
  * atribui uma AVL vazia.

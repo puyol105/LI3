@@ -13,6 +13,8 @@
 /*Definição do tipo CClientes (apontador para uma estrutura cclientes)*/
 typedef struct cclientes *CClientes;
 
+Boolean existe_cliente(String codigo, CClientes clientes);
+
 /**
  * @brief Inicializa um CClientes, isto é, a cada posição do array letras 
  * atribui uma AVL vazia.

@@ -16,12 +16,11 @@ typedef char* Chave;
 typedef void* Valor;
 
 /**
- * @brief Inicializa uma AVL, isto é, chama a função g_tree_new da glib com 
- * uma função de comparação que indicará o tipo e forma de ordenação.
- * @return Retorna um apontador para uma GTree vazia, ou seja, retorna uma 
- * AVL vazia.
+ * @brief Imprime as entradas duma AVL pela ordem que estão organizadas.
+ * @param AVL que irá imprimir.
+ * @return Não tem valor de retorno.
  */
-AVL nova_avl();
+void imprime_avl(AVL avl);
 
 /**
  * @brief Insere um par chave/valor na AVL recebida como argumentos, isto é, 
@@ -33,11 +32,16 @@ AVL nova_avl();
  */
 void insere_avl(AVL avl, Chave chave, Valor valor);
 
+
 /**
- * @brief Imprime as entradas duma AVL pela ordem que estão organizadas.
- * @param AVL que irá imprimir.
- * @return Não tem valor de retorno.
+ * @brief Inicializa uma AVL, isto é, chama a função g_tree_new da glib com 
+ * uma função de comparação que indicará o tipo e forma de ordenação.
+ * @return Retorna um apontador para uma GTree vazia, ou seja, retorna uma 
+ * AVL vazia.
  */
-void imprime_avl(AVL avl);
+AVL nova_avl();
+
+Valor procura_valor_avl(AVL avl, Chave chave);
+
 
 #endif /* _avl_h_ */ 

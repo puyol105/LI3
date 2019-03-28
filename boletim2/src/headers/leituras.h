@@ -7,9 +7,12 @@
 #include "cprodutos.h"
 #include "globais.h"
 #include "produto.h"
+#include "venda.h"
 
 void le_ficheiros_dados_clientes(CClientes clientes);
 
 void le_ficheiros_dados_produtos(CProdutos produtos);
+
+void le_ficheiros_dados_vendas(CClientes clientes, CProdutos produtos);
 
 #endif /* _leituras_h_ */ 

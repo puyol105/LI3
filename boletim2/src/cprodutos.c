@@ -7,6 +7,15 @@ struct cprodutos{
 	AVL letras[NR_LETRAS][NR_LETRAS];
 };
 
+Boolean existe_produto(String codigo, CProdutos produtos){
+	int i, j;
+	i = codigo[0] - 'A';
+	j = codigo[1] - 'A'; 
+	if(procura_valor_avl(produtos->letras[i][j], codigo) == NULL)
+		return FALSE;
+	return TRUE;
+}
+
 CProdutos novo_cprodutos(){
 	int i, j;
 	CProdutos produtos = malloc(sizeof(struct cprodutos));

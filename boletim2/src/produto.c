@@ -31,7 +31,7 @@ Boolean valida_produto(String codigo){
 		return FALSE;
 	if(atoi(codigo+2) < 1000 || atoi(codigo+2) > 9999)
 		return FALSE;
-	return 1;
+	return TRUE;
 }
 
 

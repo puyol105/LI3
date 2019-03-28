@@ -60,12 +60,10 @@ int main(){
 
 	imprime_logo();
 
-
 	char opcao[MAXOP];
 
-	int i = scanf("%s", opcao);
-
-	printf("%d\n", i);
+	if(!(scanf("%s", opcao) > 0))
+		puts("Erro na leitura da opção");
 
 	switch(opcao[0]) {
 
@@ -75,13 +73,13 @@ int main(){
 	      /*imprime_cclientes(clientes);*/
 	      le_ficheiros_dados_produtos(produtos);
 	      /*imprime_cprodutos(produtos);*/
-	      /*le_ficheiros_dados_vendas();*/
+	      le_ficheiros_dados_vendas(clientes, produtos);
 	      break; 
 		
 	   case '1'  :
 	      printf("Escolheu a opção 1\n");
 
-	      break; /* optional */
+	      break;
 	  
 	   
 	   default :
