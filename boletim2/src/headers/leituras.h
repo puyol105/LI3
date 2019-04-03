@@ -3,16 +3,17 @@
 
 #include "avl.h"
 #include "cclientes.h"
+#include "cfaturacao.h"
 #include "cliente.h"
 #include "cprodutos.h"
 #include "globais.h"
 #include "produto.h"
 #include "venda.h"
 
-void le_ficheiros_dados_clientes(CClientes clientes);
+void le_ficheiros_dados_clientes(CClientes clientes, char cam[]);
 
-void le_ficheiros_dados_produtos(CProdutos produtos);
+void le_ficheiros_dados_produtos(CProdutos produtos, char cam[]);
 
-void le_ficheiros_dados_vendas(CClientes clientes, CProdutos produtos);
+void le_ficheiros_dados_vendas(CFaturacao faturacao, CClientes clientes, CProdutos produtos, char cam[]);
 
 #endif /* _leituras_h_ */ 

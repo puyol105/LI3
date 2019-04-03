@@ -43,5 +43,7 @@ AVL nova_avl();
 
 Valor procura_valor_avl(AVL avl, Chave chave);
 
+Boolean procura_valor_avl_extended(AVL avl, Chave chave, Chave c, Valor v );
+
 
 #endif /* _avl_h_ */ 

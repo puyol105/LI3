@@ -2,6 +2,7 @@
 
 #include <glib.h>
 #include <stdio.h>
+#include <string.h>
 
 static gboolean iter_all(gpointer key, gpointer value, gpointer data);
 
@@ -23,6 +24,9 @@ Valor procura_valor_avl(AVL avl, Chave chave){
 	return (Valor) g_tree_lookup((GTree *) avl, (char *) chave);
 }
 
+Boolean procura_valor_avl_extended(AVL avl, Chave chave, Chave c, Valor v ){
+	return (Boolean) g_tree_lookup_extended((GTree *) avl, (char *) chave, (gpointer*)&c, (gpointer*)&v);
+}
 
 static gboolean iter_all(gpointer key, gpointer value, gpointer data){
 	printf("%s, %p, %p\n", (char*) key, value, data);

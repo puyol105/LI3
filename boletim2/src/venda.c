@@ -7,11 +7,11 @@
 #include <string.h>
 
 struct venda{
-	Produto produto;
+	String produto;
 	Preco preco;
 	Quantidade quantidade;
 	Promo promo;
-	Cliente cliente;
+	String cliente;
 	Mes mes;
 	Filial filial;
 };
@@ -21,13 +21,11 @@ struct venda{
 static Boolean valida_cliente_venda(String string, CClientes clientes);
 static Boolean valida_filial_venda(String string);
 static Boolean valida_quantidade_venda(String string);
-static Boolean valida_mes_venda(String string);
 static Boolean valida_preco_venda(String string);
-static Boolean valida_produto_venda(String string, CProdutos produtos);
 static Boolean valida_promo_venda(String string);
 
 
-Cliente get_cliente_venda(Venda venda){
+String get_cliente_venda(Venda venda){
 	return venda->cliente;
 }
 
@@ -47,7 +45,7 @@ Preco get_preco_venda(Venda venda){
 	return venda->preco;
 }
 
-Produto get_produto_venda(Venda venda){
+String get_produto_venda(Venda venda){
 	return venda->produto;
 }
 
@@ -55,7 +53,27 @@ Promo get_promo_venda(Venda venda){
 	return venda->promo;
 }
 
-int valida_venda(String string, CClientes clientes, CProdutos produtos){
+Venda cria_venda(String produto, Preco preco, Quantidade quantidade, Promo promo, String cliente, Mes mes, Filial filial){
+	Venda venda = malloc(sizeof(struct venda));
+	venda->produto = malloc((strlen(produto) + 1)*sizeof(char));
+	strcpy(venda->produto, produto);
+	venda->preco = preco;
+	venda->quantidade = quantidade;
+	venda->promo = promo;
+	venda->cliente = malloc((strlen(cliente) + 1)*sizeof(char));
+	strcpy(venda->cliente, cliente);
+	venda->mes = mes;
+	venda->filial = filial;
+	return venda;
+}
+
+void free_venda(Venda venda){
+	free(venda->produto);
+	free(venda->cliente);
+	free(venda);
+}
+
+Venda valida_venda(String string, CClientes clientes, CProdutos produtos){
 	
 	int i, tamanho;
 	String aux, campo;
@@ -88,30 +106,33 @@ int valida_venda(String string, CClientes clientes, CProdutos produtos){
 	campo = strtok(NULL, " \n\r");
 
 	if(campo != NULL)
-		return FALSE;
+		return NULL;
 
 	if(!valida_produto_venda(campos[0], produtos))
-		return FALSE;
+		return NULL;
 
 	if(!valida_preco_venda(campos[1]))
-		return FALSE;
+		return NULL;
 
 	if(!valida_quantidade_venda(campos[2]))
-		return FALSE;
+		return NULL;
 
 	if(!valida_promo_venda(campos[3]))
-		return FALSE;
+		return NULL;
 
 	if(!(valida_cliente_venda(campos[4], clientes)))
-		return FALSE;
+		return NULL;
 
 	if(!(valida_mes_venda(campos[5])))
-		return FALSE;
+		return NULL;
 
 	if(!(valida_filial_venda(campos[6])))
-		return FALSE;
+		return NULL;
 
-	return TRUE;
+	if(campos[3][0] == 'N') campos[3][0] = '0';
+	if(campos[3][0] == 'P') campos[3][0] = '1';
+
+	return cria_venda(campos[0], atof(campos[1]), atoi(campos[2]), atoi(campos[3]), campos[4], atoi(campos[5]), atoi(campos[6]));
 }
 
 /*static Venda nova_venda(){
@@ -146,7 +167,7 @@ static Boolean valida_quantidade_venda(String string){
 	return TRUE;
 }
 
-static Boolean valida_mes_venda(String string){
+Boolean valida_mes_venda(String string){
 	int i;
 	for(i = 0; i < ((int) strlen(string)); i++)
 		if(!isdigit(string[i]))
@@ -169,7 +190,7 @@ static Boolean valida_preco_venda(String string){
 	return TRUE;
 }
 
-static Boolean valida_produto_venda(String string, CProdutos produtos){
+Boolean valida_produto_venda(String string, CProdutos produtos){
 	if(valida_produto(string) == FALSE)
 		return FALSE;
 	if(existe_produto(string, produtos) == FALSE)
