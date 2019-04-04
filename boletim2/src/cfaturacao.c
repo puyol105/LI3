@@ -178,9 +178,24 @@ float get_faturado_ftsproduto(CFaturacao faturacao, Mes mes, String produto, Fil
 		r = 0;
 	else if (ftsproduto[promo][filial-1] != NULL){
 		for(i = 0; i < ftsproduto[promo][filial-1]->proximo; i++)
-			r = (float) ftsproduto[promo][filial-1]->array[i]->preco * ftsproduto[promo][filial-1]->array[i]->quantidade;		  	
+			r = (float) ftsproduto[promo][filial-1]->array[i]->preco * ((float) ftsproduto[promo][filial-1]->array[i]->quantidade);		  	
 	}
 
 	return r;
 
 }
+
+
+AVL get_mes_avl(CFaturacao faturacao, int x){
+	return faturacao->meses[x];
+}
+
+
+Boolean preenchido_filial_promo(FTSProduto ftsproduto, int i, int j){
+	/*i -> promos; j -> filial*/
+	if(ftsproduto[i][j] != NULL)
+		return TRUE;
+	else 
+		return FALSE;
+}
+

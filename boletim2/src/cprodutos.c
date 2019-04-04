@@ -39,3 +39,8 @@ void imprime_cprodutos(CProdutos produtos){
 			imprime_avl(produtos->letras[i][j]);
 	}
 }
+
+AVL get_letras_avl(CProdutos produtos, int x, int y){
+	return produtos->letras[x][y];
+}
+

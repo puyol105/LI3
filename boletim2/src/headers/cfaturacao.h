@@ -16,8 +16,6 @@ typedef struct cfaturacao *CFaturacao;
 
 #define TAMARRAY 2
 
-
-
 CFaturacao novo_cfaturacao();
 Registos novo_registos();
 FTSProduto novo_ftsproduto();
@@ -31,6 +29,11 @@ void insere_registoProduto_avl(CFaturacao faturacao, Venda venda);
 int get_nregistos_ftsproduto(CFaturacao faturacao, Mes mes, String produto, Filial filial, Promo promo);
 float get_faturado_ftsproduto(CFaturacao faturacao, Mes mes, String produto, Filial filial, Promo promo);
 int get_nprodutos_cfaturacao(CFaturacao cfaturacao);
+AVL get_mes_avl(CFaturacao faturacao, int x);
+Boolean preenchido_filial_promo(FTSProduto ftsproduto, int i, int j);
 
+/*Boolean insere_avl_avl_filial1_iter(gpointer key, gpointer value, gpointer data);
+Boolean insere_avl_avl_filial2_iter(gpointer key, gpointer value, gpointer data);
+Boolean insere_avl_avl_filial3_iter(gpointer key, gpointer value, gpointer data);*/
 
 #endif /* _cfaturacao_h_ */ 

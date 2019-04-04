@@ -39,6 +39,7 @@ void insere_cprodutos(CProdutos produtos, String chave, Produto valor);
  * @return Não tem valor de retorno.
  */
 void imprime_cprodutos(CProdutos produtos);
+AVL get_letras_avl(CProdutos produtos, int x, int y);
 
 #endif /* _cprodutos_h_ */ 
 

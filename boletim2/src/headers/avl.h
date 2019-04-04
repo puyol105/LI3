@@ -7,10 +7,11 @@
 #define _avl_h_
 
 #include "globais.h"
+#include "lstrings.h"
+
 
 /*Definição do tipo AVL (apontador para uma estrutura GTree da glib)*/
 typedef struct GTree *AVL;
-
 
 typedef char* Chave;
 typedef void* Valor;
@@ -45,5 +46,24 @@ Valor procura_valor_avl(AVL avl, Chave chave);
 
 Boolean procura_valor_avl_extended(AVL avl, Chave chave, Chave c, Valor v );
 
+Valor imprime_para_array(AVL avl, Valor valor);
+
+void insere_avl_avl(AVL avl, Valor valor);
+
+/*
+void insere_avl_avl_filial1(AVL avl, Valor valor);
+
+void insere_avl_avl_filial2(AVL avl, Valor valor);
+
+void insere_avl_avl_filial3(AVL avl, Valor valor);*/
+
+
+int get_nnodos(AVL avl);
+
+void comuns_avl_avl(AVL avl, Valor valor);
+
+/*void foreach_avl(AVL avl, void (*f)(void *, void *, void *), Valor valor);
+
+void foreach_avl(AVL avl, (GTraverseFunc)func, Valor valor);*/
 
 #endif /* _avl_h_ */ 

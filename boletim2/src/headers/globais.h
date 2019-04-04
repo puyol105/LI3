@@ -9,11 +9,20 @@ typedef int Mes;
 typedef float Preco;
 typedef int Filial;
 
+#ifdef _WIN32
+	#define CLEAR "cls"
+#else
+	#define CLEAR "clear"
+#endif
+
+
 /*typedef FILE* Ficheiro;*/
 
 /*Definição dos valores lógicos verdadeiro e falso.*/
 #define FALSE 0
 #define TRUE 1
+
+#define LINE_P_PAG 32
 
 /*Definição do número máximo de carateres lidos em cada linha do ficheiro 
   Clientes.txt.*/

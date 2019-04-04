@@ -24,39 +24,6 @@
 /*Faturacao*/
 /*Filial*/
 
-void imprime_logo(){
-	int i;
-	i = system(CLEAR);
-	if(i)
-		exit(EXIT_FAILURE);
-	puts(" ____   ____  ________  ____  _____  ______   _____  _____  ____    ____ ");
-	puts("|_  _| |_  _||_   __  ||_   \\|_   _||_   _ `.|_   _||_   _||_   \\  /   _|");
-	puts("  \\ \\   / /    | |_ \\_|  |   \\ | |    | | `. \\ | |    | |    |   \\/   |  ");
-	puts("   \\ \\ / /     |  _| _   | |\\ \\| |    | |  | | | '    ' |    | |\\  /| |  ");
-	puts("    \\ ' /     _| |__/ | _| |_\\   |_  _| |_.' /  \\ \\__/ /    _| |_\\/_| |_ ");
-	puts("     \\_/     |________||_____|\\____||______.'    `.__.'    |_____||_____|");
-	printf("\n");
-	puts("                         Sistema de Gestão de Vendas");
-	printf("\n\n\n");
-
-}
-
-void imprime_opcoes(){
-
-	puts("Opções:\n");
-	puts("01 - Leitura dos ficheiros de dados.");
-	puts("02 - ");
-	puts("03 - Nº de vendas e total faturado de um produto num mês.");
-	puts("04 - ");
-	puts("05 - ");
-	puts("06 - ");
-	puts("07 - ");
-	puts("08 - ");
-	puts("09 - ");
-	puts("10 - ");
-	puts("11 - ");
-	puts("12 - \n");
-}
 
 char* leLinha(char buffer[], int tamanho, FILE* stream){	
 	char* linha = fgets(buffer, tamanho, stream);
@@ -70,6 +37,51 @@ char* leLinha(char buffer[], int tamanho, FILE* stream){
 			linha[i] = '\0'; /* remove o carater de newline, se este existir */
 	}
 	return linha;
+}
+
+
+void imprime_logo(){
+	int i;
+	i = system(CLEAR);
+	if(i)
+		exit(EXIT_FAILURE);
+
+	char *input = (char *) malloc(MAXOP * sizeof(char));
+
+
+	puts(" ____   ____  ________  ____  _____  ______   _____  _____  ____    ____ ");
+	puts("|_  _| |_  _||_   __  ||_   \\|_   _||_   _ `.|_   _||_   _||_   \\  /   _|");
+	puts("  \\ \\   / /    | |_ \\_|  |   \\ | |    | | `. \\ | |    | |    |   \\/   |  ");
+	puts("   \\ \\ / /     |  _| _   | |\\ \\| |    | |  | | | '    ' |    | |\\  /| |  ");
+	puts("    \\ ' /     _| |__/ | _| |_\\   |_  _| |_.' /  \\ \\__/ /    _| |_\\/_| |_ ");
+	puts("     \\_/     |________||_____|\\____||______.'    `.__.'    |_____||_____|");
+	printf("\n");
+	puts("                         Sistema de Gestão de Vendas");
+	printf("\n\n\n");
+
+	printf("\nPrima qualquer tecla para avançar...");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da tecla.");
+
+}
+
+void imprime_opcoes(){
+
+	puts("Opções:\n");
+	puts("[A] 01 - Leitura dos ficheiros de dados.");
+	puts("[B] 02 - Produtos cujo código se inicia por uma dada letra");
+	puts("[C] 03 - Nº de vendas e total faturado de um produto num mês.");
+	puts("[D] 04 - ");
+	puts("[E] 05 - ");
+	puts("[F] 06 - ");
+	puts("[G] 07 - ");
+	puts("[H] 08 - ");
+	puts("[I] 09 - ");
+	puts("[J] 10 - ");
+	puts("[K] 11 - ");
+	puts("[L] 12 - ");
+	puts("[Q] 13 - Sair\n");
+
 }
 
 void imprime_menu1(CFaturacao faturacao, CClientes clientes, CProdutos produtos){
@@ -90,7 +102,6 @@ void imprime_menu1(CFaturacao faturacao, CClientes clientes, CProdutos produtos)
 	}
 	else strcpy(fv, "nao abrir");
 
-	printf("cheguei aqui %s\n", fv);
 
 
 	puts("\nQuer introduzir caminho para o ficheiro clientes?");
@@ -102,8 +113,6 @@ void imprime_menu1(CFaturacao faturacao, CClientes clientes, CProdutos produtos)
 			puts("Erro na introdução do nome do ficheiro clientes.\n");
 	}
 	else strcpy(fc, "nao abrir");
-
-	printf("CAMINHINHO: %s\n", fv);
 
 
 	puts("\nQuer introduzir caminho para o ficheiro produtos?");
@@ -123,6 +132,25 @@ void imprime_menu1(CFaturacao faturacao, CClientes clientes, CProdutos produtos)
  	query1(faturacao, clientes, produtos, fv, fc, fp);
 
   	printf("\nPrima qualquer tecla para avançar...");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da tecla.");
+}
+
+void imprime_menu2(CProdutos produtos){
+	char *input = (char *) malloc(MAXOP * sizeof(char));
+
+	int i;
+	i = system(CLEAR);
+	if(i)
+		exit(EXIT_FAILURE);
+
+	printf("\nInsira uma letra: ");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da letra.");
+
+	query2(produtos, input[0]);
+
+	printf("\nPrima qualquer tecla para avançar...");
 	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
 		puts("Erro na leitura da tecla.");
 }
@@ -167,6 +195,31 @@ void imprime_menu3(CFaturacao faturacao, CProdutos produtos){
 		puts("Erro na leitura da tecla.");
 }
 
+void imprime_menu4(CFaturacao faturacao, CProdutos produtos){
+	char *input = (char *) malloc(MAXOP * sizeof(char));
+
+	int i;
+	i = system(CLEAR);
+	if(i)
+		exit(EXIT_FAILURE);
+
+	printf("\nInsira G se pretende valor global, ou o identificador da filial: ");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da letra.");
+
+	if((input[0] == 'G' || (input[0] == '1') || (input[0] == '2') || (input[0] == '3')) && strlen(input) == 1 ){
+		query4(faturacao, produtos, input[0]);
+	}
+	else{
+		puts("Identificador da filial ou G.");
+	}
+
+	printf("\nPrima qualquer tecla para avançar...");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da tecla.");
+
+}
+
 int main(){
 
 	
@@ -207,23 +260,25 @@ int main(){
 
 		switch(opcao[0]) {
 
-		   	case '1':
+		   	case 'A':
 		   		imprime_menu1(faturacao, clientes, produtos);
 		      	
 		      	break; 
 			
-			case '2':
-		    	printf("Escolheu a opção 1\n");
+			case 'B':
+				imprime_menu2(produtos);
 		    	break;
 
-		    case '3':
-		    	
+		    case 'C':
 		  		imprime_menu3(faturacao, produtos);
-
 
 				break;		   		
 
-		    case '5':
+		    case 'D':
+		  		imprime_menu4(faturacao, produtos);
+				break;
+
+		    case 'Q':
 		    	sair = TRUE;
 				break;		   		
 
