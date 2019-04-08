@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 struct cprodutos{
+	int nprodutos;
 	AVL letras[NR_LETRAS][NR_LETRAS];
 };
 
@@ -22,6 +23,7 @@ CProdutos novo_cprodutos(){
 	for(i = 0; i < NR_LETRAS; i++)
 		for(j = 0; j < NR_LETRAS; j++)
 			produtos->letras[i][j] = nova_avl();
+	produtos->nprodutos = 0;
 	return produtos;
 }
 
@@ -30,6 +32,7 @@ void insere_cprodutos(CProdutos produtos, String chave, Produto valor){
 	i = chave[0] - 'A';
 	j = chave[1] - 'A'; 
 	insere_avl(produtos->letras[i][j], chave, valor);
+	produtos->nprodutos++;
 }
 
 void imprime_cprodutos(CProdutos produtos){
@@ -44,3 +47,6 @@ AVL get_letras_avl(CProdutos produtos, int x, int y){
 	return produtos->letras[x][y];
 }
 
+int get_nprodutos(CProdutos produtos){
+	return produtos->nprodutos;
+}

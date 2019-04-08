@@ -38,4 +38,6 @@ Boolean valida_mes_venda(String string);
 
 Boolean valida_produto_venda(String string, CProdutos produtos);
 
+Boolean valida_cliente_venda(String string, CClientes clientes);
+
 #endif /* _venda_h_ */ 

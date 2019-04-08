@@ -46,6 +46,8 @@ typedef int Filial;
 /*Definição do número de meses existentes*/
 #define NR_MESES 12
 
+#define NR_PRODS 200000
+
 /*Definição do número de promos (se é promoção ou não) de compra existentes*/
 #define NR_PROMOS 2
 

@@ -6,7 +6,6 @@
 
 
 void le_ficheiros_dados_clientes(CClientes clientes, char cam[]){
-	int i = 0;
 	char str[MAXBUFCLI];
 	Cliente cliente = NULL;
 	String buf = NULL;
@@ -32,7 +31,7 @@ void le_ficheiros_dados_clientes(CClientes clientes, char cam[]){
 	while(fgets(str, MAXBUFCLI, fp)){
 		strtok(str,"\r\n");
 		if(valida_cliente(str)){
-			i++;
+
 			buf = (char *) malloc((strlen(str+1))*sizeof(char));
 			strcpy(buf, str);
 
@@ -42,13 +41,11 @@ void le_ficheiros_dados_clientes(CClientes clientes, char cam[]){
 		}
 	}
 
-	printf("Clientes válidos lidos: %d\n\n", i);
 	fclose(fp);
 
 }
 
 void le_ficheiros_dados_produtos(CProdutos produtos, char cam[]){
-	int i = 0;
 	char str[MAXBUFCLI];
 	Produto produto = NULL;
 	String buf = NULL;
@@ -75,7 +72,6 @@ void le_ficheiros_dados_produtos(CProdutos produtos, char cam[]){
 	while(fgets(str, MAXBUFPROD, fp)){
 		strtok(str,"\r\n");
 		if(valida_produto(str)){
-			i++;
 			buf = (char *) malloc((strlen(str+1))*sizeof(char));
 			strcpy(buf, str);
 
@@ -85,26 +81,22 @@ void le_ficheiros_dados_produtos(CProdutos produtos, char cam[]){
 		}
 	}
 
-	printf("Produtos válidos lidos: %d\n\n", i);
 	fclose(fp);
 
 }
 
 /*só para testar, por enquanto, utilizamos a estrutura catalogo clientes*/
-void le_ficheiros_dados_vendas(CFaturacao faturacao, CClientes clientes, CProdutos produtos, char cam[]){
+int le_ficheiros_dados_vendas(CFaturacao faturacao, CFiliais cfiliais, CClientes clientes, CProdutos produtos, char cam[]){
 	char str[MAXBUFVENDA];
 	int i = 0;
 	Venda venda = NULL;
 	FILE *fp = NULL;
-	/*Cliente cliente = NULL;*/
-	/*String buf = NULL;*/
-	/*FILE *fp = fopen("../teste/Clientes1.txt","r"); se este ficheiro estiver junto à makefile*/
-	
+
 	if(0 == strcmp(cam, "nao abrir")){
 		fp = fopen("../intocaveis/Vendas_1M.txt","r"); /*se este ficheiro estiver junto à makefile*/
 		if(fp == NULL){
 			puts("Erro na abertura do ficheiro vendas.");
-			return;
+			return i;
 		}
 	}
 	else{
@@ -112,33 +104,26 @@ void le_ficheiros_dados_vendas(CFaturacao faturacao, CClientes clientes, CProdut
 		if(fp == NULL){
 			printf("AQUILO QUE LEU: |%s|\n", cam);
 			puts("Erro na abertura do ficheiro vendas.");
-			return;
+			return i;
 		}
 		else printf("O ficheiro '%s' foi lido\n", cam);
 	}
 
 
- 	puts("\nLendo o ficheiro vendas...");
+ 	puts("Lendo o ficheiro vendas...\n");
 	while(fgets(str, MAXBUFVENDA, fp)){
 		strtok(str,"\r\n");
 		if((venda = valida_venda(str, clientes, produtos)) != NULL){
 			i++;
 
 			insere_registoProduto_avl(faturacao, venda);
-				/*puts("Não conseguiu inserir registo em 'faturacao'");*/
+			insere_registoCliente_avl(cfiliais, venda);
 
-			/*buf = (char *) malloc((strlen(str+1))*sizeof(char));*/
-			/*strcpy(buf, str);*/
-			/*cliente = cria_cliente(str); */
-			/*if(i==10) break;*/
-			/*insere_cclientes(clientes, buf, cliente);*/
 			free_venda(venda);
 		}
 	}
 
-
-	/*get_quantidade_ftsproduto(faturacao);
-	*/
-	printf("Registos de vendas válidas lidos: %d\n", i);
+	
 	fclose(fp);
+	return i;
 }

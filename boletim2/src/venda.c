@@ -18,7 +18,6 @@ struct venda{
 
 
 /*static Venda nova_venda();*/
-static Boolean valida_cliente_venda(String string, CClientes clientes);
 static Boolean valida_filial_venda(String string);
 static Boolean valida_quantidade_venda(String string);
 static Boolean valida_preco_venda(String string);
@@ -139,7 +138,7 @@ Venda valida_venda(String string, CClientes clientes, CProdutos produtos){
 	return NULL;
 }*/
 
-static Boolean valida_cliente_venda(String string, CClientes clientes){
+Boolean valida_cliente_venda(String string, CClientes clientes){
 	if(valida_cliente(string) == FALSE)
 		return FALSE;
 	if(existe_cliente(string, clientes) == FALSE)

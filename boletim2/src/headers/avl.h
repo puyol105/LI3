@@ -3,8 +3,8 @@
  * @brief Ficheiro que contem a API relativa á implementação de uma AVL.
  */
 
-#ifndef _avl_h_
-#define _avl_h_
+#ifndef _AVL_H_
+#define _AVL_H_
 
 #include "globais.h"
 #include "lstrings.h"
@@ -13,7 +13,10 @@
 /*Definição do tipo AVL (apontador para uma estrutura GTree da glib)*/
 typedef struct GTree *AVL;
 
+typedef struct GTree *AVLHEAP;
+
 typedef char* Chave;
+typedef int *IntKey;
 typedef void* Valor;
 
 /**
@@ -50,20 +53,46 @@ Valor imprime_para_array(AVL avl, Valor valor);
 
 void insere_avl_avl(AVL avl, Valor valor);
 
+void soma_qtsprods_cliente(AVL avl, Valor valor);
+
+void get_totreg_totfat_mes(AVL avl, Valor valor);
+
+void get_clientes_produto(AVL avl, Valor valor);
+
+
+
+AVLHEAP nova_avlheap();
+
+void insere_avlheap(AVLHEAP avlheap, int chave, Valor valor);
+
+void imprime_avl_inteiros(AVLHEAP avlheap);
+
+void prods_comprados_cliente(AVL avl, AVL valor);
+
+void prods_mais_comprados_cliente(AVL avl, AVLHEAP avlheap);
+
+Valor imprime_avl_todos_inteiros_para_array(AVL avl, Valor valor);
+
+void quantidades_produtos0(AVL avl, Valor valor);
+
+void quantidades_produtos1(AVL avl, Valor valor);
+
+void quantidades_produtos2(AVL avl, Valor valor);
+
 /*
 void insere_avl_avl_filial1(AVL avl, Valor valor);
 
 void insere_avl_avl_filial2(AVL avl, Valor valor);
 
-void insere_avl_avl_filial3(AVL avl, Valor valor);*/
-
+void insere_avl_avl_filial3(AVL avl, Valor valor);
+*/
 
 int get_nnodos(AVL avl);
 
-void comuns_avl_avl(AVL avl, Valor valor);
+void retira_comuns_avl_avl(AVL avl, Valor valor);
 
 /*void foreach_avl(AVL avl, void (*f)(void *, void *, void *), Valor valor);
 
 void foreach_avl(AVL avl, (GTraverseFunc)func, Valor valor);*/
 
-#endif /* _avl_h_ */ 
+#endif /* _AVL_H_ */ 

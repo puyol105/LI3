@@ -1,6 +1,7 @@
 
 #include "headers/cclientes.h"
 #include "headers/cfaturacao.h"
+#include "headers/cfiliais.h"
 #include "headers/cprodutos.h"
 #include "headers/globais.h"
 #include "headers/leituras.h"
@@ -10,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define FLUSH_STDIN() { int c; while((c = getchar()) != EOF && (c != '\r' || c != '\n')); }
 
@@ -71,21 +73,21 @@ void imprime_opcoes(){
 	puts("[A] 01 - Leitura dos ficheiros de dados.");
 	puts("[B] 02 - Produtos cujo código se inicia por uma dada letra");
 	puts("[C] 03 - Nº de vendas e total faturado de um produto num mês.");
-	puts("[D] 04 - ");
-	puts("[E] 05 - ");
-	puts("[F] 06 - ");
-	puts("[G] 07 - ");
-	puts("[H] 08 - ");
-	puts("[I] 09 - ");
-	puts("[J] 10 - ");
-	puts("[K] 11 - ");
-	puts("[L] 12 - ");
+	puts("[D] 04 - Lista e nº dos códigos de produto que ninguém comprou.");
+	puts("[E] 05 - Clientes que compraram em todas as filiais.");
+	puts("[F] 06 - Nº de clientes que não compraram e nº de produtos não comprados.");
+	puts("[G] 07 - Nº de produtos comprados por um cliente (por mês e filial).");
+	puts("[H] 08 - Nº de registos de venda e total faturado num período.");
+	puts("[I] 09 - Códigos dos clientes que compraram um produto.");
+	puts("[J] 10 - Códigos dos produtos que um cliente mais comprou.");
+	puts("[K] 11 - Lista dos N produtos mais vendidos em todo ano.");
+	puts("[L] 12 - Três produtos mais caros");
 	puts("[Q] 13 - Sair\n");
 
 }
 
-void imprime_menu1(CFaturacao faturacao, CClientes clientes, CProdutos produtos){
-
+int imprime_menu1(CFaturacao faturacao, CFiliais cfiliais, CClientes clientes, CProdutos produtos){
+	int flag = 0;
 	char *fv = (char *) malloc(MAX_NAME_FILE * sizeof(char)); 
 	char *fc = (char *) malloc(MAX_NAME_FILE * sizeof(char));
 	char *fp = (char *) malloc(MAX_NAME_FILE * sizeof(char));
@@ -129,11 +131,13 @@ void imprime_menu1(CFaturacao faturacao, CClientes clientes, CProdutos produtos)
 
 
 
- 	query1(faturacao, clientes, produtos, fv, fc, fp);
+ 	flag = query1(faturacao, cfiliais, clientes, produtos, fv, fc, fp);
 
   	printf("\nPrima qualquer tecla para avançar...");
 	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
 		puts("Erro na leitura da tecla.");
+
+	return flag;
 }
 
 void imprime_menu2(CProdutos produtos){
@@ -148,7 +152,10 @@ void imprime_menu2(CProdutos produtos){
 	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
 		puts("Erro na leitura da letra.");
 
-	query2(produtos, input[0]);
+	if(isalpha(input[0]))
+		query2(produtos, toupper(input[0]));
+	else
+		puts("O caratere inserido não é válido!");
 
 	printf("\nPrima qualquer tecla para avançar...");
 	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
@@ -190,9 +197,6 @@ void imprime_menu3(CFaturacao faturacao, CProdutos produtos){
 
 	query3(faturacao, atoi(input2), input1, input3[0]);
 
-	printf("\nPrima qualquer tecla para avançar...");
-	if(NULL == leLinha(input1, MAX_NAME_FILE, stdin))
-		puts("Erro na leitura da tecla.");
 }
 
 void imprime_menu4(CFaturacao faturacao, CProdutos produtos){
@@ -211,7 +215,7 @@ void imprime_menu4(CFaturacao faturacao, CProdutos produtos){
 		query4(faturacao, produtos, input[0]);
 	}
 	else{
-		puts("Identificador da filial ou G.");
+		puts("Opção errada. Identificador da filial ou G.");
 	}
 
 	printf("\nPrima qualquer tecla para avançar...");
@@ -220,13 +224,197 @@ void imprime_menu4(CFaturacao faturacao, CProdutos produtos){
 
 }
 
+
+
+void imprime_menu5(CFiliais cfiliais){
+	char *input = (char *) malloc(MAXOP * sizeof(char));
+
+	query5(cfiliais);
+
+	printf("\nPrima qualquer tecla para avançar...");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da tecla.");
+
+}
+
+
+void imprime_menu6(CFaturacao cfaturacao, CFiliais cfiliais, CProdutos cprodutos, CClientes cclientes){
+	char *input = (char *) malloc(MAXOP * sizeof(char));
+
+	query6(cfaturacao, cfiliais, cprodutos, cclientes);
+
+	printf("\nPrima qualquer tecla para avançar...");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da tecla.");
+
+}
+
+void imprime_menu7(CFiliais cfiliais, CClientes clientes){
+	char *input = (char *) malloc(MAXOP * sizeof(char));
+
+	printf("Cliente: ");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do cliente.");
+	
+	if(valida_cliente_venda(input, clientes) == FALSE){
+		puts("Não introduziu um cliente válido.");
+	}
+	else
+		query7(cfiliais, input);
+
+	printf("\nPrima qualquer tecla para avançar...");
+	if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da tecla.");
+}
+
+void imprime_menu8(CFaturacao cfaturacao){
+	char input1[MAXOP];
+	char input2[MAXOP];
+	int mes1, mes2;
+
+	puts("Insira o primeiro e o último mês pretendidos.");
+	printf("Desde o mês: ");
+	if(NULL == leLinha(input1, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do primeiro mês.");
+	
+	if(valida_mes_venda(input1) == FALSE){
+		puts("Não introduziu o número do mês correto.");
+		return;
+	}
+	else{
+		strtok(input1, " ");
+		mes1 = atoi(input1);
+	}
+
+	printf("Até ao mês: ");
+	if(NULL == leLinha(input2, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do último mês.");
+	
+	if(valida_mes_venda(input2) == FALSE){
+		puts("Não introduziu o número do mês correto.");
+		return;
+	}
+	else{
+		strtok(input2, " ");
+		mes2 = atoi(input2);
+		if(mes2 < mes1){
+			puts("Inseriu um intervalo de meses inválido.");
+			return;
+		}
+	}
+
+	query8(cfaturacao, mes1-1, mes2-1);
+
+}
+
+
+void imprime_menu9(CFiliais cfiliais, CProdutos produtos){
+	char input1[MAX_NAME_FILE];
+	char input2[MAX_NAME_FILE];
+	char input3[MAX_NAME_FILE];
+
+	printf("Produto: ");
+	if(NULL == leLinha(input1, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do produto.");
+
+	if(valida_produto_venda(input1, produtos) == FALSE){
+		puts("Não introduziu um produto válido.");
+		return;
+	}
+
+	printf("Filial: ");
+	if(NULL == leLinha(input2, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da filial.");
+
+	if(((input2[0] == '1') || (input2[0] == '2') || (input2[0] == '3')) && strlen(input2) == 1 ){
+
+		printf("P ou N? : ");
+		if(NULL == leLinha(input3, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da filial.");		
+		
+		if(((input3[0] == 'P') || (input3[0] == 'N')) && strlen(input3) == 1){
+			if(input3[0] == 'P')
+				query9(cfiliais, input1, atoi(input2)-1, 1);
+			if(input3[0] == 'N')
+				query9(cfiliais, input1, atoi(input2)-1, 0);
+		}
+		else
+			puts("Não introduziu modo de compra correto.");	
+	}
+	else{
+		puts("Não introduziu um identificador de filial válido.");
+	}
+
+}
+
+
+void imprime_menu10(CFiliais cfiliais, CClientes clientes){
+	char input1[MAX_NAME_FILE];
+	char input2[MAX_NAME_FILE];
+
+	printf("Cliente: ");
+	if(NULL == leLinha(input1, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do cliente.");
+	
+	if(valida_cliente_venda(input1, clientes) == FALSE){
+		puts("Não introduziu um cliente válido.");
+		return;
+	}
+
+	printf("Mês: ");
+	if(NULL == leLinha(input2, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do mês.");
+	
+	if(valida_mes_venda(input2) == FALSE){
+		puts("Não introduziu o número do mês correto.");
+		return;
+	}
+
+	query10(cfiliais, input1, atoi(input2)-1);
+
+}
+
+void imprime_menu11(CFaturacao faturacao){
+	int i, n = 0;
+	char input2[MAX_NAME_FILE];
+	char input3[MAX_NAME_FILE];
+
+	printf("Nº de produtos: ");
+	if(NULL == leLinha(input2, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura do número.");
+	
+	for(i = 0; i < (int) strlen(input2); i++)
+		if(isalpha(input2[i]))
+			return;
+
+	n = atoi(input2);
+
+	if(n <= 0 && n > NR_PRODS){
+		puts("Não introduziu o número de produtos correto.");
+		return;
+	}
+
+	printf("Filial: ");
+	if(NULL == leLinha(input3, MAX_NAME_FILE, stdin))
+		puts("Erro na leitura da filial.");
+
+	if(((input3[0] == '1') || (input3[0] == '2') || (input3[0] == '3')) && strlen(input3) == 1 ){
+		query11(faturacao, n, atoi(input3)-1);
+	}
+}
+
+void imprime_menu12(){
+	query12();
+}
+
 int main(){
 
 	
-	int i;
+	int i, flag = 0;
 
 	Boolean sair = FALSE;
 
+	char *input = (char *) malloc(MAXOP * sizeof(char));
 
 	CClientes clientes;
 	clientes = novo_cclientes();
@@ -237,12 +425,12 @@ int main(){
 	CFaturacao faturacao;
 	faturacao = novo_cfaturacao();
 
+	CFiliais cfiliais;
+	cfiliais = novo_cfiliais();
+
 	imprime_logo();
 
-
 	char opcao[MAXOP];
-
-
 
 	while(sair == FALSE){
 
@@ -258,24 +446,94 @@ int main(){
 		puts("Erro na leitura da opção");
 	}
 
-		switch(opcao[0]) {
+		switch(toupper(opcao[0])) {
 
 		   	case 'A':
-		   		imprime_menu1(faturacao, clientes, produtos);
-		      	
+		   		flag = imprime_menu1(faturacao, cfiliais, clientes, produtos);
 		      	break; 
 			
 			case 'B':
-				imprime_menu2(produtos);
+				if(flag > 0)
+					imprime_menu2(produtos);
+		    	else puts("Faça a leitura dos ficheiros.");
 		    	break;
 
 		    case 'C':
-		  		imprime_menu3(faturacao, produtos);
-
+		    	if(flag > 0)
+		  			imprime_menu3(faturacao, produtos);
+		    	else puts("Faça a leitura dos ficheiros.");
+		  		printf("\nPrima qualquer tecla para avançar...");
+				if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+					puts("Erro na leitura da tecla.");
 				break;		   		
 
 		    case 'D':
-		  		imprime_menu4(faturacao, produtos);
+		    	if(flag > 0)
+		  			imprime_menu4(faturacao, produtos);
+		    	else puts("Faça a leitura dos ficheiros.");
+				break;
+
+		    case 'E':
+		    	if(flag > 0)
+		  			imprime_menu5(cfiliais);
+		    	else puts("Faça a leitura dos ficheiros.");
+				break;
+
+		    case 'F':
+		    	if(flag > 0)
+		  			imprime_menu6(faturacao, cfiliais, produtos, clientes);
+		    	else puts("Faça a leitura dos ficheiros.");
+				break;
+
+		    case 'G':
+		    	if(flag > 0)
+		  			imprime_menu7(cfiliais, clientes);
+		    	else puts("Faça a leitura dos ficheiros.");
+				break;
+
+			case 'H':
+				if(flag > 0)
+					imprime_menu8(faturacao);
+		    	else puts("Faça a leitura dos ficheiros.");
+				printf("\nPrima qualquer tecla para avançar...");
+				if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+					puts("Erro na leitura da tecla.");
+				break;
+
+			case 'I':
+				if(flag > 0)
+					imprime_menu9(cfiliais, produtos);
+		    	else puts("Faça a leitura dos ficheiros.");
+		  		printf("\nPrima qualquer tecla para avançar...");
+				if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+					puts("Erro na leitura da tecla.");
+				break;
+
+			case 'J':
+				if(flag > 0)
+					imprime_menu10(cfiliais, clientes);
+		    	else puts("Faça a leitura dos ficheiros.");
+		  		printf("\nPrima qualquer tecla para avançar...");
+				if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+					puts("Erro na leitura da tecla.");
+				break;
+
+			case 'K':
+				if(flag > 0)
+					imprime_menu11(faturacao);
+		    	else puts("Faça a leitura dos ficheiros.");
+		  		printf("\nPrima qualquer tecla para avançar...");
+				if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+					puts("Erro na leitura da tecla.");
+				break;
+
+			case 'L':
+				if(flag > 0)
+					imprime_menu12();
+		    	else puts("Faça a leitura dos ficheiros.");
+		  		printf("\nPrima qualquer tecla para avançar...");
+				if(NULL == leLinha(input, MAX_NAME_FILE, stdin))
+					puts("Erro na leitura da tecla.");
 				break;
 
 		    case 'Q':

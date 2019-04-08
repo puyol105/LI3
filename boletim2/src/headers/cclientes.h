@@ -39,5 +39,7 @@ void insere_cclientes(CClientes clientes, String chave, Cliente valor);
  */
 void imprime_cclientes(CClientes clientes);
 
+int get_nclientes(CClientes cclientes);
+
 #endif /* _cclientes_h_ */ 
 

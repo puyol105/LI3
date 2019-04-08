@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 struct cclientes{
+	int nclientes;
 	AVL letras[NR_LETRAS];
 };
 
@@ -21,12 +22,14 @@ CClientes novo_cclientes(){
 	for(i = 0; i < NR_LETRAS; i++){
 		clientes->letras[i] = nova_avl();
 	}
+	clientes->nclientes = 0;
 	return clientes;
 }
 
 void insere_cclientes(CClientes clientes, String chave, Cliente valor){
 	int i = chave[0] - 'A';
 	insere_avl(clientes->letras[i], chave, valor);
+	clientes->nclientes++;
 }
 
 void imprime_cclientes(CClientes clientes){
@@ -34,4 +37,8 @@ void imprime_cclientes(CClientes clientes){
 	for(i = 0; i < NR_LETRAS; i++){
 		imprime_avl(clientes->letras[i]);
 	}
+}
+
+int get_nclientes(CClientes cclientes){
+	return cclientes->nclientes;
 }

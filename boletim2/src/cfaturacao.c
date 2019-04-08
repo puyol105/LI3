@@ -2,9 +2,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-
-
 #include <stdio.h>
+
 
 struct cfaturacao{
 	int nprodutos;
@@ -21,6 +20,13 @@ struct registo{
 	int quantidade;
 	float preco;
 };
+
+
+
+typedef struct fatregtotal{
+	int nregistos;
+	float faturado;
+}*FatRegTotal;
 
 
 CFaturacao novo_cfaturacao(){
@@ -45,6 +51,7 @@ Registos novo_registos(){
 
 FTSProduto novo_ftsproduto(){
 	int i, j;
+	/*[nr_promo][nr_filial]*/
 	FTSProduto ftsproduto = (FTSProduto) malloc(NR_PROMOS * sizeof(Registos*));
 	for(i = 0; i < NR_PROMOS; i++)
 		ftsproduto[i] = (Registos*) malloc(NR_FILIAIS * sizeof(Registos));
@@ -185,7 +192,6 @@ float get_faturado_ftsproduto(CFaturacao faturacao, Mes mes, String produto, Fil
 
 }
 
-
 AVL get_mes_avl(CFaturacao faturacao, int x){
 	return faturacao->meses[x];
 }
@@ -199,3 +205,16 @@ Boolean preenchido_filial_promo(FTSProduto ftsproduto, int i, int j){
 		return FALSE;
 }
 
+
+void get_totreg_totfat_meses(CFaturacao cfaturacao, int mesi, int mesf, int *totreg, float *totfat){
+	FatRegTotal frt = (FatRegTotal) malloc(sizeof(struct fatregtotal));
+	frt->nregistos = 0;
+	frt->faturado = 0000000000000000.0000000000;
+
+	for(; mesi<=mesf; mesi++)
+		get_totreg_totfat_mes(cfaturacao->meses[mesi], frt);
+	
+	*totreg = frt->nregistos;
+	*totfat = frt->faturado;
+
+}

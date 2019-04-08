@@ -5,7 +5,7 @@
 #include "globais.h"
 
 
-#define INIT_TAMANHO 10000
+#define INIT_TAMANHO 200000
 
 typedef struct lstrings *LStrings;
 

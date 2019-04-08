@@ -1,5 +1,5 @@
-#ifndef _cfaturacao_h_
-#define _cfaturacao_h_
+#ifndef _CFATURACAO_H_
+#define _CFATURACAO_H_
 
 #include "avl.h"
 #include "globais.h"
@@ -14,7 +14,7 @@ typedef Registos **FTSProduto;
 typedef struct cfaturacao *CFaturacao;
 
 
-#define TAMARRAY 2
+#define TAMARRAY 10
 
 CFaturacao novo_cfaturacao();
 Registos novo_registos();
@@ -31,6 +31,7 @@ float get_faturado_ftsproduto(CFaturacao faturacao, Mes mes, String produto, Fil
 int get_nprodutos_cfaturacao(CFaturacao cfaturacao);
 AVL get_mes_avl(CFaturacao faturacao, int x);
 Boolean preenchido_filial_promo(FTSProduto ftsproduto, int i, int j);
+void get_totreg_totfat_meses(CFaturacao cfaturacao, int mesi, int mesf, int *totreg, float *totfat);
 
 /*Boolean insere_avl_avl_filial1_iter(gpointer key, gpointer value, gpointer data);
 Boolean insere_avl_avl_filial2_iter(gpointer key, gpointer value, gpointer data);
