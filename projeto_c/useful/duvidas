@@ -1,0 +1,29 @@
+duvidas 
+
+- como declarar o campos como um array do tipo Campos ??
+
+
+- devemos usar estruturas específicas para cada querie ? devemos carregar essas estruturas para a memória logo no início certo ? 
+
+
+
+
+
+
+
+
+
+
+
+
+- includes (QUAIS SÃO AS REGRAS: NO .H OU NO .C ???????)
+	respota: proprio .h no .c correspondente e os includes<.....> no próprio.c
+
+- é tranquilo dar um cast como estamos a fazer no avl.c
+	resposta: sim é, basicamente, desde que não tenha warnings é tranquilo
+
+- devo por um modulo clientes a ir buscar cenas ao ccclientes ??
+	resposta: um cátalogo de clientes é um conjunto de clientes. Logo, deve é existir um módulo cliente que caracterize o código de um cliente e tenha todas as funções que validam esse código, entre outras 
+
+- devo guardar a string toda como o valor ou devo partir a string das vendas em campos (por exemplo) e guardar esse array de campos como valor na avl, ou devo simplesmente cagar, ou posso por a arvore só com a chave ??
+	resposta: posso por a àrvore só com a chave e o código é colocado na chave na sua totalidade
