@@ -14,7 +14,7 @@ public class CProdutos {
         List<Set<String>> l;
         Set<String> s;
         for(int i = 0; i < Globais.NRLETRAS; i++){
-            l = new ArrayList<>();
+            l = new ArrayList<>(Globais.NRLETRAS);
             this.produtos.add(i, l);
 
             for(int j = 0; j < Globais.NRLETRAS; j++){
@@ -91,12 +91,18 @@ public class CProdutos {
 
 
     public void imprimeProdutos(){
-
         for(int i = 0; i < Globais.NRLETRAS; i++)
             for(int j = 0; j < Globais.NRLETRAS; j++)
                 System.out.println("cprodutos pos "+ "["+i+"] "+ "["+ j+"]+ " +": \n" + produtos.get(i).get(j));
 
         System.out.println("Número de produtos: " + this.nrprodutos);
+    }
+
+    public boolean existe_produto(String string){
+        int i = calculaIndice(string.charAt(0));
+        int j = calculaIndice(string.charAt(1));
+
+        return this.produtos.get(i).get(j).contains(string);
     }
 
     private static int calculaIndice(char letra){

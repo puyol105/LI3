@@ -81,6 +81,12 @@ public class CClientes{
         System.out.println("Número de clientes: " + this.nrclientes);
     }
 
+    public boolean existe_cliente(String string){
+        int i = calculaIndice(string.charAt(0));
+
+        return this.clientes.get(i).contains(string);
+    }
+
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
         return letra - 'A';

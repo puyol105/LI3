@@ -3,6 +3,6 @@ public interface IVenda {
     int getQuant();
     double getPreco();
     double getValor();*/
-
+    Venda venda_valida(CClientes cclientes, CProdutos cprodutos, String linha);
 
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class GereVendasModel {
+public class GereVendasModel implements IVenda{
 
     private CProdutos cprodutos;
     private CClientes cclientes;
@@ -44,7 +44,16 @@ public class GereVendasModel {
     }
 
     public boolean carregaCFiliaisCFaturacao(String caminho){
+        int i = 0;
+        Venda venda = null;
+        Leitor leitor = new Leitor();
+        List<String> linhas = leitor.leFicheiro(caminho);
 
+        for(i = 0; i < linhas.size(); i++)
+            if(null != (venda = venda_valida(cclientes, cprodutos, linhas.get(i)))) {
+                cfaturacao.insereEmCFaturacao(venda);
+                //cfiliais.insereEmCFiliais(venda);
+            }
         return true;
     }
 
