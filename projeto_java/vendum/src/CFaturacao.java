@@ -7,9 +7,27 @@ public class CFaturacao {
 
     private List<List<HashMap<String,VProdutos>>> cfaturacao;
     private int nrprodutos;
+    private int nrvendas;
+
+    public int getNrvendas() {
+        return nrvendas;
+    }
+
+    public void setNrvendas(int nrvendas) {
+        this.nrvendas = nrvendas;
+    }
+
+    public int getNrprodutos() {
+        return nrprodutos;
+    }
+
+    public void setNrprodutos(int nrprodutos) {
+        this.nrprodutos = nrprodutos;
+    }
 
     public CFaturacao(){
         this.nrprodutos = 0;
+        this.nrvendas = 0;
         this.cfaturacao = new ArrayList<>(Globais.NRMESES);
         List<HashMap<String,VProdutos>> l;
         HashMap<String,VProdutos> h;
@@ -29,7 +47,11 @@ public class CFaturacao {
         HashMap<String,VProdutos> m = this.cfaturacao.get(venda.getMes()-1).get(venda.getFilial()-1);
         VProdutos vp = m.get(venda.getProduto());
 
+        this.nrvendas++;
 
+        /*há cenas que não são precisas, foram feitas inicialmente só para verificar se estava tudo bem, este é o caso, eliminar depois*/
+        if(false == existe_produto_cfaturacao(venda))
+            this.nrprodutos++;
 
         if(vp != null){
             vp.insereEmVProdutos(venda.getQuantidade(), venda.getPreco());
@@ -39,8 +61,44 @@ public class CFaturacao {
             vprodutos.insereEmVProdutos(venda.getQuantidade(), venda.getPreco());
             m.put(venda.getProduto(), vprodutos);
         }
+
     }
 
+    public boolean existe_produto_cfaturacao(Object object){
+        String string = null;
+        if(object instanceof String)
+            string = (String) object;
+        else if(object instanceof Venda)
+            string = (String) ((Venda) object).getProduto();
+
+        HashMap<String,VProdutos> m;
+        VProdutos vp;
+
+        for(int i = 0; i < Globais.NRMESES; i++)
+            for(int j = 0; j < Globais.NRFILIAIS; j++) {
+                m = this.cfaturacao.get(i).get(j);
+                vp = m.get(string);
+                if(vp != null)
+                    return true;
+            }
+
+        return false;
+    }
+
+    public double total_faturado_cfaturacao(){
+        double total = 0.0;
+        HashMap<String,VProdutos> m;
+
+        for(int i = 0; i < Globais.NRMESES; i++)
+            for(int j = 0; j < Globais.NRFILIAIS; j++) {
+                m = this.cfaturacao.get(i).get(j);
+                for (VProdutos vp : m.values()) {
+                    total += vp.total_faturado_vprodutos();
+                }
+            }
+
+        return total;
+    }
 
 }
 

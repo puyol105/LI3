@@ -1,3 +1,4 @@
+import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,5 +12,15 @@ public class VProdutos {
     public void insereEmVProdutos(int quantidade, double preco){
         InfoProduto infoProduto = new InfoProduto(quantidade, preco);
         this.vprodutos.add(infoProduto);
+    }
+
+    public double total_faturado_vprodutos(){
+        double total = 0.0;
+
+        for (InfoProduto ip : vprodutos) {
+            total += ip.total_infoproduto();
+        }
+
+        return total;
     }
 }

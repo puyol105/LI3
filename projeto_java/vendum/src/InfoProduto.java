@@ -7,10 +7,10 @@ public class InfoProduto {
 
     public InfoProduto(){
         this.quantidade = 0;
-        this.preco = 0;
+        this.preco = 0.0;
     }
 
-    public InfoProduto(int quantidade, double preço){
+    public InfoProduto(int quantidade, double preco){
         this.quantidade = quantidade;
         this.preco = preco;
     }
@@ -31,4 +31,7 @@ public class InfoProduto {
         this.preco = preco;
     }
 
+    public double total_infoproduto(){
+        return ((double) this.quantidade*this.preco);
+    }
 }

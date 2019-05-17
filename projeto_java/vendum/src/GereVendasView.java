@@ -11,6 +11,10 @@ public class GereVendasView {
         imprimeMsgInfo("4. .");
         imprimeMsgInfo("5. .");
         imprimeMsgInfo("6. .");
+        imprimeMsgInfo("7. .");
+        imprimeMsgInfo("8. .");
+        imprimeMsgInfo("9. .");
+        imprimeMsgInfo("10. .");
         imprimeMsgInfo("0. Encerrar aplicação.");
 
         imprimePedidoOpcao();
@@ -29,6 +33,16 @@ public class GereVendasView {
         imprimeMsgInfo("0. Sair.");
 
         imprimePedidoOpcao();
+
+        i = input.lerInt();
+
+        return i;
+    }
+
+    public int imprime_menu_query2(){
+        int i;
+
+        imprimeMsgInfo("Insira o número de códigos por página: ");
 
         i = input.lerInt();
 

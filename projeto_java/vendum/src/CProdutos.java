@@ -84,9 +84,12 @@ public class CProdutos {
     public boolean registaProduto(String produto){
         int i = calculaIndice(produto.charAt(0));
         int j = calculaIndice(produto.charAt(1));
-        produtos.get(i).get(j).add(produto);
-        this.nrprodutos++;
-        return true;
+        if(produtos.get(i).get(j).add(produto)) {
+            this.nrprodutos++;
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -108,6 +111,23 @@ public class CProdutos {
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
         return letra - 'A';
+    }
+
+    public int getNrprodutos() {
+        return nrprodutos;
+    }
+
+    public void setNrprodutos(int nrprodutos) {
+        this.nrprodutos = nrprodutos;
+    }
+
+    public void prods_nao_comprados(LStrings lStrings, CFaturacao cfaturacao){
+        for(int i = 0; i < this.produtos.size(); i++)
+            for(int j = 0; j < this.produtos.get(i).size(); j++)
+                for(String produto: this.produtos.get(i).get(j))
+                    if(!cfaturacao.existe_produto_cfaturacao(produto))
+                        lStrings.regista_entrada(produto);
+
     }
 
 }

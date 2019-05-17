@@ -68,9 +68,12 @@ public class CClientes{
 
     public boolean registaCliente(String cliente){
         int i = calculaIndice(cliente.charAt(0));
-        clientes.get(i).add(cliente);
-        this.nrclientes++;
-        return true;
+        if(clientes.get(i).add(cliente)) {
+            this.nrclientes++;
+            return true;
+        }
+
+        return false;
     }
 
     public void imprimeClientes(){
