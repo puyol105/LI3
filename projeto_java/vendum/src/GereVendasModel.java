@@ -197,6 +197,14 @@ public class GereVendasModel{
         cprodutos.prods_nao_comprados(lStrings, this.cfaturacao);
     }
 
+    public boolean existe_produto_model_cfaturacao(String string){
+        return this.cfaturacao.existe_produto_cfaturacao(string);
+    }
+
+    public boolean existe_cliente_model_cfiliais(String string){
+        return this.cfiliais.existe_cliente_cfiliais(string);
+    }
+
     public boolean tudo_carregado(){
         return (cprodutos.getNrprodutos() > 0 &&
                 cclientes.getNrclientes() > 0 &&
@@ -204,8 +212,44 @@ public class GereVendasModel{
                 cfaturacao.getNrvendas() > 0);
     }
 
+    public double[][] faturacao_meses_filiais_model(String string){
+        return this.cfaturacao.faturacao_meses_filiais(string);
+    }
+
+    public int compras_mes_filial_cliente_model(String cliente, int mes, int filial){
+        return this.cfiliais.compras_mes_filial_cliente_cfiliais(cliente, mes, filial);
+    }
 
 
+    public int nrprodutos_mes_filial_cliente_model(String cliente, int mes, int filial){
+        return this.cfiliais.nrprodutos_mes_filial_cliente_cfiliais(cliente, mes, filial);
+    }
 
+    public int nrprodutos_mes_cliente_model(String cliente, int mes){
+        return this.cfiliais.nrprodutos_mes_cliente_cfiliais(cliente, mes);
+    }
 
+    public double fatprod_mes_filial_cliente_model(String cliente, int mes, int filial){
+        return this.cfiliais.fatprod_mes_filial_cliente_cfiliais(cliente, mes, filial);
+    }
+
+    public int total_vendas_mes_model(int mes){
+        return this.cfiliais.total_vendas_mes_cfiliais(mes);
+    }
+
+    public int total_vendas_filial_model(int filial){
+        return this.cfiliais.total_vendas_filial_cfiliais(filial);
+    }
+
+    public int nrclientes_mes_model(int mes){
+        return this.cfiliais.nrclientes_mes_cfiliais(mes);
+    }
+
+    public int nrclientes_filial_model(int filial){
+        return this.cfiliais.nrclientes_filial_cfiliais(filial);
+    }
+
+    public void quantidade_nrclientes_totfaturado_produto_model(String produto, double[][] array){
+        this.cfiliais.quantidade_nrclientes_totfaturado_produto_cfiliais(produto, array);
+    }
 }

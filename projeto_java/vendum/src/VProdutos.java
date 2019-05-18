@@ -17,10 +17,22 @@ public class VProdutos {
     public double total_faturado_vprodutos(){
         double total = 0.0;
 
-        for (InfoProduto ip : vprodutos) {
+        for (InfoProduto ip : vprodutos)
             total += ip.total_infoproduto();
-        }
 
         return total;
+    }
+
+    public int get_total_quantidade(){
+        int total = 0;
+
+        for(InfoProduto ip: vprodutos)
+            total += ip.getQuantidade();
+
+        return total;
+    }
+
+    public int vprodutos_size(){
+        return this.vprodutos.size();
     }
 }

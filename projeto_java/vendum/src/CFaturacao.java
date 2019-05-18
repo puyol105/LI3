@@ -2,6 +2,7 @@ import javax.xml.bind.annotation.XmlElementDecl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CFaturacao {
 
@@ -44,7 +45,7 @@ public class CFaturacao {
     }
 
     public void insereEmCFaturacao(Venda venda){
-        HashMap<String,VProdutos> m = this.cfaturacao.get(venda.getMes()-1).get(venda.getFilial()-1);
+        Map<String,VProdutos> m = this.cfaturacao.get(venda.getMes()-1).get(venda.getFilial()-1);
         VProdutos vp = m.get(venda.getProduto());
 
         this.nrvendas++;
@@ -87,7 +88,7 @@ public class CFaturacao {
 
     public double total_faturado_cfaturacao(){
         double total = 0.0;
-        HashMap<String,VProdutos> m;
+        Map<String,VProdutos> m;
 
         for(int i = 0; i < Globais.NRMESES; i++)
             for(int j = 0; j < Globais.NRFILIAIS; j++) {
@@ -98,6 +99,23 @@ public class CFaturacao {
             }
 
         return total;
+    }
+
+    public double[][] faturacao_meses_filiais(String produto){
+        double[][] array = new double[Globais.NRMESES][Globais.NRFILIAIS];
+        for(int i= 0; i < array.length; i++)
+            for(int j = 0; j < array[i].length; j++)
+                array[i][j] = faturacao_produto_mes_filial(produto, i, j);
+
+        return array;
+    }
+
+    public double faturacao_produto_mes_filial(String produto, int mes, int filial){
+        double faturado = 0.0;
+        VProdutos vp = this.cfaturacao.get(mes).get(filial).get(produto);
+        if(vp != null)
+            faturado = vp.total_faturado_vprodutos();
+        return faturado;
     }
 
 }
