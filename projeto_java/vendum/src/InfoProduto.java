@@ -1,6 +1,6 @@
 import javax.sound.sampled.Line;
 
-public class InfoProduto {
+public class InfoProduto implements java.io.Serializable{
 
     private int quantidade;
     private double preco;

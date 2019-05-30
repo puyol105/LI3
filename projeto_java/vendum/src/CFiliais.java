@@ -1,6 +1,8 @@
+import org.omg.CORBA.MARSHAL;
+
 import java.util.*;
 
-public class CFiliais {
+public class CFiliais implements java.io.Serializable{
     private List<List<Map<String,ProdsCliente>>> cfiliais;
     private  int nrclientes;
     private int nrvendas;
@@ -28,8 +30,9 @@ public class CFiliais {
 
         this.nrvendas++;
 
+        /* isto gasta tempo e não está a ser necessário (guarda o número de clientes em cfiliais)
         if(!existe_cliente_cfiliais(venda))
-            this.nrclientes++;
+            this.nrclientes++;*/
 
         if(pc != null){
             pc.insere_em_prodscliente(venda);
@@ -189,6 +192,141 @@ public class CFiliais {
             }
 
             array[i][1] = s.size();
+        }
+    }
+
+    public MaxHeapInt produtos_mais_comprados_cliente(String cliente){
+        Map<String,Integer> produtos_quantidades = new HashMap<>();
+        MaxHeapInt heap = new MaxHeapInt();
+        ProdsCliente pc = null;
+
+        for(int i = 0; i < this.cfiliais.size(); i++){
+            for(int j = 0; j < this.cfiliais.get(i).size(); j++){
+                pc = this.cfiliais.get(i).get(j).get(cliente);
+                if(pc != null){
+                    pc.preenche_produtos_quantidades(produtos_quantidades);
+
+                }
+            }
+        }
+
+        return heap.to_maxheap(produtos_quantidades);
+    }
+
+    public MaxHeapInt clientes_mais_compradores_produto(String produto){
+        Map<String,InfoCliente> map = new HashMap<>();
+        MaxHeapInt heap = new MaxHeapInt();
+        ProdsCliente pc = null;
+        VProdutos vp = null;
+        InfoCliente ic = null;
+        String auxiliar = null;
+
+        for(int i = 0; i < this.cfiliais.size(); i++){
+            for(int j = 0; j < this.cfiliais.get(i).size(); j++){
+                for(Map.Entry<String,ProdsCliente> entry: this.cfiliais.get(i).get(j).entrySet()){
+                    vp = entry.getValue().busca_produto_vprodutos(produto);
+                    if(vp != null){
+                        ic = map.get(entry.getKey());
+                        if(ic != null){
+                            ic.setQuantidade(ic.getQuantidade() + vp.get_total_quantidade());
+                            ic.setPreco(ic.getPreco() + vp.total_faturado_vprodutos());
+                        }
+                        else{
+                            ic = new InfoCliente(vp.get_total_quantidade(), vp.total_faturado_vprodutos());
+                            map.put(entry.getKey(), ic);
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+        for(Map.Entry<String,InfoCliente> entry: map.entrySet()){
+            auxiliar = "Cliente: " + entry.getKey() + "   Gastos: " + entry.getValue().getPreco() + "   Quantidade: " + entry.getValue().getQuantidade();
+            heap.put_add_maxheap(entry.getValue().getQuantidade(), auxiliar);
+        }
+
+        return heap;
+    }
+
+    public MaxHeapInt clientes_mais_variadores(){
+        MaxHeapInt heap = new MaxHeapInt();
+        Map<String,Set<String>> produtos_cliente = new HashMap<>();
+        Map<String,Integer> nr_produtos_cliente = new HashMap<>();
+        Set<String> s = null;
+
+        for(int i = 0; i < this.cfiliais.size(); i++){
+            for (int j = 0; j < this.cfiliais.get(i).size(); j++){
+                for(Map.Entry<String,ProdsCliente> entry: this.cfiliais.get(i).get(j).entrySet()){
+                    s = produtos_cliente.get(entry.getKey());
+                    if(s != null){
+                        s.addAll(entry.getValue().getProdsclienteKeyset());
+                    }
+                    else{
+                        s = new TreeSet<>();
+                        s.addAll(entry.getValue().getProdsclienteKeyset());
+                        produtos_cliente.put(entry.getKey(), s);
+                    }
+                }
+            }
+        }
+
+        for(Map.Entry<String,Set<String>> entry: produtos_cliente.entrySet())
+            nr_produtos_cliente.put(entry.getKey(), entry.getValue().size());
+
+        heap.to_maxheap(nr_produtos_cliente);
+
+        return heap;
+    }
+
+    public MaxHeapDouble clientes_mais_compradores_filial(int f){
+        f--;
+        MaxHeapDouble heap = new MaxHeapDouble();
+        Map<String,Double> gastos_cliente = new HashMap<>();
+
+
+        for(int i = 0; i < this.cfiliais.size(); i++){
+            for(Map.Entry<String,ProdsCliente> entry: cfiliais.get(i).get(f).entrySet()){
+                if(gastos_cliente.containsKey(entry.getKey())){
+                    gastos_cliente.put(entry.getKey(), gastos_cliente.get(entry.getKey()) + entry.getValue().total_faturado_prodscliente());
+                }
+                else{
+                    gastos_cliente.put(entry.getKey(), entry.getValue().total_faturado_prodscliente());
+                }
+            }
+        }
+
+        return heap.to_maxheap(gastos_cliente);
+    }
+
+    public MaxHeapInt produtos_mais_vendidos(){
+        MaxHeapInt heap = new MaxHeapInt();
+        Map<String,ClisProd> prods_mais_vendidos = new HashMap<>();
+        Map<String,Integer> pdv = new HashMap<>();
+        String auxiliar = null;
+
+        for(int i = 0; i < this.cfiliais.size(); i++){
+            for(int j = 0; j < this.cfiliais.get(i).size(); j++){
+                for(Map.Entry<String,ProdsCliente> entry: this.cfiliais.get(i).get(j).entrySet()){
+                    entry.getValue().preenche_produtos_mais_vendidos(prods_mais_vendidos, entry.getKey());
+                }
+            }
+        }
+
+        for(Map.Entry<String,ClisProd> entry: prods_mais_vendidos.entrySet()){
+            auxiliar = "Produto: " + entry.getKey() + "   Nº clientes: " + entry.getValue().getClientes().size() + "   Quantidade: " + entry.getValue().getQtd();
+            heap.put_add_maxheap(entry.getValue().getQtd(), auxiliar);
+        }
+
+        return heap;
+    }
+
+    public void nr_clientes_distintos_mes_filial(int[][] array){
+        for(int i = 0; i < this.cfiliais.size(); i++){
+            for(int j = 0; j < this.cfiliais.get(i).size(); j++){
+                array[i][j] = this.cfiliais.get(i).get(j).size();
+            }
         }
     }
 

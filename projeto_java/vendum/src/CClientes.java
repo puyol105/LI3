@@ -1,7 +1,7 @@
 import java.util.*;
 
 
-public class CClientes{
+public class CClientes implements java.io.Serializable{
 
     private List<Set<String>> clientes;
     private int nrclientes;
@@ -93,5 +93,23 @@ public class CClientes{
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
         return letra - 'A';
+    }
+
+    public List<Set<String>> deepCloneClientes(){
+        List<Set<String>> clientes = new ArrayList<>(this.clientes.size());
+        Set<String> s;
+
+        for(int i = 0; i < this.clientes.size(); i++){
+            s = new HashSet<>();
+            clientes.get(i).addAll(this.clientes.get(i));
+        }
+
+        return clientes;
+    }
+
+    public List<Set<String>> shallowCloneClientes(){
+        List<Set<String>> clientes = new ArrayList<>(this.clientes.size());
+        clientes = this.clientes;
+        return clientes;
     }
 }

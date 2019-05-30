@@ -4,27 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CFaturacao {
+public class CFaturacao implements java.io.Serializable{
 
     private List<List<HashMap<String,VProdutos>>> cfaturacao;
     private int nrprodutos;
     private int nrvendas;
-
-    public int getNrvendas() {
-        return nrvendas;
-    }
-
-    public void setNrvendas(int nrvendas) {
-        this.nrvendas = nrvendas;
-    }
-
-    public int getNrprodutos() {
-        return nrprodutos;
-    }
-
-    public void setNrprodutos(int nrprodutos) {
-        this.nrprodutos = nrprodutos;
-    }
 
     public CFaturacao(){
         this.nrprodutos = 0;
@@ -50,9 +34,9 @@ public class CFaturacao {
 
         this.nrvendas++;
 
-        /*há cenas que não são precisas, foram feitas inicialmente só para verificar se estava tudo bem, este é o caso, eliminar depois*/
+        /*Isto gasta tempo e não está a ser necessário (guarda o número de produtos em cfiliais).
         if(false == existe_produto_cfaturacao(venda))
-            this.nrprodutos++;
+            this.nrprodutos++;*/
 
         if(vp != null){
             vp.insereEmVProdutos(venda.getQuantidade(), venda.getPreco());
@@ -116,6 +100,56 @@ public class CFaturacao {
         if(vp != null)
             faturado = vp.total_faturado_vprodutos();
         return faturado;
+    }
+
+    public int getVendasValorZero(){
+        int nr = 0;
+
+        for(int i = 0; i < this.cfaturacao.size(); i++){
+            for(int j = 0; j < this.cfaturacao.get(i).size(); j++){
+                for(VProdutos vp : this.cfaturacao.get(i).get(j).values()){
+                    nr += vp.getVendasValorZero();
+                }
+            }
+        }
+
+        return nr;
+    }
+
+    public void nr_compras_mes(int[] nrcomprasmes){
+        for(int i = 0; i < this.cfaturacao.size(); i++){
+            for(int j = 0; j < this.cfaturacao.get(i).size(); j++){
+                for(VProdutos vp : this.cfaturacao.get(i).get(j).values()){
+                    nrcomprasmes[i] += vp.vprodutos_size();
+                }
+            }
+        }
+    }
+
+    public void fat_mes_filial(double[][] fatmesfilial){
+        for(int i = 0; i < this.cfaturacao.size(); i++){
+            for(int j = 0; j < this.cfaturacao.get(i).size(); j++){
+                for(VProdutos vp : this.cfaturacao.get(i).get(j).values()){
+                    fatmesfilial[i][j] += vp.total_faturado_vprodutos();
+                }
+            }
+        }
+    }
+
+    public int getNrvendas() {
+        return nrvendas;
+    }
+
+    public void setNrvendas(int nrvendas) {
+        this.nrvendas = nrvendas;
+    }
+
+    public int getNrprodutos() {
+        return nrprodutos;
+    }
+
+    public void setNrprodutos(int nrprodutos) {
+        this.nrprodutos = nrprodutos;
     }
 
 }

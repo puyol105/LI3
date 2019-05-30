@@ -1,18 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class GereVendasModel{
+public class GereVendasModel implements java.io.Serializable{
 
     private CProdutos cprodutos;
     private CClientes cclientes;
     private CFiliais cfiliais;
     private CFaturacao cfaturacao;
+    private int nrvendasErradas;
 
     public GereVendasModel(){
         this.cprodutos = new CProdutos();
         this.cclientes = new CClientes();
         this.cfiliais = new CFiliais();
         this.cfaturacao = new CFaturacao();
+        this.nrvendasErradas = 0;
     }
 
     public boolean carregaCClientes(String caminho){
@@ -22,7 +25,8 @@ public class GereVendasModel{
         List<String> linhas = leitor.leFicheiro(caminho);
 
         while(i != linhas.size())
-            cclientes.registaCliente(linhas.get(i++));
+            if(valida_cliente(linhas.get(i)))
+                cclientes.registaCliente(linhas.get(i++));
 
         //cclientes.imprimeClientes();
         System.out.println("Nº de clientes catalogados: " + cclientes.getNrclientes());
@@ -37,7 +41,8 @@ public class GereVendasModel{
         List<String> linhas = leitor.leFicheiro(caminho);
 
         while(i != linhas.size())
-            cprodutos.registaProduto(linhas.get(i++));
+            if(valida_produto(linhas.get(i)))
+                this.cprodutos.registaProduto(linhas.get(i++));
 
         //cprodutos.imprimeProdutos();
         System.out.println("Nº de produtos catalogados: " + cprodutos.getNrprodutos());
@@ -51,29 +56,32 @@ public class GereVendasModel{
         Leitor leitor = new Leitor();
         List<String> linhas = leitor.leFicheiro(caminho);
 
-        for(i = 0; i < linhas.size(); i++)
-            if(null != (venda = venda_valida(cclientes, cprodutos, linhas.get(i)))) {
+        for(i = 0; i < linhas.size(); i++){
+            if (null != (venda = venda_valida(cclientes, cprodutos, linhas.get(i)))) {
                 cfaturacao.insereEmCFaturacao(venda);
                 cfiliais.insereEmCFiliais(venda);
             }
+            else{
+                this.nrvendasErradas++;
+            }
+        }
 
-        /*System.out.println("--------------------CFiliais------------------------");
-        System.out.println("Nº de cliente que compraram: " + cfiliais.getNrclientes());
-        System.out.println("Nº de vendas: " + cfiliais.getNrvendas());
-        System.out.println("Total faturado: " + cfiliais.total_faturado_cfiliais());
-        System.out.println("\n--------------------CFaturação------------------------");
-        System.out.println("Nº de produtos vendidos: " + cfaturacao.getNrprodutos());
-        System.out.println("Nº de vendas: " + cfaturacao.getNrvendas());
-        System.out.println("Total faturado: " + cfaturacao.total_faturado_cfaturacao());*/
+        System.out.println("Nº de vendas inseridas: " + cfaturacao.getNrvendas());
 
         return true;
     }
 
+    public MaxHeapInt clientes_mais_variadores(){
+        return this.cfiliais.clientes_mais_variadores();
+    }
 
+    public MaxHeapDouble clientes_mais_compradores_filial(int f){
+        return this.cfiliais.clientes_mais_compradores_filial(f);
+    }
 
-
-
-
+    public MaxHeapInt produtos_mais_vendidos(){
+        return this.cfiliais.produtos_mais_vendidos();
+    }
 
     public Venda venda_valida(CClientes cclientes, CProdutos cprodutos, String linha){
         String[] campos = linha.split(" ");
@@ -126,7 +134,6 @@ public class GereVendasModel{
             return false;
         return true;
     }
-
 
     private boolean valida_cliente_venda(String string, CClientes clientes){
         if(!valida_cliente(string))
@@ -220,7 +227,6 @@ public class GereVendasModel{
         return this.cfiliais.compras_mes_filial_cliente_cfiliais(cliente, mes, filial);
     }
 
-
     public int nrprodutos_mes_filial_cliente_model(String cliente, int mes, int filial){
         return this.cfiliais.nrprodutos_mes_filial_cliente_cfiliais(cliente, mes, filial);
     }
@@ -231,6 +237,14 @@ public class GereVendasModel{
 
     public double fatprod_mes_filial_cliente_model(String cliente, int mes, int filial){
         return this.cfiliais.fatprod_mes_filial_cliente_cfiliais(cliente, mes, filial);
+    }
+
+    public double getFaturacaoTotal(){
+        return this.cfaturacao.total_faturado_cfaturacao();
+    }
+
+    public int getVendasValorZero(){
+        return this.cfaturacao.getVendasValorZero();
     }
 
     public int total_vendas_mes_model(int mes){
@@ -249,7 +263,64 @@ public class GereVendasModel{
         return this.cfiliais.nrclientes_filial_cfiliais(filial);
     }
 
+    public int getNrclientesCompradores(){
+        int nr = 0;
+        List<Set<String>> clientes = this.cclientes.shallowCloneClientes();
+
+        for(int i = 0; i < clientes.size(); i++)
+            for(String s: clientes.get(i))
+                if(this.cfiliais.existe_cliente_cfiliais(s))
+                    nr++;
+
+        return nr;
+    }
+
+    public int getNrprodutosComprados(){
+        int nr = 0;
+        List<List<Set<String>>> produtos = this.cprodutos.shallowCloneProdutos();
+
+        for(int i = 0; i < produtos.size(); i++)
+            for(int j = 0; j < produtos.get(i).size(); j++)
+                for(String s: produtos.get(i).get(j))
+                    if(this.cfaturacao.existe_produto_cfaturacao(s))
+                        nr++;
+
+        return nr;
+    }
+
     public void quantidade_nrclientes_totfaturado_produto_model(String produto, double[][] array){
         this.cfiliais.quantidade_nrclientes_totfaturado_produto_cfiliais(produto, array);
+    }
+
+    public CFiliais getCFiliais(){
+        return this.cfiliais;
+    }
+
+    public int getNrclientes(){
+        return this.cclientes.getNrclientes();
+    }
+
+    public int getNrprodutos(){
+        return this.cprodutos.getNrprodutos();
+    }
+
+    public int getNrvendas(){
+        return this.cfaturacao.getNrvendas();
+    }
+
+    public int getNrvendasErradas(){
+        return this.nrvendasErradas;
+    }
+
+    public void nr_compras_mes(int[] nrcomprasmes){
+        this.cfaturacao.nr_compras_mes(nrcomprasmes);
+    }
+
+    public void fat_mes_filial(double[][] array){
+        this.cfaturacao.fat_mes_filial(array);
+    }
+
+    public void nr_clientes_distintos_mes_filial(int[][] array){
+        this.cfiliais.nr_clientes_distintos_mes_filial(array);
     }
 }

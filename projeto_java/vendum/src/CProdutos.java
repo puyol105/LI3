@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class CProdutos {
+public class CProdutos implements java.io.Serializable{
 
     private List<List<Set<String>>> produtos;
     private int nrprodutos;
@@ -127,7 +127,11 @@ public class CProdutos {
                 for(String produto: this.produtos.get(i).get(j))
                     if(!cfaturacao.existe_produto_cfaturacao(produto))
                         lStrings.regista_entrada(produto);
-
     }
 
+    public List<List<Set<String>>> shallowCloneProdutos() {
+        List<List<Set<String>>> produtos = new ArrayList<>(this.produtos.size());
+        produtos = this.produtos;
+        return produtos;
+    }
 }

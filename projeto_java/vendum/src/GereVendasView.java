@@ -6,17 +6,20 @@ public class GereVendasView {
     public int imprimeMenuPrincipal(){
         int i;
 
-        imprimeMsgInfo("1. .");
+        imprimeMsgInfo("1. Carregar dados.");
         imprimeMsgInfo("2. Produtos nunca comprados.");
         imprimeMsgInfo("3. Nº total de vendas e de clientes de um/uma mês/filial.");
         imprimeMsgInfo("4. Nº compras, nº produtos comprados e gastos mensais de um cliente.");
-        imprimeMsgInfo("5. Quantidade comprada, nº clientes diferentes e total faturado de um produto.");
-        imprimeMsgInfo("6. .");
-        imprimeMsgInfo("7. .");
-        imprimeMsgInfo("8. .");
-        imprimeMsgInfo("9. .");
-        imprimeMsgInfo("10. .");
+        imprimeMsgInfo("5. Quantidade comprada, nº clientes e total faturado de um produto.");
+        imprimeMsgInfo("6. OLA6!.");
+        imprimeMsgInfo("7. OLA7! (VERIFICAR COM OUTROS).");
+        imprimeMsgInfo("8. OLA8! (VERIFICAR COM OUTROS).");
+        imprimeMsgInfo("9. OLA9! (VERIFICAR COM OUTROS).");
+        imprimeMsgInfo("10. OLA10! (VERIFICAR COM OUTROS).");
         imprimeMsgInfo("11. Faturação mensal e por filial de um produto.");
+        imprimeMsgInfo("12. Estatísticas do último ficheiro de vendas carregado.");
+        imprimeMsgErro("13. Estatísticas atuais.");
+        imprimeMsgInfo("14. Guardar dados em memória e encerrar aplicação.");
         imprimeMsgInfo("0. Encerrar aplicação.");
 
         imprimePedidoOpcao();
@@ -31,7 +34,7 @@ public class GereVendasView {
 
         imprimeMsgInfo("1. Carregar ficheiros padrão.");
         imprimeMsgInfo("2. Carregar ficheiros específicos.");
-        imprimeMsgInfo("3. Carregar modelo.");
+        imprimeMsgInfo("3. Carregar dados em memória.");
         imprimeMsgInfo("0. Sair.");
 
         imprimePedidoOpcao();
@@ -45,6 +48,61 @@ public class GereVendasView {
         int i;
 
         imprimeMsgInfo("Insira o número de códigos por página: ");
+
+        i = input.lerInt();
+
+        return i;
+    }
+
+    public int imprimeMenuQuery13(){
+        int i;
+
+        imprimeMsgInfo("1. Nº de compras mensais.");
+        imprimeMsgInfo("2. Faturação total, mensal e por filial.");
+        imprimeMsgInfo("3. Nº de clientes (distintos) por mês e por filial.");
+        imprimeMsgInfo("0. Sair.");
+
+        imprimePedidoOpcao();
+
+        i = input.lerInt();
+
+        return i;
+    }
+
+    public int linhas_por_pagina(){
+        int i;
+
+        imprimeMsgInfo("Insira o número de linhas por página: ");
+
+        i = input.lerInt();
+
+        return i;
+    }
+
+    public int nr_clientes(){
+        int i;
+
+        imprimeMsgInfo("Insira um nº N para ver os N clientes que mais variaram:");
+
+        i = input.lerInt();
+
+        return i;
+    }
+
+    public int nr_produtos(){
+        int i;
+
+        imprimeMsgInfo("Insira um nº N para ver os N produtos mais vendidos:");
+
+        i = input.lerInt();
+
+        return i;
+    }
+
+    public int nr_filial(){
+        int i;
+
+        imprimeMsgInfo("Insira uma filial:");
 
         i = input.lerInt();
 
@@ -90,9 +148,61 @@ public class GereVendasView {
             }
             System.out.println("\n--------------------------------------------------------");
         }
+    }
+
+    public void imprime_array_inteiros_mensal(int[] array){
+
+        System.out.println("-----------------------");
+        System.out.println("|  Meses  |   TOTAL   |");
+        System.out.println("-----------------------");
+        for(int i = 0; i < array.length; i++) {
+            System.out.print(String.format("|%1$8s |", i+1));
+            System.out.print(String.format("  %1$7s  |", array[i]));
+            System.out.println("\n-----------------------");
+        }
+    }
+
+    public void imprime_tabela_inteiros(int[][] array){
+
+        System.out.println("--------------------------------------------------------");
+        System.out.println("|  Meses  |   Filial 1   |   Filial 2   |   Filial 3   |");
+        System.out.println("--------------------------------------------------------");
+        for(int i = 0; i < array.length; i++) {
+            System.out.print(String.format("|%1$8s |", i+1));
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.print(String.format("  %1$10s  |", array[i][j]));
+            }
+            System.out.println("\n--------------------------------------------------------");
+        }
+    }
+
+    public void imprime_tabela_faturacao_total(double[][] array){
+        double[] totalmeses = new double[Globais.NRMESES];
+        double[] totalfiliais = new double[Globais.NRFILIAIS];
+
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+        System.out.println("|  Meses  |         Filial 1         |         Filial 2         |         Filial 3         |          TOTAL           |");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+        for(int i = 0; i < array.length; i++) {
+            System.out.print(String.format("|%1$8s |", i+1));
+            for (int j = 0; j < array[i].length; j++) {
+                totalmeses[i] += array[i][j];
+                totalfiliais[j] += array[i][j];
+                System.out.print(String.format("  %1$22s  |", array[i][j]));
+            }
+            System.out.print(String.format("  %1$22s  |", totalmeses[i]));
+            System.out.println("\n-----------------------------------------------------------------------------------------------------------------------");
+        }
 
 
+        System.out.print("|  TOTAL  |");
+        System.out.print(String.format("  %1$22s  |", totalfiliais[0]));
+        System.out.print(String.format("  %1$22s  |", totalfiliais[1]));
+        System.out.print(String.format("  %1$22s  |", totalfiliais[2]));
+        System.out.print(String.format("  %1$22s  |", totalfiliais[0] + totalfiliais[1] + totalfiliais[2]));
 
+
+        System.out.println("\n-----------------------------------------------------------------------------------------------------------------------");
     }
 
     public void imprime_tabela_query4(double[][] array){

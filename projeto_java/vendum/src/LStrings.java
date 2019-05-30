@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class LStrings {
     private List<String> lstrings;
@@ -10,6 +12,46 @@ public class LStrings {
         this.lstrings = new ArrayList<>();
         this.nrstrings = 0;
         this.nrlinhas = 20;
+    }
+
+    public void maxheapint_to_lstrings(MaxHeapInt heap){
+        Map<Integer,Set<String>> map = heap.getMaxheap();
+        for(Map.Entry<Integer,Set<String>> entry: map.entrySet()){
+            for(String s : entry.getValue()){
+                if(this.lstrings.add("Produto: " + s + "   Quantidade: " + entry.getKey()))
+                    this.nrstrings++;
+            }
+        }
+    }
+
+    public void maxheapint_to_lstrings_netneilc(MaxHeapInt heap){
+        Map<Integer,Set<String>> map = heap.getMaxheap();
+        for(Map.Entry<Integer,Set<String>> entry: map.entrySet()){
+            for(String s : entry.getValue()){
+                if(this.lstrings.add("Cliente: " + s + "   Quantidade: " + entry.getKey()))
+                    this.nrstrings++;
+            }
+        }
+    }
+
+    public void maxheapint_to_lstrings_etneilc(MaxHeapInt heap){
+        Map<Integer,Set<String>> map = heap.getMaxheap();
+        for(Map.Entry<Integer,Set<String>> entry: map.entrySet()){
+            for(String s : entry.getValue()){
+                if(this.lstrings.add(s))
+                    this.nrstrings++;
+            }
+        }
+    }
+
+    public void maxheapdouble_to_lstrings(MaxHeapDouble heap){
+        Map<Double,Set<String>> map = heap.getMaxheap();
+        for(Map.Entry<Double,Set<String>> entry: map.entrySet()){
+            for(String s : entry.getValue()){
+                if(this.lstrings.add("Cliente: " + s + "   Total gasto: " + entry.getKey()))
+                    this.nrstrings++;
+            }
+        }
     }
 
     public boolean regista_entrada(String string){
@@ -46,12 +88,12 @@ public class LStrings {
 
         while(opcao != 0) {
 
-            for(indice = pagatual*this.nrlinhas; indice < (pagatual*this.nrlinhas + 10) && indice < nrstrings; indice ++)
+            for(indice = pagatual*this.nrlinhas; indice < (pagatual*this.nrlinhas + this.nrlinhas) && indice < nrstrings; indice ++)
                 System.out.println(this.lstrings.get(indice));
 
-            System.out.println("\n[1]PRÓXIMA   [2]ANTERIOR   [3]ÚLTIMA   [4]PRIMEIRA   [0]SAIR");
+            System.out.println("\n[1]PRÓXIMA   [2]ANTERIOR   [3]ÚLTIMA   [4]PRIMEIRA  [0]SAIR");
             System.out.println("Página " + pagatual + " de " + (totpag-1) + ".");
-            System.out.println(lstrings.size() + " resultados.");
+            System.out.println(this.nrstrings + " resultados.");
 
             opcao = input.lerInt();
 
@@ -83,6 +125,16 @@ public class LStrings {
 
     }
 
+    public String getPosicaoLstrings(int i){
+        return this.lstrings.get(i);
+    }
 
+    public void setNrstrings(int nrstrings){
+        this.nrstrings = nrstrings;
+    }
+
+    public int getNrstrings(){
+        return this.nrstrings;
+    }
 
 }

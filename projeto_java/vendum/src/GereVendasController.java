@@ -1,20 +1,16 @@
+import javax.management.QueryEval;
+import java.io.*;
+import java.util.Map;
+import java.util.Set;
+
 public class GereVendasController {
 
     GereVendasModel model;
-
     GereVendasView view;
-
-
-    public void setModel(GereVendasModel model){
-        this.model = model;
-    }
-
-    public void setView(GereVendasView view){
-        this.view = view;
-    }
 
     public void startController() {
 
+        StringBuilder filevendas = new StringBuilder();
         boolean dados = false;
         int r = -1;
 
@@ -27,7 +23,7 @@ public class GereVendasController {
             switch (r) {
                 case 1:
                     if(!dados)
-                        dados = query1();
+                        dados = query1(filevendas);
                     else
                         this.view.imprimeMsgErro("Dados já carregados.");
                     view.enterParaContinuar();
@@ -42,6 +38,8 @@ public class GereVendasController {
                 case 9:
                 case 10:
                 case 11:
+                case 12:
+                case 13:
                     if(dados == true) {
                         switch(r){
                             case 2:
@@ -57,17 +55,28 @@ public class GereVendasController {
                                 query5();
                                 break;
                             case 6:
+                                query6();
                                 break;
                             case 7:
+                                query7();
                                 break;
                             case 8:
+                                query8();
                                 break;
                             case 9:
+                                query9();
                                 break;
                             case 10:
+                                query10();
                                 break;
                             case 11:
                                 query11();
+                                break;
+                            case 12:
+                                /*query12();*/
+                                break;
+                            case 13:
+                                query13(filevendas);
                                 break;
                         }
                     }
@@ -75,8 +84,16 @@ public class GereVendasController {
                         view.imprimeMsgErro("Dados não carregados.");
                     view.enterParaContinuar();
                     break;
-                case 0:
+                case 14:
                     view.quebraDeLinha();
+                    if(dados = true)
+                        this.serialize_model();
+                    else
+                        this.view.imprimeMsgErro("Os dados não foram carregados.");
+                    view.imprimeMsgInfo("VendUM encerrada!");
+                    break;
+                case 0:
+                    this.view.quebraDeLinha();
                     view.imprimeMsgInfo("VendUM encerrada!");
                     break;
                 default:
@@ -87,7 +104,15 @@ public class GereVendasController {
         }
     }
 
-    private boolean query1(){
+    private boolean query1(StringBuilder filevendas){
+        Input input = new Input();
+        String c = null;
+        String p = null;
+        String v = null;
+        File clientes = null;
+        File produtos = null;
+        File vendas = null;
+
         int r = -1;
 
         boolean dados = false;
@@ -96,14 +121,34 @@ public class GereVendasController {
 
         switch(r){
             case 1:
-                model.carregaCClientes("../intocaveis/Clientes.txt");
-                model.carregaCProdutos("../intocaveis/Produtos.txt");
-                model.carregaCFiliaisCFaturacao("../intocaveis/Vendas_1M.txt");
-                dados = model.tudo_carregado();
+                c = "../intocaveis/Clientes.txt";
+                p = "../intocaveis/Produtos.txt";
+                v = "../intocaveis/Vendas_1M.txt";
+                clientes = new File(c);
+                produtos = new File(p);
+                vendas = new File(v);
+
+                if(clientes.exists() || produtos.exists() || vendas.exists()) {
+                    model.carregaCClientes(c);
+                    model.carregaCProdutos(p);
+                    model.carregaCFiliaisCFaturacao(v);
+                    filevendas.append(v);
+                    dados = model.tudo_carregado();
+                }
+
                 break;
             case 2:
+                this.carrega_ficheiros_caminho(c, p, v, clientes, produtos, vendas, filevendas);
+                dados = this.model.tudo_carregado();
                 break;
             case 3:
+                this.deserialize_model();
+                if(dados = this.model.tudo_carregado()){
+                    this.view.imprimeMsgInfo("Nº de clientes catalogados: " + this.model.getNrclientes());
+                    this.view.imprimeMsgInfo("Nº de produtos catalogados: " + this.model.getNrprodutos());
+                    this.view.imprimeMsgInfo("Nº de vendas inseridas: " + this.model.getNrvendas());
+                    filevendas.append("Dados.txt");
+                }
                 break;
             case 0:
                 view.imprimeMsgInfo("Sairá do menu de carregamento de dados.");
@@ -123,12 +168,12 @@ public class GereVendasController {
         boolean next = false;
 
         while(!next) {
-            r = view.imprime_menu_query2();
+            r = this.view.imprime_menu_query2();
             next = lStrings.define_nrlinhas(r);
             if(!next)
-                view.imprimeMsgErro("Inseriu um número pequeno (>= a 5): ");
+                this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5): ");
             else{
-                model.prods_nao_comprados(lStrings);
+                this.model.prods_nao_comprados(lStrings);
                 lStrings.imprime_lstrings();
             }
         }
@@ -176,10 +221,12 @@ public class GereVendasController {
                 if (mesfilal == 1) {
                     this.view.imprimeMsgErro("Mês inválido.");
                     this.view.imprimeMsgInfo("[1]INTRODUZIR MÊS VÁLIDO   [0]SAIR");
+                    this.view.enterParaContinuar();
                 }
                 else if (mesfilal == 2){
                     this.view.imprimeMsgErro("Filial inválida.");
                     this.view.imprimeMsgInfo("[1]INTRODUZIR FILIAL VÁLIDA   [0]SAIR");
+                    this.view.enterParaContinuar();
                 }
 
                 opcao = input.lerInt();
@@ -189,7 +236,6 @@ public class GereVendasController {
                 return;
             }
 
-            this.view.enterParaContinuar();
         }
 
         if(mesfilal == 1){
@@ -221,13 +267,14 @@ public class GereVendasController {
                 this.view.imprimeMsgErro("O cliente não fez compras.");
                 this.view.imprimeMsgInfo("[1]INTRODUZIR NOVO CLIENTE   [0]SAIR");
                 opcao = input.lerInt();
+                this.view.enterParaContinuar();
             }
 
             if(opcao == 0) {
                 return;
             }
 
-            this.view.enterParaContinuar();
+
         }
 
         for(int i = 0; i < Globais.NRMESES; i++) {
@@ -266,18 +313,176 @@ public class GereVendasController {
                 this.view.imprimeMsgErro("O produto não foi comprado.");
                 this.view.imprimeMsgInfo("[1]INTRODUZIR NOVO PRODUTO   [0]SAIR");
                 opcao = input.lerInt();
+                this.view.enterParaContinuar();
             }
 
             if(opcao == 0) {
                 return;
             }
 
-            this.view.enterParaContinuar();
+
         }
 
         this.model.quantidade_nrclientes_totfaturado_produto_model(produto, array);
 
         this.view.imprime_tabela_query5(array);
+    }
+
+    private void query6(){
+        LStrings ls = new LStrings();
+        MaxHeapInt heap = null;
+        Input input = new Input();
+        String cliente = null;
+        int opcao = -1;
+        int r = 0;
+        boolean next = false;
+
+        while(!next){
+            this.view.imprimeMsgInfo("Introduza um cliente válido: ");
+
+            cliente = input.lerString();
+            next = this.model.existe_cliente_model_cfiliais(cliente);
+
+            if(!next){
+                this.view.imprimeMsgErro("O cliente não fez compras.");
+                this.view.imprimeMsgInfo("[1]INTRODUZIR NOVO CLIENTE   [0]SAIR");
+                opcao = input.lerInt();
+                this.view.enterParaContinuar();
+            }
+
+            if(opcao == 0) {
+                return;
+            }
+
+        }
+
+        heap = this.model.getCFiliais().produtos_mais_comprados_cliente(cliente);
+
+        next = false;
+
+        while(!next) {
+            r = this.view.linhas_por_pagina();
+            next = ls.define_nrlinhas(r);
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5)!");
+            else{
+                ls.maxheapint_to_lstrings(heap);
+                ls.imprime_lstrings();
+            }
+        }
+
+    }
+
+    private void query7(){
+
+    }
+
+    private void query8(){
+        MaxHeapDouble heap = null;
+        LStrings ls = new LStrings();
+        boolean next = false;
+        int r = 0;
+        int l = 0;
+
+        while(!next) {
+            r = this.view.nr_filial();
+            if(r == 1 || r == 2 || r == 3)
+                break;
+            else
+                next = false;
+
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu uma filial inválida! ");
+        }
+
+        heap = this.model.clientes_mais_compradores_filial(r);
+
+        ls.maxheapdouble_to_lstrings(heap);
+        
+        System.out.println(ls.getPosicaoLstrings(0));
+        System.out.println(ls.getPosicaoLstrings(1));
+        System.out.println(ls.getPosicaoLstrings(2));
+    }
+
+    private void query9(){
+        MaxHeapInt heap = null;
+        LStrings ls = new LStrings();
+        int r = 0;
+        int l = 0;
+        boolean next = false;
+
+        while(!next) {
+            r = this.view.nr_clientes();
+            if(r <= 0)
+                next = false;
+            else
+                break;
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu um número inválido!");
+        }
+
+        next = false;
+
+        while(!next) {
+            l = this.view.linhas_por_pagina();
+            next = ls.define_nrlinhas(l);
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5)!");
+        }
+
+        heap = this.model.clientes_mais_variadores();
+        ls.maxheapint_to_lstrings_netneilc(heap);
+        if(ls.getNrstrings() < r){
+            this.view.imprimeMsgErro("Número de elementos do TOP demasiado elevado.");
+            return;
+        }
+
+        ls.setNrstrings(r);
+        ls.imprime_lstrings();
+    }
+
+    private void query10(){
+        Input input = new Input();
+        String produto = null;
+        MaxHeapInt heap = null;
+        LStrings ls = new LStrings();
+        int opcao = -1;
+        int r = 0;
+        boolean next = false;
+
+        while(!next){
+            this.view.imprimeMsgInfo("Introduza um produto válido: ");
+
+            produto = input.lerString();
+            next = model.existe_produto_model_cfaturacao(produto);
+
+            if(!next) {
+                this.view.imprimeMsgErro("O produto não foi comprado.");
+                this.view.imprimeMsgInfo("[1]INTRODUZIR NOVO PRODUTO   [0]SAIR");
+                opcao = input.lerInt();
+                this.view.enterParaContinuar();
+            }
+
+            if(opcao == 0) {
+                return;
+            }
+        }
+
+        heap = this.model.getCFiliais().clientes_mais_compradores_produto(produto);
+
+        next = false;
+
+        while(!next) {
+            r = this.view.linhas_por_pagina();
+            next = ls.define_nrlinhas(r);
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5): ");
+            else{
+                ls.maxheapint_to_lstrings_etneilc(heap);
+                ls.imprime_lstrings();
+            }
+        }
+
     }
 
     private void query11(){
@@ -314,5 +519,200 @@ public class GereVendasController {
 
     }
 
+    private void query13(StringBuilder filevendas){
+        Input input = new Input();
 
+        int r = -1;
+
+        r = view.imprimeMenuQuery13();
+
+        switch(r){
+            case 1:
+                this.constroi_apresenta_estatisticas_atuais1();
+                break;
+            case 2:
+                this.constroi_apresenta_estatisticas_atuais2();
+                break;
+            case 3:
+                this.constroi_apresenta_estatisticas_atuais3();
+                break;
+            case 0:
+                view.imprimeMsgInfo("Sairá do menu de estatísticas atuais.");
+                break;
+            default:
+                view.imprimeMsgErro("Opção inválida.");
+                view.enterParaContinuar();
+                break;
+        }
+    }
+
+    public void setModel(GereVendasModel model){
+        this.model = model;
+    }
+
+    public void setView(GereVendasView view){
+        this.view = view;
+    }
+
+    private boolean carrega_ficheiros_caminho(String c, String p, String v, File clientes, File produtos, File vendas, StringBuilder filevendas){
+        Input input = new Input();
+
+        while(true) {
+            this.view.imprimeMsgInfo("\nInsira caminho do ficheiro \"clientes\":");
+            c = input.lerString();
+            clientes = new File(c);
+            if (clientes.exists()) {
+                model.carregaCClientes(c);
+                break;
+            }
+            else {
+                this.view.imprimeMsgErro("Inseriu caminho errado!");
+                this.view.imprimeMsgErro("[1]INTRODUZIR NOVO CAMINHO   [0]SAIR");
+                switch (input.lerInt()){
+                    case 1:
+                        break;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+
+        while(true) {
+            this.view.imprimeMsgInfo("\nInsira caminho do ficheiro \"produtos\":");
+            p = input.lerString();
+            produtos = new File(p);
+            if (produtos.exists()) {
+                model.carregaCProdutos(p);
+                break;
+            }
+            else {
+                this.view.imprimeMsgErro("Inseriu caminho errado!");
+                this.view.imprimeMsgErro("[1]INTRODUZIR NOVO CAMINHO   [0]SAIR");
+                switch (input.lerInt()){
+                    case 1:
+                        break;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        while(true) {
+            this.view.imprimeMsgInfo("\nInsira caminho do ficheiro \"vendas\":");
+            v = input.lerString();
+            vendas = new File(v);
+            if (vendas.exists()) {
+                model.carregaCFiliaisCFaturacao(v);
+                filevendas.append(v);
+                break;
+            }
+            else {
+                this.view.imprimeMsgErro("Inseriu caminho errado!");
+                this.view.imprimeMsgErro("[1]INTRODUZIR NOVO CAMINHO   [0]SAIR");
+                switch (input.lerInt()){
+                    case 1:
+                        break;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public void deserialize_model(){
+        String filename = "../Objects/Dados.txt";
+        try{
+            FileInputStream file = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            this.model = (GereVendasModel) in.readObject();
+
+            in.close();
+            file.close();
+            System.out.println("Os dados foram guardados em memória.");
+
+        }
+        catch (IOException ex){System.out.println("Não existem dados em memória.");}
+        catch (ClassNotFoundException ex){System.out.println("Classe não encontrada");}
+    }
+
+    public void serialize_model(){
+        String filename = "../Objects/Dados.txt";
+        try{
+            FileOutputStream file = new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(this.model);
+
+            out.close();
+            file.close();
+            System.out.println("Os dados foram guardados em memória.");
+
+        }catch (IOException ex){System.out.println("Não foi possível guardar dados em memória.");}
+
+        this.model = null;
+    }
+
+    private void constroi_estatisticas_anteriores(StringBuilder filevendas){
+        int registosvenda = this.model.getNrvendasErradas();
+        int nprods = this.model.getNrprodutos();
+        int nprodscompr = this.model.getNrprodutosComprados();
+        int nprodsncompr = nprods - nprodscompr;
+        int nclis = this.model.getNrclientes();
+        int ncliscompr = this.model.getNrclientesCompradores();
+        int nclisncompr = nclis - ncliscompr;
+
+        this.view.imprimeMsgInfo("Ficheiro de dados das vendas: " + filevendas);
+        this.view.imprimeMsgInfo("Nº de registos de venda errados: " + registosvenda + "\n");
+        this.view.imprimeMsgInfo("Nº de produtos: " + nprods);
+        this.view.imprimeMsgInfo("Nº de produtos (distintos) comprados: " + nprodscompr);
+        this.view.imprimeMsgInfo("Nº de produtos não comprados: " + nprodsncompr + "\n");
+        this.view.imprimeMsgInfo("Nº de clientes: " + this.model.getNrclientes());
+        this.view.imprimeMsgInfo("Nº de clientes (distintos) que compraram produtos: " + ncliscompr);
+        this.view.imprimeMsgInfo("Nº de cliente que não compraram produtos: " + nclisncompr + "\n");
+        this.view.imprimeMsgInfo("Nº de compras de valor 0.0: " + this.model.getVendasValorZero());
+        this.view.imprimeMsgInfo("Faturação total: " + this.model.getFaturacaoTotal());
+    }
+
+    private void apresenta_estatisticas_anteriores(StringBuilder filevendas){
+        int registosvenda = this.model.getNrvendasErradas();
+        int nprods = this.model.getNrprodutos();
+        int nprodscompr = this.model.getNrprodutosComprados();
+        int nprodsncompr = nprods - nprodscompr;
+        int nclis = this.model.getNrclientes();
+        int ncliscompr = this.model.getNrclientesCompradores();
+        int nclisncompr = nclis - ncliscompr;
+
+        this.view.imprimeMsgInfo("Ficheiro de dados das vendas: " + filevendas);
+        this.view.imprimeMsgInfo("Nº de registos de venda errados: " + registosvenda + "\n");
+        this.view.imprimeMsgInfo("Nº de produtos: " + nprods);
+        this.view.imprimeMsgInfo("Nº de produtos (distintos) comprados: " + nprodscompr);
+        this.view.imprimeMsgInfo("Nº de produtos não comprados: " + nprodsncompr + "\n");
+        this.view.imprimeMsgInfo("Nº de clientes: " + this.model.getNrclientes());
+        this.view.imprimeMsgInfo("Nº de clientes (distintos) que compraram produtos: " + ncliscompr);
+        this.view.imprimeMsgInfo("Nº de cliente que não compraram produtos: " + nclisncompr + "\n");
+        this.view.imprimeMsgInfo("Nº de compras de valor 0.0: " + this.model.getVendasValorZero());
+        this.view.imprimeMsgInfo("Faturação total: " + this.model.getFaturacaoTotal());
+    }
+
+    private void constroi_apresenta_estatisticas_atuais1(){
+        int[] nrcomprasmes = new int[Globais.NRMESES];
+        this.model.nr_compras_mes(nrcomprasmes);
+        this.view.imprime_array_inteiros_mensal(nrcomprasmes);
+    }
+
+    private void constroi_apresenta_estatisticas_atuais2(){
+        double[][] array = new double[Globais.NRMESES][Globais.NRFILIAIS];
+        this.model.fat_mes_filial(array);
+        this.view.imprime_tabela_faturacao_total(array);
+    }
+
+    private void constroi_apresenta_estatisticas_atuais3(){
+        int[][] nrclientesmesfilial = new int[Globais.NRMESES][Globais.NRFILIAIS];
+        this.model.nr_clientes_distintos_mes_filial(nrclientesmesfilial);
+        this.view.imprime_tabela_inteiros(nrclientesmesfilial);
+    }
 }
