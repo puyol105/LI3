@@ -3,20 +3,34 @@ public class GereVendasView {
 
     private Input input = new Input();
 
+    public void imprime_logo(){
+        System.out.println(" ____   ____  ________  ____  _____  ______   _____  _____  ____    ____ ");
+        System.out.println("|_  _| |_  _||_   __  ||_   \\|_   _||_   _ `.|_   _||_   _||_   \\  /   _|");
+        System.out.println("  \\ \\   / /    | |_ \\_|  |   \\ | |    | | `. \\ | |    | |    |   \\/   |  ");
+        System.out.println("   \\ \\ / /     |  _| _   | |\\ \\| |    | |  | | | '    ' |    | |\\  /| |  ");
+        System.out.println("    \\ ' /     _| |__/ | _| |_\\   |_  _| |_.' /  \\ \\__/ /    _| |_\\/_| |_ ");
+        System.out.println("     \\_/     |________||_____|\\____||______.'    `.__.'    |_____||_____|");
+        System.out.print("\n");
+        System.out.println("                         Sistema de Gestão de Vendas");
+        System.out.print("\n\n\n");
+    }
+
     public int imprimeMenuPrincipal(){
         int i;
 
         imprimeMsgInfo("1. Carregar dados.");
+        imprimeMsgInfo("-----------------------------------------------------------------------------------------");
         imprimeMsgInfo("2. Produtos nunca comprados.");
         imprimeMsgInfo("3. Nº total de vendas e de clientes de um/uma mês/filial.");
         imprimeMsgInfo("4. Nº compras, nº produtos comprados e gastos mensais de um cliente.");
         imprimeMsgInfo("5. Quantidade comprada, nº clientes e total faturado de um produto.");
-        imprimeMsgInfo("6. OLA6!.");
-        imprimeMsgInfo("7. OLA7! (VERIFICAR COM OUTROS).");
-        imprimeMsgInfo("8. OLA8! (VERIFICAR COM OUTROS).");
-        imprimeMsgInfo("9. OLA9! (VERIFICAR COM OUTROS).");
-        imprimeMsgInfo("10. OLA10! (VERIFICAR COM OUTROS).");
+        imprimeMsgInfo("6. Produtos mais comprados por um cliente.");
+        imprimeMsgInfo("7. .");
+        imprimeMsgInfo("8. Os três melhores clientes de uma filial. (VERIFICAR COM OUTROS).");
+        imprimeMsgInfo("9. Os N clientes que compraram mais produtos diferentes. (VERIFICAR COM OUTROS)");
+        imprimeMsgInfo("10. Os N clientes (e o valor gasto) que mais compraram um produto. (VERIFICAR COM OUTROS)");
         imprimeMsgInfo("11. Faturação mensal e por filial de um produto.");
+        imprimeMsgInfo("-----------------------------------------------------------------------------------------");
         imprimeMsgInfo("12. Estatísticas do último ficheiro de vendas carregado.");
         imprimeMsgErro("13. Estatísticas atuais.");
         imprimeMsgInfo("14. Guardar dados em memória e encerrar aplicação.");

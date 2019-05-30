@@ -36,6 +36,6 @@ public class Crono {
     }
 
     public static String print() {
-        return "" + stop();
+        return "Tempo: " + stop();
     }
 }

@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class GereVendasController {
 
-    GereVendasModel model;
-    GereVendasView view;
+    private GereVendasModel model;
+    private GereVendasView view;
 
     public void startController() {
 
@@ -14,8 +14,10 @@ public class GereVendasController {
         boolean dados = false;
         int r = -1;
 
+        this.view.imprime_logo();
+        this.view.enterParaContinuar();
 
-        while (r != 0) {
+        while (!(r == 0 || r == 14 )) {
 
             r = view.imprimeMenuPrincipal();
 
@@ -73,10 +75,10 @@ public class GereVendasController {
                                 query11();
                                 break;
                             case 12:
-                                /*query12();*/
+                                query12(filevendas);
                                 break;
                             case 13:
-                                query13(filevendas);
+                                query13();
                                 break;
                         }
                     }
@@ -86,7 +88,7 @@ public class GereVendasController {
                     break;
                 case 14:
                     view.quebraDeLinha();
-                    if(dados = true)
+                    if(dados == true)
                         this.serialize_model();
                     else
                         this.view.imprimeMsgErro("Os dados não foram carregados.");
@@ -106,6 +108,7 @@ public class GereVendasController {
 
     private boolean query1(StringBuilder filevendas){
         Input input = new Input();
+        String tempo = null;
         String c = null;
         String p = null;
         String v = null;
@@ -129,9 +132,12 @@ public class GereVendasController {
                 vendas = new File(v);
 
                 if(clientes.exists() || produtos.exists() || vendas.exists()) {
+                    Crono.start();
                     model.carregaCClientes(c);
                     model.carregaCProdutos(p);
                     model.carregaCFiliaisCFaturacao(v);
+                    Crono.stop();
+                    this.view.imprimeMsgInfo(Crono.print());
                     filevendas.append(v);
                     dados = model.tudo_carregado();
                 }
@@ -142,7 +148,12 @@ public class GereVendasController {
                 dados = this.model.tudo_carregado();
                 break;
             case 3:
+                Crono.start();
                 this.deserialize_model();
+                Crono.stop();
+                tempo = Crono.print();
+                this.view.imprimeMsgInfo(tempo);
+
                 if(dados = this.model.tudo_carregado()){
                     this.view.imprimeMsgInfo("Nº de clientes catalogados: " + this.model.getNrclientes());
                     this.view.imprimeMsgInfo("Nº de produtos catalogados: " + this.model.getNrprodutos());
@@ -164,6 +175,7 @@ public class GereVendasController {
 
     private void query2(){
         LStrings lStrings = new LStrings();
+        String tempo = null;
         int r;
         boolean next = false;
 
@@ -173,14 +185,19 @@ public class GereVendasController {
             if(!next)
                 this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5): ");
             else{
+                Crono.start();
                 this.model.prods_nao_comprados(lStrings);
+                Crono.stop();
+                tempo = Crono.print();
                 lStrings.imprime_lstrings();
+                this.view.imprimeMsgInfo(tempo);
             }
         }
     }
 
     private void query3(){
         Input input = new Input();
+        String tempo = null;
         int mesfilal = -1;
         int nr = -1;
         int opcao = -1;
@@ -237,7 +254,7 @@ public class GereVendasController {
             }
 
         }
-
+        Crono.start();
         if(mesfilal == 1){
             System.out.println("Total de vendas no mês " + nr + ": " + this.model.total_vendas_mes_model(nr-1) + ".");
             System.out.println("Nº de clientes no mês " + nr + ": " + this.model.nrclientes_mes_model(nr-1) + ".");
@@ -246,6 +263,8 @@ public class GereVendasController {
             System.out.println("Total de vendas da filial " + nr + ": " + this.model.total_vendas_filial_model(nr-1) + ".");
             System.out.println("Nº de clientes da filial " + nr + ": " + this.model.nrclientes_filial_model(nr-1) + ".");
         }
+        Crono.stop();
+        this.view.imprimeMsgInfo(Crono.print());
 
 
     }
@@ -253,6 +272,7 @@ public class GereVendasController {
     private void query4(){
         Input input = new Input();
         String cliente = null;
+        String tempo = null;
         int opcao = -1;
         boolean next = false;
         double[][] array = new double[Globais.NRMESES][3];
@@ -277,6 +297,7 @@ public class GereVendasController {
 
         }
 
+        Crono.start();
         for(int i = 0; i < Globais.NRMESES; i++) {
             array[i][0] = 0;
             array[i][0] += this.model.compras_mes_filial_cliente_model(cliente, i, 0);
@@ -291,14 +312,18 @@ public class GereVendasController {
             array[i][2] += this.model.fatprod_mes_filial_cliente_model(cliente, i, 1);
             array[i][2] += this.model.fatprod_mes_filial_cliente_model(cliente, i, 2);
         }
+        Crono.stop();
+        tempo = Crono.print();
 
         this.view.imprime_tabela_query4(array);
 
+        this.view.imprimeMsgInfo(tempo);
     }
 
     private void query5(){
         Input input = new Input();
         String produto = null;
+        String tempo = null;
         int opcao = -1;
         double [][] array = new double[Globais.NRMESES][3];
         boolean next = false;
@@ -323,9 +348,14 @@ public class GereVendasController {
 
         }
 
+        Crono.start();
         this.model.quantidade_nrclientes_totfaturado_produto_model(produto, array);
+        Crono.stop();
+        tempo = Crono.print();
 
         this.view.imprime_tabela_query5(array);
+
+        this.view.imprimeMsgInfo(tempo);
     }
 
     private void query6(){
@@ -333,6 +363,7 @@ public class GereVendasController {
         MaxHeapInt heap = null;
         Input input = new Input();
         String cliente = null;
+        String tempo = null;
         int opcao = -1;
         int r = 0;
         boolean next = false;
@@ -355,9 +386,10 @@ public class GereVendasController {
             }
 
         }
-
+        Crono.start();
         heap = this.model.getCFiliais().produtos_mais_comprados_cliente(cliente);
-
+        Crono.stop();
+        tempo = Crono.print();
         next = false;
 
         while(!next) {
@@ -368,18 +400,24 @@ public class GereVendasController {
             else{
                 ls.maxheapint_to_lstrings(heap);
                 ls.imprime_lstrings();
+                this.view.imprimeMsgInfo(tempo);
             }
         }
 
     }
 
     private void query7(){
-
+        String tempo = null;
+        Crono.start();
+        Crono.stop();
+        tempo = Crono.print();
+        this.view.imprimeMsgInfo(tempo);
     }
 
     private void query8(){
         MaxHeapDouble heap = null;
         LStrings ls = new LStrings();
+        String tempo = null;
         boolean next = false;
         int r = 0;
         int l = 0;
@@ -395,18 +433,24 @@ public class GereVendasController {
                 this.view.imprimeMsgErro("Inseriu uma filial inválida! ");
         }
 
+        Crono.start();
         heap = this.model.clientes_mais_compradores_filial(r);
+        Crono.stop();
+        tempo = Crono.print();
 
         ls.maxheapdouble_to_lstrings(heap);
         
         System.out.println(ls.getPosicaoLstrings(0));
         System.out.println(ls.getPosicaoLstrings(1));
         System.out.println(ls.getPosicaoLstrings(2));
+
+        this.view.imprimeMsgInfo(tempo);
     }
 
     private void query9(){
         MaxHeapInt heap = null;
         LStrings ls = new LStrings();
+        String tempo = null;
         int r = 0;
         int l = 0;
         boolean next = false;
@@ -430,7 +474,11 @@ public class GereVendasController {
                 this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5)!");
         }
 
+        Crono.start();
         heap = this.model.clientes_mais_variadores();
+        Crono.stop();
+        tempo = Crono.print();
+
         ls.maxheapint_to_lstrings_netneilc(heap);
         if(ls.getNrstrings() < r){
             this.view.imprimeMsgErro("Número de elementos do TOP demasiado elevado.");
@@ -439,11 +487,14 @@ public class GereVendasController {
 
         ls.setNrstrings(r);
         ls.imprime_lstrings();
+
+        this.view.imprimeMsgInfo(tempo);
     }
 
     private void query10(){
         Input input = new Input();
         String produto = null;
+        String tempo = null;
         MaxHeapInt heap = null;
         LStrings ls = new LStrings();
         int opcao = -1;
@@ -468,7 +519,10 @@ public class GereVendasController {
             }
         }
 
+        Crono.start();
         heap = this.model.getCFiliais().clientes_mais_compradores_produto(produto);
+        Crono.stop();
+        tempo = Crono.print();
 
         next = false;
 
@@ -480,6 +534,7 @@ public class GereVendasController {
             else{
                 ls.maxheapint_to_lstrings_etneilc(heap);
                 ls.imprime_lstrings();
+                this.view.imprimeMsgInfo(tempo);
             }
         }
 
@@ -489,6 +544,7 @@ public class GereVendasController {
         Input input = new Input();
         double[][] array = null;
         String produto = null;
+        String tempo = null;
         int opcao = -1;
         boolean next = false;
 
@@ -511,15 +567,21 @@ public class GereVendasController {
             this.view.enterParaContinuar();
         }
 
+        Crono.start();
         array = this.model.faturacao_meses_filiais_model(produto);
+        Crono.stop();
+        tempo = Crono.print();
 
         this.view.imprime_tabela_faturacao(array);
 
-
-
+        this.view.imprimeMsgInfo(tempo);
     }
 
-    private void query13(StringBuilder filevendas){
+    private void query12(StringBuilder filevendas){
+        this.constroi_apresenta_estatisticas_anteriores(filevendas);
+    }
+
+    private void query13(){
         Input input = new Input();
 
         int r = -1;
@@ -562,7 +624,10 @@ public class GereVendasController {
             c = input.lerString();
             clientes = new File(c);
             if (clientes.exists()) {
+                Crono.start();
                 model.carregaCClientes(c);
+                Crono.stop();
+                this.view.imprimeMsgInfo(Crono.print());
                 break;
             }
             else {
@@ -583,7 +648,10 @@ public class GereVendasController {
             p = input.lerString();
             produtos = new File(p);
             if (produtos.exists()) {
+                Crono.start();
                 model.carregaCProdutos(p);
+                Crono.stop();
+                this.view.imprimeMsgInfo(Crono.print());
                 break;
             }
             else {
@@ -603,7 +671,10 @@ public class GereVendasController {
             v = input.lerString();
             vendas = new File(v);
             if (vendas.exists()) {
+                Crono.start();
                 model.carregaCFiliaisCFaturacao(v);
+                Crono.stop();
+                this.view.imprimeMsgInfo(Crono.print());
                 filevendas.append(v);
                 break;
             }
@@ -632,7 +703,7 @@ public class GereVendasController {
 
             in.close();
             file.close();
-            System.out.println("Os dados foram guardados em memória.");
+            System.out.println("Os dados foram carregados da memória.");
 
         }
         catch (IOException ex){System.out.println("Não existem dados em memória.");}
@@ -656,28 +727,7 @@ public class GereVendasController {
         this.model = null;
     }
 
-    private void constroi_estatisticas_anteriores(StringBuilder filevendas){
-        int registosvenda = this.model.getNrvendasErradas();
-        int nprods = this.model.getNrprodutos();
-        int nprodscompr = this.model.getNrprodutosComprados();
-        int nprodsncompr = nprods - nprodscompr;
-        int nclis = this.model.getNrclientes();
-        int ncliscompr = this.model.getNrclientesCompradores();
-        int nclisncompr = nclis - ncliscompr;
-
-        this.view.imprimeMsgInfo("Ficheiro de dados das vendas: " + filevendas);
-        this.view.imprimeMsgInfo("Nº de registos de venda errados: " + registosvenda + "\n");
-        this.view.imprimeMsgInfo("Nº de produtos: " + nprods);
-        this.view.imprimeMsgInfo("Nº de produtos (distintos) comprados: " + nprodscompr);
-        this.view.imprimeMsgInfo("Nº de produtos não comprados: " + nprodsncompr + "\n");
-        this.view.imprimeMsgInfo("Nº de clientes: " + this.model.getNrclientes());
-        this.view.imprimeMsgInfo("Nº de clientes (distintos) que compraram produtos: " + ncliscompr);
-        this.view.imprimeMsgInfo("Nº de cliente que não compraram produtos: " + nclisncompr + "\n");
-        this.view.imprimeMsgInfo("Nº de compras de valor 0.0: " + this.model.getVendasValorZero());
-        this.view.imprimeMsgInfo("Faturação total: " + this.model.getFaturacaoTotal());
-    }
-
-    private void apresenta_estatisticas_anteriores(StringBuilder filevendas){
+    private void constroi_apresenta_estatisticas_anteriores(StringBuilder filevendas){
         int registosvenda = this.model.getNrvendasErradas();
         int nprods = this.model.getNrprodutos();
         int nprodscompr = this.model.getNrprodutosComprados();
