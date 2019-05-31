@@ -1,16 +1,16 @@
 import javax.sound.sampled.Line;
 
-public class InfoProduto implements java.io.Serializable{
+public class InfoVenda implements java.io.Serializable{
 
     private int quantidade;
     private double preco;
 
-    public InfoProduto(){
+    public InfoVenda(){
         this.quantidade = 0;
         this.preco = 0.0;
     }
 
-    public InfoProduto(int quantidade, double preco){
+    public InfoVenda(int quantidade, double preco){
         this.quantidade = quantidade;
         this.preco = preco;
     }
@@ -31,7 +31,7 @@ public class InfoProduto implements java.io.Serializable{
         this.preco = preco;
     }
 
-    public double total_infoproduto(){
+    public double total_infovenda(){
         return ((double) this.quantidade*this.preco);
     }
 }

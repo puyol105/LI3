@@ -126,7 +126,7 @@ public class GereVendasController {
             case 1:
                 c = "../intocaveis/Clientes.txt";
                 p = "../intocaveis/Produtos.txt";
-                v = "../intocaveis/Vendas_1M.txt";
+                v = "../intocaveis/Vendas_5M.txt";
                 clientes = new File(c);
                 produtos = new File(p);
                 vendas = new File(v);
@@ -134,10 +134,17 @@ public class GereVendasController {
                 if(clientes.exists() || produtos.exists() || vendas.exists()) {
                     Crono.start();
                     model.carregaCClientes(c);
+                    Crono.stop();
+                    this.view.imprimeMsgInfo(Crono.print());
+                    Crono.start();
                     model.carregaCProdutos(p);
+                    Crono.stop();
+                    this.view.imprimeMsgInfo(Crono.print());
+                    Crono.start();
                     model.carregaCFiliaisCFaturacao(v);
                     Crono.stop();
                     this.view.imprimeMsgInfo(Crono.print());
+
                     filevendas.append(v);
                     dados = model.tudo_carregado();
                 }

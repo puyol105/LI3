@@ -1,24 +1,23 @@
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VProdutos implements java.io.Serializable{
-    List<InfoProduto> vprodutos;
+    List<InfoVenda> vprodutos;
 
     public VProdutos(){
         vprodutos = new ArrayList<>();
     }
 
     public void insereEmVProdutos(int quantidade, double preco){
-        InfoProduto infoProduto = new InfoProduto(quantidade, preco);
-        this.vprodutos.add(infoProduto);
+        InfoVenda infoVenda = new InfoVenda(quantidade, preco);
+        this.vprodutos.add(infoVenda);
     }
 
     public double total_faturado_vprodutos(){
         double total = 0.0;
 
-        for (InfoProduto ip : this.vprodutos)
-            total += ip.total_infoproduto();
+        for (InfoVenda ip : this.vprodutos)
+            total += ip.total_infovenda();
 
         return total;
     }
@@ -26,7 +25,7 @@ public class VProdutos implements java.io.Serializable{
     public int get_total_quantidade(){
         int total = 0;
 
-        for(InfoProduto ip: this.vprodutos)
+        for(InfoVenda ip: this.vprodutos)
             total += ip.getQuantidade();
 
         return total;
@@ -35,7 +34,7 @@ public class VProdutos implements java.io.Serializable{
     public int getVendasValorZero(){
         int nr = 0;
 
-        for(InfoProduto ip : this.vprodutos)
+        for(InfoVenda ip : this.vprodutos)
             if(ip.getPreco() == 0.0)
                 nr++;
 

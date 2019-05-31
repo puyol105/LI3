@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,6 +17,21 @@ public class Leitor {
             System.out.println(exc);
         }
 
+        return linhas;
+    }
+
+    public static List<String> readLinesWithBR(String fich){
+        List<String> linhas = new ArrayList<>();
+        BufferedReader inFile = null;
+        String linha = null;
+        try{
+            inFile = new BufferedReader(new FileReader(fich));
+            while((linha = inFile.readLine()) != null)
+                linhas.add(linha);
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
         return linhas;
     }
 }

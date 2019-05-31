@@ -21,12 +21,22 @@ public class GereVendasModel implements java.io.Serializable{
     public boolean carregaCClientes(String caminho){
         int i = 0;
 
+        /*apagar*/ Crono.start();
         Leitor leitor = new Leitor();
         List<String> linhas = leitor.leFicheiro(caminho);
 
+        // apagar Leitor leitor = new Leitor();
+        // apagar List<String> linhas = leitor.readLinesWithBR(caminho);
+
+
+
         while(i != linhas.size())
             if(valida_cliente(linhas.get(i)))
-                cclientes.registaCliente(linhas.get(i++));
+                /*apagar*/ i++;
+                //descomentar cclientes.registaCliente(linhas.get(i++));
+
+        /*apagar*/ Crono.stop();
+        /*apagar*/ System.out.println("Tempo leitura: " + Crono.print());
 
         //cclientes.imprimeClientes();
         System.out.println("Nº de clientes catalogados: " + cclientes.getNrclientes());
@@ -37,12 +47,22 @@ public class GereVendasModel implements java.io.Serializable{
     public boolean carregaCProdutos(String caminho){
         int i = 0;
 
+        /*apagar*/ Crono.start();
+
         Leitor leitor = new Leitor();
         List<String> linhas = leitor.leFicheiro(caminho);
 
+        // apagar Leitor leitor = new Leitor();
+        // apagar List<String> linhas = leitor.readLinesWithBR(caminho);
+
+
         while(i != linhas.size())
             if(valida_produto(linhas.get(i)))
-                this.cprodutos.registaProduto(linhas.get(i++));
+                /*apagar*/ i++;
+                // descomentar this.cprodutos.registaProduto(linhas.get(i++));
+
+        /*apagar*/ Crono.stop();
+        /*apagar*/ System.out.println("Tempo leitura: " + Crono.print());
 
         //cprodutos.imprimeProdutos();
         System.out.println("Nº de produtos catalogados: " + cprodutos.getNrprodutos());
@@ -53,18 +73,29 @@ public class GereVendasModel implements java.io.Serializable{
     public boolean carregaCFiliaisCFaturacao(String caminho){
         int i = 0;
         Venda venda = null;
+
+        /*apagar*/ Crono.start();
+
         Leitor leitor = new Leitor();
         List<String> linhas = leitor.leFicheiro(caminho);
 
+        // apagar Leitor leitor = new Leitor();
+        // apagar List<String> linhas = leitor.readLinesWithBR(caminho);
+
+
         for(i = 0; i < linhas.size(); i++){
             if (null != (venda = venda_valida(cclientes, cprodutos, linhas.get(i)))) {
-                cfaturacao.insereEmCFaturacao(venda);
-                cfiliais.insereEmCFiliais(venda);
+
+                // descomentar cfaturacao.insereEmCFaturacao(venda);
+                // descomentar cfiliais.insereEmCFiliais(venda);
             }
             else{
                 this.nrvendasErradas++;
             }
         }
+
+        /*apagar*/ Crono.stop();
+        /*apagar*/ System.out.println("Tempo leitura: " + Crono.print());
 
         System.out.println("Nº de vendas inseridas: " + cfaturacao.getNrvendas());
 

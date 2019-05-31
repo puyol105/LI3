@@ -12,7 +12,6 @@ import java.nio.file.*;
 
 
 public class GestVendasAppMVC{
-
     public static void main(String [] args){
 
         GereVendasModel model = new GereVendasModel(); //model
