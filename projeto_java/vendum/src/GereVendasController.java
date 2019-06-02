@@ -415,9 +415,28 @@ public class GereVendasController {
 
     private void query7(){
         String tempo = null;
+
+        MaxHeapInt heap = null;
+        LStrings ls = new LStrings();
+        Input input = new Input();
+        int nr = -1;
+        int i;
+
+        this.view.imprimeMsgInfo("Introduza o numero de produtos com mais vendas teve: ");
+
+        nr = input.lerInt();
+
         Crono.start();
+        heap = this.model.produtos_mais_vendidos();
         Crono.stop();
         tempo = Crono.print();
+
+        ls.maxheapint_to_lstrings(heap);
+        for (i= 0; i < nr; i++)
+        {
+            System.out.println(ls.getPosicaoLstrings(i));
+        }
+
         this.view.imprimeMsgInfo(tempo);
     }
 
