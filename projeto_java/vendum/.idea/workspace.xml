@@ -5,16 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/vendum/GereVendasController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/vendum/GereVendasController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/vendum/GereVendasModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/vendum/GereVendasModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/vendum/GestVendasAppMVC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/vendum/GestVendasAppMVC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/vendum/InfoProduto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/vendum/Leitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/vendum/Leitor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/vendum/VProdutos.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/vendum/VProdutos.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GereVendasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GereVendasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GereVendasModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GereVendasModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GestVendasAppMVC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GestVendasAppMVC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InfoProduto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InfoVenda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Leitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Leitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VProdutos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VProdutos.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,31 +19,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GereVendasController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-180">
-              <caret line="128" column="43" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="43" />
+            <state relative-caret-position="-31">
+              <caret line="442" column="8" selection-start-line="442" selection-start-column="8" selection-end-line="442" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#16024#16025#0" expanded="true" />
-                <element signature="e#16089#16090#0" expanded="true" />
-                <element signature="e#16815#16816#0" expanded="true" />
-                <element signature="e#16849#16850#0" expanded="true" />
-                <element signature="e#16896#16897#0" expanded="true" />
-                <element signature="e#16928#16929#0" expanded="true" />
+                <element signature="e#19183#19184#0" expanded="true" />
+                <element signature="e#19258#19259#0" expanded="true" />
+                <element signature="e#20054#20055#0" expanded="true" />
+                <element signature="e#20088#20089#0" expanded="true" />
+                <element signature="e#20135#20136#0" expanded="true" />
+                <element signature="e#20167#20168#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CFaturacao.java">
+        <entry file="file://$PROJECT_DIR$/src/GereVendasModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1049">
-              <caret line="132" column="72" selection-start-line="132" selection-start-column="72" selection-end-line="132" selection-end-column="72" />
+            <state relative-caret-position="-630">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#307#540#0" />
               </folding>
             </state>
           </provider>
@@ -60,7 +53,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GestVendasAppMVC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-138">
+            <state relative-caret-position="-229">
               <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -72,42 +65,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LStrings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
+            <state relative-caret-position="1656">
               <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Leitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CFiliais.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1566">
-              <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#11566#11567#0" expanded="true" />
-                <element signature="e#11599#11600#0" expanded="true" />
-                <element signature="e#11648#11649#0" expanded="true" />
-                <element signature="e#11692#11693#0" expanded="true" />
-                <element signature="e#11724#11725#0" expanded="true" />
-                <element signature="e#11755#11756#0" expanded="true" />
-                <element signature="e#11800#11801#0" expanded="true" />
-                <element signature="e#11840#11841#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,7 +89,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/InfoCliente.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-54">
+            <state>
               <caret column="16" selection-start-column="13" selection-end-column="24" />
             </state>
           </provider>
@@ -143,14 +104,36 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClisProd.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
+            <state relative-caret-position="36">
               <caret line="3" column="14" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Input.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MaxHeapInt.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-228">
+              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -230,14 +213,15 @@
         <option value="$PROJECT_DIR$/src/Crono.java" />
         <option value="$PROJECT_DIR$/src/Leitor.java" />
         <option value="$PROJECT_DIR$/src/GestVendasAppMVC.java" />
+        <option value="$PROJECT_DIR$/src/InfoVenda.java" />
         <option value="$PROJECT_DIR$/src/GereVendasModel.java" />
         <option value="$PROJECT_DIR$/src/GereVendasController.java" />
-        <option value="$PROJECT_DIR$/src/InfoVenda.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="y" value="25" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="246" />
+    <option name="y" value="27" />
     <option name="width" value="683" />
     <option name="height" value="741" />
   </component>
@@ -250,7 +234,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -267,6 +250,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -334,7 +318,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17057101" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -405,19 +388,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CliFat.java" />
-    <entry file="file://$PROJECT_DIR$/src/MaxHeapInt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="55" column="32" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
-          <folding>
-            <element signature="e#866#867#0" expanded="true" />
-            <element signature="e#901#902#0" expanded="true" />
-            <element signature="e#1351#1352#0" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/ClassLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
@@ -439,17 +409,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Input.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Globais.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -461,67 +420,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GereVendasModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="116" column="17" selection-start-line="116" selection-start-column="17" selection-end-line="116" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#307#540#0" />
-            <element signature="e#2312#2313#0" expanded="true" />
-            <element signature="e#2375#2376#0" expanded="true" />
-            <element signature="e#2247#2380#0" />
-            <element signature="e#2563#2564#0" expanded="true" />
-            <element signature="e#2624#2625#0" expanded="true" />
-            <element signature="e#2496#3431#0" />
-            <element signature="e#3437#3757#0" />
-            <element signature="e#3763#4081#0" />
-            <element signature="e#4087#4319#0" />
-            <element signature="e#4325#4667#0" />
-            <element signature="e#4673#4829#0" />
-            <element signature="e#4835#5161#0" />
-            <element signature="e#5167#5650#0" />
-            <element signature="e#5656#5893#0" />
-            <element signature="e#5899#6285#0" />
-            <element signature="e#6420#6554#0" />
-            <element signature="e#6560#6688#0" />
-            <element signature="e#6694#6923#0" />
-            <element signature="e#6929#7062#0" />
-            <element signature="e#7068#7243#0" />
-            <element signature="e#7249#7430#0" />
-            <element signature="e#7436#7583#0" />
-            <element signature="e#7589#7767#0" />
-            <element signature="e#7941#7942#0" expanded="true" />
-            <element signature="e#8007#8008#0" expanded="true" />
-            <element signature="e#8045#8046#0" expanded="true" />
-            <element signature="e#8104#8105#0" expanded="true" />
-            <element signature="e#8153#8154#0" expanded="true" />
-            <element signature="e#8220#8221#0" expanded="true" />
-            <element signature="e#8275#8276#0" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8395#8396#0" expanded="true" />
-            <element signature="e#8460#8461#0" expanded="true" />
-            <element signature="e#8513#8514#0" expanded="true" />
-            <element signature="e#8584#8585#0" expanded="true" />
-            <element signature="e#9235#9425#0" />
-            <element signature="e#9595#9596#0" expanded="true" />
-            <element signature="e#9631#9632#0" expanded="true" />
-            <element signature="e#9664#9665#0" expanded="true" />
-            <element signature="e#9717#9718#0" expanded="true" />
-            <element signature="e#9750#9751#0" expanded="true" />
-            <element signature="e#9803#9804#0" expanded="true" />
-            <element signature="e#9834#9835#0" expanded="true" />
-            <element signature="e#9886#9887#0" expanded="true" />
-            <element signature="e#9924#9925#0" expanded="true" />
-            <element signature="e#9967#9968#0" expanded="true" />
-            <element signature="e#10020#10021#0" expanded="true" />
-            <element signature="e#10080#10081#0" expanded="true" />
-            <element signature="e#10131#10132#0" expanded="true" />
-            <element signature="e#10184#10185#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -590,45 +488,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GereVendasController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="128" column="43" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#16024#16025#0" expanded="true" />
-            <element signature="e#16089#16090#0" expanded="true" />
-            <element signature="e#16815#16816#0" expanded="true" />
-            <element signature="e#16849#16850#0" expanded="true" />
-            <element signature="e#16896#16897#0" expanded="true" />
-            <element signature="e#16928#16929#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LStrings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1710">
-          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GestVendasAppMVC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-138">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CFaturacao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1049">
+        <state relative-caret-position="2304">
           <caret line="132" column="72" selection-start-line="132" selection-start-column="72" selection-end-line="132" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -636,10 +498,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/LStrings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1656">
+          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InfoCliente.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="16" selection-start-column="13" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GereVendasView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClisProd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Input.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MaxHeapInt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GestVendasAppMVC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-229">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -653,19 +570,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InfoCliente.java">
+    <entry file="file://$PROJECT_DIR$/src/GereVendasModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret column="16" selection-start-column="13" selection-end-column="24" />
+        <state relative-caret-position="-630">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#307#540#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClisProd.java">
+    <entry file="file://$PROJECT_DIR$/src/GereVendasController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="21" />
+        <state relative-caret-position="-31">
+          <caret line="442" column="8" selection-start-line="442" selection-start-column="8" selection-end-line="442" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#19183#19184#0" expanded="true" />
+            <element signature="e#19258#19259#0" expanded="true" />
+            <element signature="e#20054#20055#0" expanded="true" />
+            <element signature="e#20088#20089#0" expanded="true" />
+            <element signature="e#20135#20136#0" expanded="true" />
+            <element signature="e#20167#20168#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -126,7 +126,7 @@ public class GereVendasController {
             case 1:
                 c = "../intocaveis/Clientes.txt";
                 p = "../intocaveis/Produtos.txt";
-                v = "../intocaveis/Vendas_5M.txt";
+                v = "../intocaveis/Vendas_1M.txt";
                 clientes = new File(c);
                 produtos = new File(p);
                 vendas = new File(v);
@@ -415,29 +415,46 @@ public class GereVendasController {
 
     private void query7(){
         String tempo = null;
-
         MaxHeapInt heap = null;
         LStrings ls = new LStrings();
-        Input input = new Input();
-        int nr = -1;
-        int i;
+        boolean next = false;
+        int r = 0;
+        int l = 0;
 
-        this.view.imprimeMsgInfo("Introduza o numero de produtos com mais vendas teve: ");
+        while(!next) {
+            r = this.view.nr_produtos();
+            if(r <= 0)
+                next = false;
+            else
+                break;
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu um número inválido!");
+        }
 
-        nr = input.lerInt();
+        next = false;
+
+        while(!next) {
+            l = this.view.linhas_por_pagina();
+            next = ls.define_nrlinhas(l);
+            if(!next)
+                this.view.imprimeMsgErro("Inseriu um número pequeno (>= a 5)!");
+        }
 
         Crono.start();
         heap = this.model.produtos_mais_vendidos();
+        ls.maxheapint_to_lstrings_etneilc(heap);
         Crono.stop();
         tempo = Crono.print();
 
-        ls.maxheapint_to_lstrings(heap);
-        for (i= 0; i < nr; i++)
-        {
-            System.out.println(ls.getPosicaoLstrings(i));
+        if(ls.getNrstrings() < r){
+            this.view.imprimeMsgErro("Número de elementos do TOP demasiado elevado.");
+            return;
         }
 
         this.view.imprimeMsgInfo(tempo);
+        ls.setNrstrings(r);
+        ls.imprime_lstrings();
+
     }
 
     private void query8(){
