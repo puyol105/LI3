@@ -134,4 +134,14 @@ public class CProdutos implements java.io.Serializable{
         produtos = this.produtos;
         return produtos;
     }
+
+    public boolean valida_produto(String codigo){
+        if(!Character.isUpperCase(codigo.charAt(0)) || !Character.isUpperCase(codigo.charAt(1)))
+            return false;
+        if(codigo.length() != 6)
+            return false;
+        if(Integer.parseInt(codigo.substring(2)) < 1000 || Integer.parseInt(codigo.substring(2)) > 9999)
+            return false;
+        return true;
+    }
 }

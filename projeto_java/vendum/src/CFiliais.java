@@ -12,7 +12,7 @@ public class CFiliais implements java.io.Serializable{
         this.nrvendas = 0;
         this.cfiliais = new ArrayList<>(Globais.NRMESES);
         List<Map<String,ProdsCliente>> l;
-        HashMap<String,ProdsCliente> h;
+        Map<String,ProdsCliente> h;
 
         for(int i = 0; i < Globais.NRMESES; i++) {
             l = new ArrayList<>(Globais.NRFILIAIS);

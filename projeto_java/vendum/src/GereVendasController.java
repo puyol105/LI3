@@ -451,9 +451,9 @@ public class GereVendasController {
             return;
         }
 
-        this.view.imprimeMsgInfo(tempo);
         ls.setNrstrings(r);
         ls.imprime_lstrings();
+        this.view.imprimeMsgInfo(tempo);
 
     }
 

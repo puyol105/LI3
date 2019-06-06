@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class CFaturacao implements java.io.Serializable{
 
-    private List<List<HashMap<String,VProdutos>>> cfaturacao;
+    private List<List<Map<String,VProdutos>>> cfaturacao;
     private int nrprodutos;
     private int nrvendas;
 
@@ -14,8 +14,8 @@ public class CFaturacao implements java.io.Serializable{
         this.nrprodutos = 0;
         this.nrvendas = 0;
         this.cfaturacao = new ArrayList<>(Globais.NRMESES);
-        List<HashMap<String,VProdutos>> l;
-        HashMap<String,VProdutos> h;
+        List<Map<String,VProdutos>> l;
+        Map<String,VProdutos> h;
 
         for(int i = 0; i < Globais.NRMESES; i++){
             l = new ArrayList<>(Globais.NRFILIAIS);
@@ -56,7 +56,7 @@ public class CFaturacao implements java.io.Serializable{
         else if(object instanceof Venda)
             string = (String) ((Venda) object).getProduto();
 
-        HashMap<String,VProdutos> m;
+        Map<String,VProdutos> m;
         VProdutos vp;
 
         for(int i = 0; i < Globais.NRMESES; i++)

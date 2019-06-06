@@ -112,4 +112,14 @@ public class CClientes implements java.io.Serializable{
         clientes = this.clientes;
         return clientes;
     }
+
+    public boolean valida_cliente(String codigo){
+        if(!Character.isUpperCase(codigo.charAt(0)))
+            return false;
+        if(codigo.length() != 5)
+            return false;
+        if(Integer.parseInt(codigo.substring(1)) < 1000 || Integer.parseInt(codigo.substring(1)) > 5000)
+            return false;
+        return true;
+    }
 }

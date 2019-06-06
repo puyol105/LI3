@@ -25,7 +25,7 @@ public class GereVendasView {
         imprimeMsgInfo("4. Nº compras, nº produtos comprados e gastos mensais de um cliente.");
         imprimeMsgInfo("5. Quantidade comprada, nº clientes e total faturado de um produto.");
         imprimeMsgInfo("6. Produtos mais comprados por um cliente.");
-        imprimeMsgInfo("7. .");
+        imprimeMsgInfo("7. Os N produtos mais vendidos em todo o ano.(VERIFICAR COM OUTROS)");
         imprimeMsgInfo("8. Os três melhores clientes de uma filial. (VERIFICAR COM OUTROS).");
         imprimeMsgInfo("9. Os N clientes que compraram mais produtos diferentes. (VERIFICAR COM OUTROS)");
         imprimeMsgInfo("10. Os N clientes (e o valor gasto) que mais compraram um produto. (VERIFICAR COM OUTROS)");
