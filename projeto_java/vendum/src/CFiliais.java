@@ -78,7 +78,7 @@ public class CFiliais implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado um cliente, um mês e uma filial, 
+     * Método que, dado um cliente, um mês e uma filial, retorna o número total de compras.
      * @return
      * @param cliente
      * @param mes
@@ -93,6 +93,13 @@ public class CFiliais implements java.io.Serializable{
             return 0;
     }
 
+    /**
+     * Método que, dado um cliente, um mes e uma filial, devolve o número de produtos COMPRADOS??? 
+     * @return
+     * @param cliente
+     * @param mes
+     * @param filial
+    */
     public int nrprodutos_mes_filial_cliente_cfiliais(String cliente, int mes, int filial){
         ProdsCliente pc = this.cfiliais.get(mes).get(filial).get(cliente);
 
@@ -102,6 +109,10 @@ public class CFiliais implements java.io.Serializable{
             return 0;
     }
 
+    /**
+     * Método que, dado um cliente e um mês, devolve o número de produtos comprados para cada filial.
+     * @return
+    */
     public int nrprodutos_mes_cliente_cfiliais(String cliente, int mes){
         Set<String> produtos = new HashSet<>();
         ProdsCliente pc = null;
@@ -113,6 +124,11 @@ public class CFiliais implements java.io.Serializable{
         return produtos.size();
     }
 
+    /**
+     * Método que, dado um mês, apresenta o total de vendas nesse mês em todas as filiais.
+     * @param mes
+     * @return
+     */
     public int total_vendas_mes_cfiliais(int mes){
         Map<String,ProdsCliente> m = null;
         int total = 0;
@@ -127,6 +143,11 @@ public class CFiliais implements java.io.Serializable{
         return total;
     }
 
+    /**
+     * Método que, dado uma filial, determina o total de vendas nessa filial.
+     * @param filial
+     * @return
+     */
     public int total_vendas_filial_cfiliais(int filial){
         Map<String,ProdsCliente> m = null;
         int total = 0;
@@ -141,6 +162,11 @@ public class CFiliais implements java.io.Serializable{
         return total;
     }
 
+    /**
+     * Método que, dado um mês, calcula o número de clientes que fizeram compras nesse mês.
+     * @param mes
+     * @return
+     */
     public int nrclientes_mes_cfiliais(int mes) {
         Map<String, ProdsCliente> m = null;
         Set<String> set = new HashSet<>();
@@ -154,6 +180,11 @@ public class CFiliais implements java.io.Serializable{
         return set.size();
     }
 
+    /**
+     * Método que, dado uma filial, calcula o número de clientes que fizeram compras nessa filal.
+     * @param filial
+     * @return
+     */
     public int nrclientes_filial_cfiliais(int filial) {
         Map<String, ProdsCliente> m = null;
         Set<String> set = new HashSet<>();
@@ -167,6 +198,10 @@ public class CFiliais implements java.io.Serializable{
         return set.size();
     }
 
+    /**
+     * Método que determina o total faturado na classe CFiliais.
+     * @return
+     */
     public double total_faturado_cfiliais(){
         double total = 0.0;
         Map<String,ProdsCliente> m;
@@ -182,6 +217,13 @@ public class CFiliais implements java.io.Serializable{
         return total;
     }
 
+    /**
+     * Método que, dado um cliente, mês e filial, 
+     * @param cliente
+     * @param mes
+     * @param filial
+     * @return
+     */
     public double fatprod_mes_filial_cliente_cfiliais(String cliente, int mes, int filial){
         ProdsCliente pc = this.cfiliais.get(mes).get(filial).get(cliente);
 
@@ -191,6 +233,11 @@ public class CFiliais implements java.io.Serializable{
             return 0;
     }
 
+    /**
+     * Método que, dado um produto e um array, 
+     * @param produto
+     * @param array
+     */
     public void quantidade_nrclientes_totfaturado_produto_cfiliais(String produto, double[][] array){
         Map<String,ProdsCliente> m = null;
         Set<String> s = null;
@@ -214,6 +261,11 @@ public class CFiliais implements java.io.Serializable{
         }
     }
 
+    /**
+     * Método que cria um Map onde se vai colocar por ordem decrescente os produtos mais comprados por um determinado cliente. 
+     * @param cliente
+     * @return
+     */
     public MaxHeapInt produtos_mais_comprados_cliente(String cliente){
         Map<String,Integer> produtos_quantidades = new HashMap<>();
         MaxHeapInt heap = new MaxHeapInt();

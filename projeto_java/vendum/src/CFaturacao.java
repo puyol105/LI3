@@ -102,7 +102,7 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado um determinado produto, apresenta uma matriz com o total faturado
+     * Método que, dado um determinado produto, apresenta uma matriz 12x3 com o total faturado
      * desse mesmo produto em cada mês e filial.
      * @return
      * @param produto
@@ -133,7 +133,7 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método devolve o número de vendas  
+     * Método devolve o número de vendas cujo preço do produto é igual a 0.  
      * @return
     */
     public int getVendasValorZero(){
@@ -165,7 +165,7 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método
+     * Método que apresenta a faturação total numa matriz 12x3 para cada mês e filial.
      * @param fatmesfilial
     */
     public void fat_mes_filial(double[][] fatmesfilial){
