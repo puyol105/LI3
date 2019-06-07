@@ -234,7 +234,7 @@ public class CFiliais implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado um produto e um array, 
+     * Método que, dado um produto e um array, preenche uma matriz 
      * @param produto
      * @param array
      */
@@ -284,6 +284,11 @@ public class CFiliais implements java.io.Serializable{
         return heap.to_maxheap(produtos_quantidades);
     }
 
+    /**
+     * Método que cria um Map onde se vai colocar por ondem decrescente os clientes mais compradores de um determinado produto.
+     * @param produto
+     * @return
+     */
     public MaxHeapInt clientes_mais_compradores_produto(String produto){
         Map<String,InfoCliente> map = new HashMap<>();
         MaxHeapInt heap = new MaxHeapInt();
@@ -321,6 +326,10 @@ public class CFiliais implements java.io.Serializable{
         return heap;
     }
 
+    /**
+     * Método que cria um Map onde se vai colocar por ondem decrescente os clientes que mais compraram produtos diferentes. 
+     * @return
+     */
     public MaxHeapInt clientes_mais_variadores(){
         MaxHeapInt heap = new MaxHeapInt();
         Map<String,Set<String>> produtos_cliente = new HashMap<>();
@@ -351,6 +360,11 @@ public class CFiliais implements java.io.Serializable{
         return heap;
     }
 
+    /**
+     * Método que cria um Map onde se vai colocar, por ordem decrescente, os clientes que mais gastaram numa determinada filial.
+     * @param f
+     * @return
+     */
     public MaxHeapDouble clientes_mais_compradores_filial(int f){
         f--;
         MaxHeapDouble heap = new MaxHeapDouble();
@@ -371,6 +385,10 @@ public class CFiliais implements java.io.Serializable{
         return heap.to_maxheap(gastos_cliente);
     }
 
+    /**
+     * Método que cria um Map onde se vai colocar, por ordem decrescente, os produtos mais vendidos.
+     * @return
+     */
     public MaxHeapInt produtos_mais_vendidos(){
         MaxHeapInt heap = new MaxHeapInt();
         Map<String,ClisProd> prods_mais_vendidos = new HashMap<>();
@@ -393,6 +411,10 @@ public class CFiliais implements java.io.Serializable{
         return heap;
     }
 
+    /**
+     * 
+     * @param array
+     */
     public void nr_clientes_distintos_mes_filial(int[][] array){
         for(int i = 0; i < this.cfiliais.size(); i++){
             for(int j = 0; j < this.cfiliais.get(i).size(); j++){
@@ -401,18 +423,34 @@ public class CFiliais implements java.io.Serializable{
         }
     }
 
+    /**
+     * Método que devolve o número de clientes.
+     * @return
+     */
     public int getNrclientes() {
         return nrclientes;
     }
 
+    /**
+     * Método que define o número de clientes.
+     * @param nrclientes
+     */
     public void setNrclientes(int nrclientes) {
         this.nrclientes = nrclientes;
     }
 
+    /**
+     * Método que devolve o número de vendas.
+     * @return
+     */
     public int getNrvendas() {
         return nrvendas;
     }
 
+    /**
+     * Método que define o número de vendas.
+     * @param nrvendas
+     */
     public void setNrvendas(int nrvendas) {
         this.nrvendas = nrvendas;
     }

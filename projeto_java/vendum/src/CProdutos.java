@@ -6,7 +6,7 @@ public class CProdutos implements java.io.Serializable{
     private int nrprodutos;
 
     /**
-     * Contrutor vazio
+     * Contrutor vazio.
      */
     public CProdutos(){
         this.nrprodutos = 0;
@@ -26,7 +26,8 @@ public class CProdutos implements java.io.Serializable{
     }
 
     /**
-     * Construtor parametrizado
+     * Construtor parametrizado.
+     * @param collection
      */
     public CProdutos(Collection <String> collection){
         this.nrprodutos = 0;
@@ -51,7 +52,7 @@ public class CProdutos implements java.io.Serializable{
     }
 
     /**
-     * Contrutor de cópia
+     * Contrutor de cópia.
      */
     public CProdutos(CProdutos c){
         this.produtos = new ArrayList<>(Globais.NRLETRAS);
@@ -76,11 +77,20 @@ public class CProdutos implements java.io.Serializable{
                 }
     }
 
-
+    /**
+     * Método que devolve uma matriz com os produtos.
+     * @return
+     */
     public List<List<Set<String>>> getProdutos(){//retornar um clone??
         return this.produtos;
     }
 
+    /**
+     * Método que regista um produto.
+     * Devolve true se foi adicionado ou false caso esse produto já exista nos registos dos produtos.
+     * @param produto
+     * @return true or false
+     */
     public boolean registaProduto(String produto){
         int i = calculaIndice(produto.charAt(0));
         int j = calculaIndice(produto.charAt(1));
@@ -92,7 +102,9 @@ public class CProdutos implements java.io.Serializable{
         return false;
     }
 
-
+    /**
+     * Método que imprime todos os produtos e o número total de produtos registados.
+     */
     public void imprimeProdutos(){
         for(int i = 0; i < Globais.NRLETRAS; i++)
             for(int j = 0; j < Globais.NRLETRAS; j++)
@@ -101,6 +113,11 @@ public class CProdutos implements java.io.Serializable{
         System.out.println("Número de produtos: " + this.nrprodutos);
     }
 
+    /**
+     * Método que verifica se um determinado produto já está registado.
+     * @param string
+     * @return
+     */
     public boolean existe_produto(String string){
         int i = calculaIndice(string.charAt(0));
         int j = calculaIndice(string.charAt(1));
@@ -108,19 +125,37 @@ public class CProdutos implements java.io.Serializable{
         return this.produtos.get(i).get(j).contains(string);
     }
 
+    /**
+     * Método que, dado uma letra, calcula o índice na List associada a essa mesma letra.
+     * @param letra
+     * @return
+     */
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
         return letra - 'A';
     }
 
+    /**
+     * Método que devolve o número de produtos.
+     * @return
+     */
     public int getNrprodutos() {
         return nrprodutos;
     }
 
+    /**
+     * Método que define o número de produtos.
+     * @param nrprodutos
+     */
     public void setNrprodutos(int nrprodutos) {
         this.nrprodutos = nrprodutos;
     }
 
+    /**
+     * Método que regista numa List, os produtos não comprados.
+     * @param lStrings
+     * @param cfaturacao
+     */
     public void prods_nao_comprados(LStrings lStrings, CFaturacao cfaturacao){
         for(int i = 0; i < this.produtos.size(); i++)
             for(int j = 0; j < this.produtos.get(i).size(); j++)
@@ -129,12 +164,22 @@ public class CProdutos implements java.io.Serializable{
                         lStrings.regista_entrada(produto);
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<List<Set<String>>> shallowCloneProdutos() {
         List<List<Set<String>>> produtos = new ArrayList<>(this.produtos.size());
         produtos = this.produtos;
         return produtos;
     }
 
+    /**
+     * Método que verifica se um determinado código de produto apresenta todos os critérios
+     * associados a um código de produto.
+     * @return true or false
+     * @param codigo
+     */
     public boolean valida_produto(String codigo){
         if(!Character.isUpperCase(codigo.charAt(0)) || !Character.isUpperCase(codigo.charAt(1)))
             return false;

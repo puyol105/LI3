@@ -151,7 +151,7 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado um array de 
+     * Método que preenche um array com o número de compras realizadas por mês.
      * @param nrcomprasmes
     */
     public void nr_compras_mes(int[] nrcomprasmes){

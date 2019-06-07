@@ -10,6 +10,9 @@ public class GereVendasModel implements java.io.Serializable{
     private CFaturacao cfaturacao;
     private int nrvendasErradas;
 
+    /**
+     * Construtor vazio.
+     */
     public GereVendasModel(){
         this.cprodutos = new CProdutos();
         this.cclientes = new CClientes();
@@ -18,6 +21,7 @@ public class GereVendasModel implements java.io.Serializable{
         this.nrvendasErradas = 0;
     }
 
+    
     public boolean carregaCClientes(String caminho){
         int i = 0;
 

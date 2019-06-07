@@ -21,6 +21,7 @@ public class CClientes implements java.io.Serializable{
 
     /**
      * Construtor parametrizado.
+     * @param collection
      */
     public CClientes(Collection <String> collection){
         this.nrclientes = 0;
