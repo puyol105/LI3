@@ -58,7 +58,7 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Método que devolve todos os clientes.
+     * Método que devolve todos os clientes da classe CClientes.
      * @return
     */ 
     public List<Set<String>> getClientes(){//retornar um clone??
@@ -66,7 +66,7 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Método que devolve to total de clientes existente.
+     * Método que devolve to total de clientes existente da classe CClientes.
      * @return
     */ 
     public int getNrclientes(){

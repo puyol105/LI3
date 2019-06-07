@@ -7,6 +7,9 @@ public class CFiliais implements java.io.Serializable{
     private  int nrclientes;
     private int nrvendas;
 
+    /**
+     * Construtor vazio.
+     */
     public CFiliais(){
         this.nrclientes = 0;
         this.nrvendas = 0;
@@ -24,6 +27,10 @@ public class CFiliais implements java.io.Serializable{
         }
     }
 
+    /**
+     * Método que, dado uma venda, insere essa mesma venda na classe CFiliais.
+     * @param venda
+    */
     public void insereEmCFiliais(Venda venda){
         Map<String,ProdsCliente> m = this.cfiliais.get(venda.getMes()-1).get(venda.getFilial()-1);
         ProdsCliente pc = m.get(venda.getCliente());
@@ -44,6 +51,11 @@ public class CFiliais implements java.io.Serializable{
         }
     }
 
+    /**
+     * Método que, dado um objecto que é um cliente, verifica a sua exitência na classe CFiliais.
+     * @return true or false
+     * @param object
+    */
     public boolean existe_cliente_cfiliais(Object object){
         Map<String,ProdsCliente> m;
         ProdsCliente pc;
@@ -65,6 +77,13 @@ public class CFiliais implements java.io.Serializable{
         return false;
     }
 
+    /**
+     * Método que, dado um cliente, um mês e uma filial, 
+     * @return
+     * @param cliente
+     * @param mes
+     * @param filial
+    */
     public int compras_mes_filial_cliente_cfiliais(String cliente, int mes, int filial){
         ProdsCliente pc = this.cfiliais.get(mes).get(filial).get(cliente);
 
