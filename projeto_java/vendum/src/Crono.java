@@ -24,10 +24,17 @@ public class Crono {
     private static long inicio = 0L;
     private static long fim = 0L;
 
+    /**
+     * Método que começa a medição do tempo.
+     */
     public static void start() {
         fim = 0L; inicio = nanoTime();
     }
 
+    /**
+     * Método que começa a contagem do tempo.
+     * @return Tempo medido.
+     */
     public static double stop() {
         fim = nanoTime();
         long elapsedTime = fim - inicio;
@@ -35,6 +42,10 @@ public class Crono {
         return elapsedTime / 1.0E09;
     }
 
+    /**
+     * Método que começa a contagem do tempo.
+     * @return String a informar o tempo medido.
+     */
     public static String print() {
         return "Tempo: " + stop();
     }

@@ -22,15 +22,15 @@ public class InfoCliente {
     }
 
     /**
-     * Método que devolve a quantidade
-     * @return
+     * Método que devolve a quantidade comprada por um cliente.
+     * @return Quantidade comprada.
      */
     public int getQuantidade() {
         return quantidade;
     }
 
     /**
-     * Método que define a quantidade
+     * Método que define a quantidade comprada por um cliente.
      * @param quantidade
      */
     public void setQuantidade(int quantidade) {
@@ -38,15 +38,15 @@ public class InfoCliente {
     }
 
     /**
-     * Método que devolve o
-     * @return
+     * Método que devolve o preço unitário pago por um cliente.
+     * @return Preço pago.
      */
     public double getPreco() {
         return preco;
     }
 
     /**
-     * Método que define 
+     * Método que define o preço unitário pago por um cliente.
      * @param preco
      */
     public void setPreco(double preco) {
@@ -54,8 +54,8 @@ public class InfoCliente {
     }
 
     /**
-     * Método que calcula 
-     * @return
+     * Método que calcula o total gasto por um cliente.
+     * @return Total gasto.
      */
     public double total_infocliente(){
         return ((double) this.quantidade*this.preco);

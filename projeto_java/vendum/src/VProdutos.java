@@ -4,15 +4,27 @@ import java.util.List;
 public class VProdutos implements java.io.Serializable{
     List<InfoVenda> vprodutos;
 
+    /**
+     * Construtor vazio.
+     */
     public VProdutos(){
         vprodutos = new ArrayList<>();
     }
 
+    /**
+     * Insere no List vprodutos uma instância da classe InfoVenda.
+     * @param quantidade
+     * @param preco
+     */
     public void insereEmVProdutos(int quantidade, double preco){
         InfoVenda infoVenda = new InfoVenda(quantidade, preco);
         this.vprodutos.add(infoVenda);
     }
 
+    /**
+     * Método que retorna o total faturado em relação às vendas presentes no map vprodutos.
+     * @return Total faturado.
+     */
     public double total_faturado_vprodutos(){
         double total = 0.0;
 

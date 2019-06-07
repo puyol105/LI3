@@ -3,6 +3,9 @@ public class GereVendasView {
 
     private Input input = new Input();
 
+    /**
+     * Método que imprime o logo inicial.
+     */
     public void imprime_logo(){
         System.out.println(" ____   ____  ________  ____  _____  ______   _____  _____  ____    ____ ");
         System.out.println("|_  _| |_  _||_   __  ||_   \\|_   _||_   _ `.|_   _||_   _||_   \\  /   _|");
@@ -15,6 +18,10 @@ public class GereVendasView {
         System.out.print("\n\n\n");
     }
 
+    /**
+     * Método que imprime o menu principal e retorna a opção introduzida pelo utilizador.
+     * @return Número da opção escolhida.
+     */
     public int imprimeMenuPrincipal(){
         int i;
 

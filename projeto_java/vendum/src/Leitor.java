@@ -8,6 +8,10 @@ import java.util.List;
 
 public class Leitor {
 
+    /**
+     * Método que lê um ficheiro utilizando a classe Files.
+     * @return List com as linhas lidas.
+     */
     public static List<String> leFicheiro(String fichtxt) {
         List<String> linhas = new ArrayList<>();
 
@@ -20,6 +24,10 @@ public class Leitor {
         return linhas;
     }
 
+    /**
+     * Método que lê um ficheiro utilizando a classe BufferedReader.
+     * @return List com as linhas lidas.
+     */
     public static List<String> readLinesWithBR(String fich){
         List<String> linhas = new ArrayList<>();
         BufferedReader inFile = null;

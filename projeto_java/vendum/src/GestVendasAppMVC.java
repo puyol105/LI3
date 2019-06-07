@@ -12,6 +12,11 @@ import java.nio.file.*;
 
 
 public class GestVendasAppMVC{
+
+    /**
+     * Método main que inicia toda a aplicação.
+     * @param args
+     */
     public static void main(String [] args){
 
         GereVendasModel model = new GereVendasModel(); //model

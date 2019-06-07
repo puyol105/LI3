@@ -6,10 +6,17 @@ import java.util.TreeSet;
 public class ProdsCliente implements java.io.Serializable{
     private Map<String,VProdutos> prodscliente;
 
+    /**
+     * Construtor vazio.
+     */
     public ProdsCliente(){
         this.prodscliente = new HashMap<>();
     }
 
+    /**
+     * Método que insere uma venda no map prodscliente.
+     * @param venda
+     */
     public void insere_em_prodscliente(Venda venda){
         VProdutos vp = this.prodscliente.get(venda.getProduto());
 
@@ -23,6 +30,10 @@ public class ProdsCliente implements java.io.Serializable{
         }
     }
 
+    /**
+     * Método que retorna o número de vendas presentes no map prodscliente.
+     * @return Número de vendas.
+     */
     public int vprodutos_size_prodscliente(){
         int size = 0;
 

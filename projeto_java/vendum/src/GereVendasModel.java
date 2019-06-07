@@ -150,10 +150,18 @@ public class GereVendasModel implements java.io.Serializable{
         return this.cfiliais.nrclientes_mes_cfiliais(mes);
     }
 
+    /**
+     * Método que retorna o número de clientes numa filial.
+     * @return Número de clientes.
+     */
     public int nrclientes_filial_model(int filial){
         return this.cfiliais.nrclientes_filial_cfiliais(filial);
     }
 
+    /**
+     * Método que retorna o número de clientes que compraram.
+     * @return Número de clientes.
+     */
     public int getNrclientesCompradores(){
         int nr = 0;
         List<Set<String>> clientes = this.cclientes.shallowCloneClientes();
@@ -166,6 +174,10 @@ public class GereVendasModel implements java.io.Serializable{
         return nr;
     }
 
+    /**
+     * Método que retorna o número de produtos comprados.
+     * @return Número de produtos comprados.
+     */
     public int getNrprodutosComprados(){
         int nr = 0;
         List<List<Set<String>>> produtos = this.cprodutos.shallowCloneProdutos();
@@ -179,38 +191,75 @@ public class GereVendasModel implements java.io.Serializable{
         return nr;
     }
 
+    /**
+     * Método que preenche um array com várias informações de um produtos separadas mensalmente.
+     * @param produto
+     * @param array
+     */
     public void quantidade_nrclientes_totfaturado_produto_model(String produto, double[][] array){
         this.cfiliais.quantidade_nrclientes_totfaturado_produto_cfiliais(produto, array);
     }
 
+    /**
+     * Método que retorna o catálogo de filiais.
+     * @return Catálogo de filiais.
+     */
     public CFiliais getCFiliais(){
         return this.cfiliais;
     }
 
+    /**
+     * Método que retorna o número de clientes no catálogo de clientes.
+     * @return Número de clientes.
+     */
     public int getNrclientes(){
         return this.cclientes.getNrclientes();
     }
 
+    /**
+     * Método que retorna o número de produtos do catálogo de produtos.
+     * @return Número de produtos.
+     */
     public int getNrprodutos(){
         return this.cprodutos.getNrprodutos();
     }
 
+    /**
+     * Método que retorna o número de vendas.
+     * @return Número de vendas.
+     */
     public int getNrvendas(){
         return this.cfaturacao.getNrvendas();
     }
 
+    /**
+     * Método que retorna o número de vendas erradas.
+     * @return Número de vendas erradas.
+     */
     public int getNrvendasErradas(){
         return this.nrvendasErradas;
     }
 
+    /**
+     * Método que constroi estatísticas acerca do número de compras das estruturas de dados.
+     * @param nrcomprasmes
+     */
     public void nr_compras_mes(int[] nrcomprasmes){
         this.cfaturacao.nr_compras_mes(nrcomprasmes);
     }
 
+    /**
+     * Método que constroi estatísticas acerca da faturação.
+     * @param array
+     */
     public void fat_mes_filial(double[][] array){
         this.cfaturacao.fat_mes_filial(array);
     }
 
+    /**
+     * Método que constroi estatísticas acerca do número de clientes diferentes em cada mês e em cada filial.
+     * @param array
+     */
     public void nr_clientes_distintos_mes_filial(int[][] array){
         this.cfiliais.nr_clientes_distintos_mes_filial(array);
     }

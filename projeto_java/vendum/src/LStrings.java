@@ -8,12 +8,19 @@ public class LStrings {
     private int nrstrings;
     private int nrlinhas;
 
+    /**
+     * Contrutor vazio.
+     */
     public LStrings(){
         this.lstrings = new ArrayList<>();
         this.nrstrings = 0;
         this.nrlinhas = 20;
     }
 
+    /**
+     * Método que coloca numa lista de strings todas as strings que existem na estrutura recebida nos parâmetros.
+     * @param heap
+     */
     public void maxheapint_to_lstrings(MaxHeapInt heap){
         Map<Integer,Set<String>> map = heap.getMaxheap();
         for(Map.Entry<Integer,Set<String>> entry: map.entrySet()){
@@ -24,6 +31,10 @@ public class LStrings {
         }
     }
 
+    /**
+     * Método que coloca numa lista de strings todas as strings que existem na estrutura recebida nos parâmetros.
+     * @param heap
+     */
     public void maxheapint_to_lstrings_netneilc(MaxHeapInt heap){
         Map<Integer,Set<String>> map = heap.getMaxheap();
         for(Map.Entry<Integer,Set<String>> entry: map.entrySet()){
@@ -34,6 +45,10 @@ public class LStrings {
         }
     }
 
+    /**
+     * Método que coloca numa lista de strings todas as strings que existem na estrutura recebida nos parâmetros.
+     * @param heap
+     */
     public void maxheapint_to_lstrings_etneilc(MaxHeapInt heap){
         Map<Integer,Set<String>> map = heap.getMaxheap();
         for(Map.Entry<Integer,Set<String>> entry: map.entrySet()){
@@ -44,6 +59,10 @@ public class LStrings {
         }
     }
 
+    /**
+     * Método que coloca numa lista de strings todas as strings que existem na estrutura recebida nos parâmetros.
+     * @param heap
+     */
     public void maxheapdouble_to_lstrings(MaxHeapDouble heap){
         Map<Double,Set<String>> map = heap.getMaxheap();
         for(Map.Entry<Double,Set<String>> entry: map.entrySet()){
@@ -54,6 +73,10 @@ public class LStrings {
         }
     }
 
+    /**
+     * Método que adiciona uma string à lista de strings.
+     * @param string
+     */
     public boolean regista_entrada(String string){
         if(true == this.lstrings.add(string)){
             this.nrstrings++;
@@ -63,6 +86,11 @@ public class LStrings {
         return false;
     }
 
+    /**
+     * Método que define o número de linhas nas páginas da lista de strings.
+     * @param nrlinhas
+     * @return Verdadeiro se o número dado é válido ou falso caso contrário.
+     */
     public boolean define_nrlinhas(int nrlinhas){
         if(nrlinhas >=5) {
             this.nrlinhas = nrlinhas;
@@ -72,6 +100,9 @@ public class LStrings {
         return false;
     }
 
+    /**
+     * Método que imprime a lista de strings.
+     */
     public void imprime_lstrings(){
         GereVendasView view = new GereVendasView();
         Input input = new Input();
@@ -125,14 +156,27 @@ public class LStrings {
 
     }
 
+    /**
+     * Método que retorna a string de uma determinada posição.
+     * @param i
+     * @return String naquela posição.
+     */
     public String getPosicaoLstrings(int i){
         return this.lstrings.get(i);
     }
 
+    /**
+     * Método que define o número de strings.
+     * @param nrstrings
+     */
     public void setNrstrings(int nrstrings){
         this.nrstrings = nrstrings;
     }
 
+    /**
+     * Método que devolve o número de strings.
+     * @return Número de strings.
+     */
     public int getNrstrings(){
         return this.nrstrings;
     }

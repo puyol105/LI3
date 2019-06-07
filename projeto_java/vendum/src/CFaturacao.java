@@ -32,7 +32,7 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado uma venda, regista essa mesma venda na classe CFaturacao.
+     * Método que, dada uma venda, regista essa mesma venda na classe CFaturacao.
      * @param venda
     */
     public void insereEmCFaturacao(Venda venda){
@@ -57,8 +57,8 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado um determinado objecto que é um produto, verifica a sua existência na classe CFaturacao
-     * @return true or false
+     * Método que, dado um determinado objecto que é um produto, verifica a sua existência na classe CFaturacao.
+     * @return Verdadeiro ou falso.
      * @param object
     */
     public boolean existe_produto_cfaturacao(Object object){
@@ -84,7 +84,7 @@ public class CFaturacao implements java.io.Serializable{
 
     /**
      * Método que calcula o total faturado de todas as vendas.
-     * @return
+     * @return Número que representa o total faturado.
     */
     public double total_faturado_cfaturacao(){
         double total = 0.0;
@@ -104,7 +104,7 @@ public class CFaturacao implements java.io.Serializable{
     /**
      * Método que, dado um determinado produto, apresenta uma matriz 12x3 com o total faturado
      * desse mesmo produto em cada mês e filial.
-     * @return
+     * @return Retorna a matriz criada e preenchida.
      * @param produto
     */
     public double[][] faturacao_meses_filiais(String produto){
@@ -119,7 +119,7 @@ public class CFaturacao implements java.io.Serializable{
     /**
      * Método que, dado um produto, mês e filial, apresenta o total faturado desse mesmo produto
      * num específico mês e filial.
-     * @return
+     * @return Total faturado do produto num mês e filial.
      * @param produto
      * @param mes
      * @param filial
@@ -133,8 +133,8 @@ public class CFaturacao implements java.io.Serializable{
     }
 
     /**
-     * Método devolve o número de vendas cujo preço do produto é igual a 0.  
-     * @return
+     * Método que devolve o número de vendas cujo preço do produto é igual a 0.
+     * @return Número de vendas com valor zero.
     */
     public int getVendasValorZero(){
         int nr = 0;
@@ -180,7 +180,7 @@ public class CFaturacao implements java.io.Serializable{
 
     /**
      * Método que devolve o número de vendas.
-     * @return
+     * @return Número de vendas.
     */
     public int getNrvendas() {
         return nrvendas;
@@ -196,7 +196,7 @@ public class CFaturacao implements java.io.Serializable{
 
     /**
      * Método que devolve o numero de produtos da classe CFaturacao.
-     * @return
+     * @return Número de produtos.
     */
     public int getNrprodutos() {
         return nrprodutos;

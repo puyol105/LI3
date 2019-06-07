@@ -24,15 +24,15 @@ public class InfoVenda implements java.io.Serializable{
     }
 
     /**
-     * Método que devolve a quantidade
-     * @return
+     * Método que devolve a quantidade de uma venda.
+     * @return Quantidade de uma venda.
      */
     public int getQuantidade() {
         return quantidade;
     }
 
     /**
-     * Método que define a quantidade
+     * Método que define a quantidade de uma venda.
      * @param quantidade
      */
     public void setQuantidade(int quantidade) {
@@ -40,15 +40,15 @@ public class InfoVenda implements java.io.Serializable{
     }
 
     /**
-     * Método que devolve o preco
-     * @return
+     * Método que devolve o preço de uma venda.
+     * @return Preço de uma venda.
      */
     public double getPreco() {
         return preco;
     }
 
     /**
-     * Método que define o preco
+     * Método que define o preço de uma venda.
      * @param preco
      */
     public void setPreco(double preco) {
@@ -56,8 +56,8 @@ public class InfoVenda implements java.io.Serializable{
     }
 
     /**
-     * Método que calcula
-     * @return
+     * Método que calcula o total faturado multiplicando o preço pela quantidade.
+     * @return Total faturado.
      */
     public double total_infovenda(){
         return ((double) this.quantidade*this.preco);

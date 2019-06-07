@@ -5,11 +5,20 @@ public class MaxHeapInt {
     private Map<Integer, Set<String>> maxheap = null;
     private int nrelementos;
 
+    /**
+     * Construtor vazio.
+     */
     public MaxHeapInt(){
         this.maxheap = new TreeMap<Integer,Set<String>>(Collections.reverseOrder());
         this.nrelementos = 0;
     }
 
+    /**
+     * Método que converte o map recebido (em que as chaves são strings e os valores são números que lhes estão associados)
+     * num treemap (em que as chaves são os valores do map anterior e os valores as chaves) ordenado por ordem descrescente.
+     * @param map
+     * @return MaxHeapInt
+     */
     public MaxHeapInt to_maxheap(Map<String, Integer> map){
 
         for(Map.Entry<String,Integer> entry: map.entrySet()){

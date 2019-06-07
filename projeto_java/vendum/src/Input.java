@@ -22,9 +22,9 @@ import java.util.InputMismatchException;
 public class Input {
 
     /**
-     * Métodos de Classe
+     * Método que lê uma string do STDIN.
+     * @return String lida.
      */
-
     public static String lerString() {
         Scanner input = new Scanner(in);
         boolean ok = false;
@@ -44,7 +44,10 @@ public class Input {
         return txt;
     }
 
-
+    /**
+     * Método que lê um inteiro do STDIN.
+     * @return Inteiro lido.
+     */
     public static int lerInt() {
         Scanner input = new Scanner(in);
         boolean ok = false;
@@ -64,6 +67,10 @@ public class Input {
         return i;
     }
 
+    /**
+     * Método que lê um double do STDIN.
+     * @return Double lido.
+     */
     public static double lerDouble() {
         Scanner input = new Scanner(in);
         boolean ok = false;
@@ -83,6 +90,10 @@ public class Input {
         return d;
     }
 
+    /**
+     * Método que lê um float do STDIN.
+     * @return Float lido.
+     */
     public static float lerFloat() {
         Scanner input = new Scanner(in);
         boolean ok = false;
@@ -102,6 +113,10 @@ public class Input {
         return f;
     }
 
+    /**
+     * Método que lê um boleano do STDIN.
+     * @return Boleano lido.
+     */
     public static boolean lerBoolean() {
         Scanner input = new Scanner(in);
         boolean ok = false;
@@ -121,6 +136,10 @@ public class Input {
         return b;
     }
 
+    /**
+     * Método que lê um short do STDIN.
+     * @return Short lido.
+     */
     public static short lerShort() {
         Scanner input = new Scanner(in);
         boolean ok = false;

@@ -9,6 +9,9 @@ public class Venda implements Serializable{
     private int mes;
     private int filial;
 
+    /**
+     * Construtor vazio.
+     */
     public Venda(){
         this.produto = null;
         this.preco = 0;
@@ -19,6 +22,16 @@ public class Venda implements Serializable{
         this.filial = 0;
     }
 
+    /**
+     * Construtor parametrizado.
+     * @param produto
+     * @param preco
+     * @param quantidade
+     * @param promo
+     * @param cliente
+     * @param mes
+     * @param filial
+     */
     public Venda(String produto, double preco, int quantidade, char promo, String cliente, int mes, int filial) {
         this.produto = produto;
         this.preco = preco;
@@ -89,6 +102,13 @@ public class Venda implements Serializable{
         return preco*quantidade;
     }
 
+    /**
+     * Método que faz o parsing e que valida uma venda.
+     * @param cclientes
+     * @param cprodutos
+     * @param linha
+     * @return null se a venda em questão for inválida ou uma instância de venda se esta for válida.
+     */
     public Venda venda_valida(CClientes cclientes, CProdutos cprodutos, String linha){
         String[] campos = linha.split(" ");
 

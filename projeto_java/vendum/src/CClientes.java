@@ -41,6 +41,7 @@ public class CClientes implements java.io.Serializable{
 
     /**
      * Contrutor de cópia.
+     * @param c
      */
     public CClientes(CClientes c){
         this.clientes = new ArrayList<>(Globais.NRLETRAS);
@@ -60,7 +61,7 @@ public class CClientes implements java.io.Serializable{
 
     /**
      * Método que devolve todos os clientes da classe CClientes.
-     * @return
+     * @return Todos os códigos de cliente
     */ 
     public List<Set<String>> getClientes(){//retornar um clone??
         return this.clientes;
@@ -68,7 +69,7 @@ public class CClientes implements java.io.Serializable{
 
     /**
      * Método que devolve to total de clientes existente da classe CClientes.
-     * @return
+     * @return O número de clientes na instância.
     */ 
     public int getNrclientes(){
         return this.nrclientes;
@@ -78,7 +79,7 @@ public class CClientes implements java.io.Serializable{
      * Método que, dado um código de cliente, regista esse mesmo cliente na List na posição associada à letra.
      * @return true or false
      * @param cliente
-    */ 
+    */
     public boolean registaCliente(String cliente){
         int i = calculaIndice(cliente.charAt(0));
         if(clientes.get(i).add(cliente)) {
@@ -124,7 +125,7 @@ public class CClientes implements java.io.Serializable{
     /**
      * Método que cria uma nova estrutura que é uma cópia da estrutura em questão,
      * não tendo qualquer referência da estrutura em questão.
-     * @return
+     * @return Estrutura colonada, incluindo todas as subestruturas.
     */
     public List<Set<String>> deepCloneClientes(){
         List<Set<String>> clientes = new ArrayList<>(this.clientes.size());
@@ -141,7 +142,7 @@ public class CClientes implements java.io.Serializable{
     /**
      * Método que cria uma nova estrutura com uma referência diferente da original.
      * Contudo as referências que apontam para as instâncias é exatamente igual à original.
-     * @return
+     * @return Nova estrutura com referência diferente, excepto as subestruturas que mantêm as mesmas referências.
     */
     public List<Set<String>> shallowCloneClientes(){
         List<Set<String>> clientes = new ArrayList<>(this.clientes.size());

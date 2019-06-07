@@ -8,6 +8,9 @@ public class GereVendasController {
     private GereVendasModel model;
     private GereVendasView view;
 
+    /**
+     * Método que inicia o controlador.
+     */
     public void startController() {
 
         StringBuilder filevendas = new StringBuilder();
@@ -106,6 +109,10 @@ public class GereVendasController {
         }
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à primeira query.
+     * @return Verdadeiro se os dados foram carregados ou falso, caso contrário.
+     */
     private boolean query1(StringBuilder filevendas){
         Input input = new Input();
         String tempo = null;
@@ -180,6 +187,9 @@ public class GereVendasController {
         return dados;
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à segunda query.
+     */
     private void query2(){
         LStrings lStrings = new LStrings();
         String tempo = null;
@@ -202,6 +212,9 @@ public class GereVendasController {
         }
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à terceira query.
+     */
     private void query3(){
         Input input = new Input();
         String tempo = null;
@@ -276,6 +289,9 @@ public class GereVendasController {
 
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à quarta query.
+     */
     private void query4(){
         Input input = new Input();
         String cliente = null;
@@ -327,6 +343,9 @@ public class GereVendasController {
         this.view.imprimeMsgInfo(tempo);
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à quinta query.
+     */
     private void query5(){
         Input input = new Input();
         String produto = null;
@@ -365,6 +384,9 @@ public class GereVendasController {
         this.view.imprimeMsgInfo(tempo);
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à sexta query.
+     */
     private void query6(){
         LStrings ls = new LStrings();
         MaxHeapInt heap = null;
@@ -413,6 +435,9 @@ public class GereVendasController {
 
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à sétima query.
+     */
     private void query7(){
         String tempo = null;
         MaxHeapInt heap = null;
@@ -457,6 +482,9 @@ public class GereVendasController {
 
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à oitava query.
+     */
     private void query8(){
         MaxHeapDouble heap = null;
         LStrings ls = new LStrings();
@@ -490,6 +518,9 @@ public class GereVendasController {
         this.view.imprimeMsgInfo(tempo);
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à nona query.
+     */
     private void query9(){
         MaxHeapInt heap = null;
         LStrings ls = new LStrings();
@@ -534,6 +565,9 @@ public class GereVendasController {
         this.view.imprimeMsgInfo(tempo);
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à décima query.
+     */
     private void query10(){
         Input input = new Input();
         String produto = null;
@@ -583,6 +617,9 @@ public class GereVendasController {
 
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à décima primeira query.
+     */
     private void query11(){
         Input input = new Input();
         double[][] array = null;
@@ -620,10 +657,16 @@ public class GereVendasController {
         this.view.imprimeMsgInfo(tempo);
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à décima segunda query.
+     */
     private void query12(StringBuilder filevendas){
         this.constroi_apresenta_estatisticas_anteriores(filevendas);
     }
 
+    /**
+     * Método que agrega todos os métodos para responder à décima terceira query.
+     */
     private void query13(){
         Input input = new Input();
 
@@ -651,14 +694,31 @@ public class GereVendasController {
         }
     }
 
+    /**
+     * Método que define a variável model.
+     */
     public void setModel(GereVendasModel model){
         this.model = model;
     }
 
+    /**
+     * Método que define a variável view.
+     */
     public void setView(GereVendasView view){
         this.view = view;
     }
 
+    /**
+     * Método que carrega os ficheiros.
+     * @return Verdadeiro se carregou os ficheiros, falso caso contrário.
+     * @param c
+     * @param p
+     * @param v
+     * @param clientes
+     * @param produtos
+     * @param vendas
+     * @param filevendas
+     */
     private boolean carrega_ficheiros_caminho(String c, String p, String v, File clientes, File produtos, File vendas, StringBuilder filevendas){
         Input input = new Input();
 
@@ -736,6 +796,9 @@ public class GereVendasController {
         return true;
     }
 
+    /**
+     * Método que faz a desserialização de um objeto.
+     */
     public void deserialize_model(){
         String filename = "../Objects/Dados.txt";
         try{
@@ -753,6 +816,9 @@ public class GereVendasController {
         catch (ClassNotFoundException ex){System.out.println("Classe não encontrada");}
     }
 
+    /**
+     * Método que faz a serialização de um objeto.
+     */
     public void serialize_model(){
         String filename = "../Objects/Dados.txt";
         try{
@@ -770,6 +836,10 @@ public class GereVendasController {
         this.model = null;
     }
 
+    /**
+     * Método que constroi e apresenta as estatísticas do último ficheiro lido.
+     * @param filevendas
+     */
     private void constroi_apresenta_estatisticas_anteriores(StringBuilder filevendas){
         int registosvenda = this.model.getNrvendasErradas();
         int nprods = this.model.getNrprodutos();
@@ -791,18 +861,27 @@ public class GereVendasController {
         this.view.imprimeMsgInfo("Faturação total: " + this.model.getFaturacaoTotal());
     }
 
+    /**
+     * Método que constroi estatísticas acerca do número de compras das estruturas de dados.
+     */
     private void constroi_apresenta_estatisticas_atuais1(){
         int[] nrcomprasmes = new int[Globais.NRMESES];
         this.model.nr_compras_mes(nrcomprasmes);
         this.view.imprime_array_inteiros_mensal(nrcomprasmes);
     }
 
+    /**
+     * Método que constroi estatísticas acerca da faturação.
+     */
     private void constroi_apresenta_estatisticas_atuais2(){
         double[][] array = new double[Globais.NRMESES][Globais.NRFILIAIS];
         this.model.fat_mes_filial(array);
         this.view.imprime_tabela_faturacao_total(array);
     }
 
+    /**
+     * Método que constroi estatísticas acerca do número de clientes diferentes em cada mês e em cada filial.
+     */
     private void constroi_apresenta_estatisticas_atuais3(){
         int[][] nrclientesmesfilial = new int[Globais.NRMESES][Globais.NRFILIAIS];
         this.model.nr_clientes_distintos_mes_filial(nrclientesmesfilial);

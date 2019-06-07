@@ -25,15 +25,15 @@ public class ClisProd {
     }
 
     /**
-     * Método que devolve a quantidade ???
-     * @return
+     * Método que devolve a quantidade de produto comprada pelos clientes.
+     * @return Quantidade comprada.
      */
     public int getQtd() {
         return qtd;
     }
 
     /**
-     * Método que defina a quantidade ???
+     * Método que define a quantidade de produto comprada pelos clientes.
      * @param qtd
      */
     public void setQtd(int qtd) {
@@ -41,15 +41,15 @@ public class ClisProd {
     }
 
     /**
-     * Método que devolve um Set de clientes que compraram um determinado produto.
-     * @return
+     * Método que devolve o conjunto de clientes que compraram um determinado produto.
+     * @return Conjunto de clientes
      */
     public Set<String> getClientes() {
         return clientes;
     }
 
     /**
-     * Método que define um Set de clientes
+     * Método que define o conjunto de clientes que compraram um determinado produto.
      * @param clientes
      */
     public void setClientes(Set<String> clientes) {
@@ -57,7 +57,7 @@ public class ClisProd {
     }
 
     /**
-     * Método que adiciona um determinado cliente ao Set de clientes que compraram um determinado produto.
+     * Método que adiciona um determinado cliente ao conjunto de clientes que compraram um determinado produto.
      * @param string
      */
     public void addToClientes(String string){

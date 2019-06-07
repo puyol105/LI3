@@ -53,6 +53,7 @@ public class CProdutos implements java.io.Serializable{
 
     /**
      * Contrutor de cópia.
+     * @param c
      */
     public CProdutos(CProdutos c){
         this.produtos = new ArrayList<>(Globais.NRLETRAS);
@@ -78,8 +79,8 @@ public class CProdutos implements java.io.Serializable{
     }
 
     /**
-     * Método que devolve uma matriz com os produtos.
-     * @return
+     * Método que devolve a estrutura com os códigos de produtos.
+     * @return List de Lists com os códigos de produtos.
      */
     public List<List<Set<String>>> getProdutos(){//retornar um clone??
         return this.produtos;
@@ -89,7 +90,7 @@ public class CProdutos implements java.io.Serializable{
      * Método que regista um produto.
      * Devolve true se foi adicionado ou false caso esse produto já exista nos registos dos produtos.
      * @param produto
-     * @return true or false
+     * @return Verdadeiro ou falso.
      */
     public boolean registaProduto(String produto){
         int i = calculaIndice(produto.charAt(0));
@@ -116,7 +117,7 @@ public class CProdutos implements java.io.Serializable{
     /**
      * Método que verifica se um determinado produto já está registado.
      * @param string
-     * @return
+     * @return Verdadeiro ou falso.
      */
     public boolean existe_produto(String string){
         int i = calculaIndice(string.charAt(0));
@@ -128,7 +129,7 @@ public class CProdutos implements java.io.Serializable{
     /**
      * Método que, dado uma letra, calcula o índice na List associada a essa mesma letra.
      * @param letra
-     * @return
+     * @return Índice da letra.
      */
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
@@ -137,7 +138,7 @@ public class CProdutos implements java.io.Serializable{
 
     /**
      * Método que devolve o número de produtos.
-     * @return
+     * @return Número de produtos.
      */
     public int getNrprodutos() {
         return nrprodutos;
@@ -165,8 +166,9 @@ public class CProdutos implements java.io.Serializable{
     }
 
     /**
-     * 
-     * @return
+     * Método que cria uma nova estrutura com uma referência diferente da original.
+     * Contudo as referências que apontam para as instâncias são exatamente iguais as da original.
+     * @return Nova estrutura com referência diferente, excepto as subestruturas que mantêm as mesmas referências.
      */
     public List<List<Set<String>>> shallowCloneProdutos() {
         List<List<Set<String>>> produtos = new ArrayList<>(this.produtos.size());
@@ -177,7 +179,7 @@ public class CProdutos implements java.io.Serializable{
     /**
      * Método que verifica se um determinado código de produto apresenta todos os critérios
      * associados a um código de produto.
-     * @return true or false
+     * @return Verdadeiro ou falso.
      * @param codigo
      */
     public boolean valida_produto(String codigo){
