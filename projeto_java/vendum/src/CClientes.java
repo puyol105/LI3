@@ -7,7 +7,7 @@ public class CClientes implements java.io.Serializable{
     private int nrclientes;
 
     /**
-     * Contrutor vazio
+     * Contrutor vazio.
      */
     public CClientes(){
         this.nrclientes = 0;
@@ -20,7 +20,7 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Construtor parametrizado
+     * Construtor parametrizado.
      */
     public CClientes(Collection <String> collection){
         this.nrclientes = 0;
@@ -39,7 +39,7 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Contrutor de cópia
+     * Contrutor de cópia.
      */
     public CClientes(CClientes c){
         this.clientes = new ArrayList<>(Globais.NRLETRAS);
@@ -58,21 +58,25 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Método que devolve todos os clientes
+     * Método que devolve todos os clientes.
+     * @return
     */ 
     public List<Set<String>> getClientes(){//retornar um clone??
         return this.clientes;
     }
 
     /**
-     * Método que devolve to total de clientes existente
+     * Método que devolve to total de clientes existente.
+     * @return
     */ 
     public int getNrclientes(){
         return this.nrclientes;
     }
 
     /**
-     * Método que, dado um código de cliente, regista esse mesmo cliente na List na posição associada à letra
+     * Método que, dado um código de cliente, regista esse mesmo cliente na List na posição associada à letra.
+     * @return true or false
+     * @param cliente
     */ 
     public boolean registaCliente(String cliente){
         int i = calculaIndice(cliente.charAt(0));
@@ -85,7 +89,7 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Método que imprime TODOS??? os clientes por ORDEM ALFABETICA???
+     * Método que imprime todos os clientes.
     */ 
     public void imprimeClientes(){
 
@@ -96,7 +100,9 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado um código de cliente, verifica se esse mesmo cliente já está registado no sistema
+     * Método que, dado um código de cliente, verifica se esse mesmo cliente já está registado no sistema.
+     * @return true or false
+     * @param string
     */ 
     public boolean existe_cliente(String string){
         int i = calculaIndice(string.charAt(0));
@@ -105,13 +111,20 @@ public class CClientes implements java.io.Serializable{
     }
 
     /**
-     * Método que, dado uma letra, determina o índice da posição da List associada a essa mesma letra
+     * Método que, dado uma letra, determina o índice da posição da List associada a essa mesma letra.
+     * @return true or false
+     * @param letra
     */ 
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
         return letra - 'A';
     }
 
+    /**
+     * Método que cria uma nova estrutura que é uma cópia da estrutura em questão,
+     * não tendo qualquer referência da estrutura em questão.
+     * @return
+    */
     public List<Set<String>> deepCloneClientes(){
         List<Set<String>> clientes = new ArrayList<>(this.clientes.size());
         Set<String> s;
@@ -124,6 +137,11 @@ public class CClientes implements java.io.Serializable{
         return clientes;
     }
 
+    /**
+     * Método que cria uma nova estrutura com uma referência diferente da original.
+     * Contudo as referências que apontam para as instâncias é exatamente igual à original.
+     * @return
+    */
     public List<Set<String>> shallowCloneClientes(){
         List<Set<String>> clientes = new ArrayList<>(this.clientes.size());
         clientes = this.clientes;
@@ -133,6 +151,8 @@ public class CClientes implements java.io.Serializable{
     /**
      * Método que, dado um codigo de cliente, testa se todos os critérios associados a um código de clientes se se aplica no código em 
      * questão
+     * @return true or false
+     * @param codigo
     */ 
     public boolean valida_cliente(String codigo){
         if(!Character.isUpperCase(codigo.charAt(0)))
